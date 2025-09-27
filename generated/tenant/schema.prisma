@@ -1,0 +1,487 @@
+generator tenantClient {
+  provider = "prisma-client-js"
+  output   = "../src/generated/tenant"
+}
+
+datasource tenantDb {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         String  @id @default(cuid())
+  first_name String
+  last_name  String?
+  email      String  @unique
+  password   String
+  phone      String?
+
+  roles Json
+
+  customer Customer?
+  vendor   Vendor?
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  // Relations
+  otps        PasswordResetOTP[]
+  resetTokens PasswordResetToken[]
+
+  @@map("users")
+}
+
+model PasswordResetOTP {
+  id         String   @id @default(cuid())
+  email      String
+  otp        String
+  request_id String   @unique
+  expires_at DateTime
+  created_at DateTime @default(now())
+  user_id    String
+  user       User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@map("password_reset_otp")
+}
+
+model PasswordResetToken {
+  id         String   @id @default(cuid())
+  user_id    String
+  token      String   @unique
+  expires_at DateTime
+  created_at DateTime @default(now())
+
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@map("password_reset_token")
+}
+
+model tenantCurrency {
+  id          String   @id @default(cuid())
+  currency_id Int      @default(autoincrement())
+  code        String   @unique
+  name        String
+  symbol      String
+  is_active   Boolean  @default(true)
+  created_at  DateTime @default(now())
+  updated_at  DateTime @default(now()) @updatedAt
+
+  @@map("company_currencies")
+}
+
+model tenantPaymentTerms {
+  id               String   @id @default(cuid())
+  payment_terms_id Int      @default(autoincrement())
+  name             String
+  description      String?
+  due_days         Int      @default(0)
+  discount_days    Int?
+  discount_percent Decimal?
+  is_active        Boolean  @default(true)
+  created_at       DateTime @default(now())
+  updated_at       DateTime @default(now()) @updatedAt
+
+  @@map("company_payment_terms")
+}
+
+model tenantPaymentStatus {
+  id         String   @id @default(cuid())
+  name       String
+  is_active  Boolean  @default(true)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("company_payment_status")
+}
+
+model tenantQuoteStatus {
+  id         String   @id @default(cuid())
+  name       String
+  is_active  Boolean  @default(true)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("company_quote_status")
+}
+
+model tenantOrderStatus {
+  id         String   @id @default(cuid())
+  name       String
+  is_active  Boolean  @default(true)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("company_order_status")
+}
+
+model tenantLogisticsStatus {
+  id         String   @id @default(cuid())
+  name       String
+  is_active  Boolean  @default(true)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("company_logistics_status")
+}
+
+model tenantFinanceStatus {
+  id         String   @id @default(cuid())
+  name       String
+  is_active  Boolean  @default(true)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("company_finance_status")
+}
+
+model Customer {
+  id            String    @id @default(cuid())
+  customer_id   Int       @default(autoincrement())
+  first_name    String
+  last_name     String
+  customer_name String
+  company_name  String?
+  email         String    @unique
+  password      String
+  phone         String?
+  type          String?
+  website       String?
+  is_active     String    @default("Active")
+  notes         String?
+  sorting       Int       @default(0)
+  created_at    DateTime  @default(now())
+  updated_at    DateTime  @updatedAt
+  deleted_at    DateTime?
+
+  user_id String? @unique
+  user    User?   @relation(fields: [user_id], references: [id])
+
+  addresses   CustomerAddress[]
+  tax_info    CustomerTaxInfo?
+  contacts    CustomerContact[]
+  operational CustomerOperationalInfo?
+  attachments CustomerNotesAndAttachments[]
+  quotation   QuotationAttachment[]
+
+  @@map("customers")
+}
+
+model QuotationAttachment {
+  id          String    @id @default(cuid())
+  customer_id String
+  file_name   String?
+  file_url    String?
+  customer    Customer? @relation(fields: [customer_id], references: [id], onDelete: Cascade)
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("customer_quote_attachments")
+}
+
+model companyService {
+  id                      String            @id @default(cuid())
+  exclude_inspection      Boolean           @default(false)
+  invoice50               Boolean           @default(false)
+  fob_china               Boolean           @default(false)
+  require_deposit_invoice Boolean           @default(false)
+  name                    String
+  materials               companyMaterial[]
+  finishes                companyFinish[]
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now()) @updatedAt
+
+  @@map("company_services")
+}
+
+model companyMaterial {
+  id         String  @id @default(cuid())
+  service_id String
+  name       String?
+
+  service companyService @relation(fields: [service_id], references: [id], onDelete: Cascade)
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now()) @updatedAt
+
+  @@map("company_service_materials")
+}
+
+model companyFinish {
+  id         String  @id @default(cuid())
+  service_id String
+  name       String?
+
+  service companyService @relation(fields: [service_id], references: [id], onDelete: Cascade)
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now()) @updatedAt
+
+  @@map("company_service_finishes")
+}
+
+model CustomerAddress {
+  id          String   @id @default(cuid())
+  customer_id String
+  customer    Customer @relation(fields: [customer_id], references: [id], onDelete: Cascade)
+
+  billing_address  String
+  billing_address2 String?
+  billing_city     String
+  billing_state    String
+  billing_zip      String
+  billing_country  String
+
+  shipping_address  String
+  shipping_address2 String?
+  shipping_city     String
+  shipping_state    String
+  shipping_zip      String
+  shipping_country  String
+
+  is_default Boolean  @default(false)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("customer_addresses")
+}
+
+model CustomerTaxInfo {
+  id          String   @id @default(cuid())
+  customer_id String   @unique
+  customer    Customer @relation(fields: [customer_id], references: [id], onDelete: Cascade)
+
+  tax_number    String?
+  default_tax   Float?
+  currency      String
+  payment_terms String
+  credit_limit  Float?
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("customer_tax_info")
+}
+
+model CustomerContact {
+  id          String   @id @default(cuid())
+  customer_id String
+  customer    Customer @relation(fields: [customer_id], references: [id], onDelete: Cascade)
+
+  customer_name String
+  contact_name  String?
+  job_title     String?
+  contact_email String?
+  contact_phone String?
+  is_primary    Boolean @default(false)
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("customer_contact_info")
+}
+
+model CustomerOperationalInfo {
+  id          String   @id @default(cuid())
+  customer_id String   @unique
+  customer    Customer @relation(fields: [customer_id], references: [id], onDelete: Cascade)
+
+  delivery_method String?
+  quote_format    String?
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("customer_operational_info")
+}
+
+model CustomerNotesAndAttachments {
+  id          String   @id @default(cuid())
+  customer_id String
+  customer    Customer @relation(fields: [customer_id], references: [id], onDelete: Cascade)
+
+  internal_notes String?
+  tags           String[] @default([])
+  file_url       String?
+  file_name      String?
+  created_at     DateTime @default(now())
+  updated_at     DateTime @updatedAt
+
+  @@map("customer_notes_attachments")
+}
+
+model Vendor {
+  id          String    @id @default(cuid())
+  vendor_id   Int       @unique @default(autoincrement())
+  first_name  String
+  last_name   String
+  vendor_name String
+  vendor_type String?
+  email       String?   @unique
+  password    String
+  phone       String?
+  website     String?
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @default(now()) @updatedAt
+  deleted_at  DateTime?
+
+  user_id String? @unique
+  user    User?   @relation(fields: [user_id], references: [id])
+
+  contacts           VendorContact?
+  addresses          VendorAddress?
+  taxCompliances     VendorTaxCompliance?
+  financials         VendorFinancial?
+  operationalSetting VendorOperationalSetting?
+  metadata           VendorMetadata?
+
+  @@map("vendors")
+}
+
+model VendorContact {
+  id           String   @id @default(cuid())
+  vendor_id    String   @unique
+  contact_name String
+  job_title    String?
+  email        String?
+  phone        String?
+  vendor       Vendor   @relation(fields: [vendor_id], references: [id], onDelete: Cascade)
+  created_at   DateTime @default(now())
+  updated_at   DateTime @default(now()) @updatedAt
+
+  @@map("vendor_contact")
+}
+
+model VendorAddress {
+  id         String   @id @default(cuid())
+  vendor_id  String   @unique
+  address_1  String
+  address_2  String?
+  city       String
+  state      String
+  zip        String
+  country    String
+  vendor     Vendor   @relation(fields: [vendor_id], references: [id], onDelete: Cascade)
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now()) @updatedAt
+
+  @@map("vendor_address")
+}
+
+model VendorTaxCompliance {
+  id              String  @id @default(cuid())
+  vendor_id       String  @unique
+  tax_number      String?
+  vat_number      String?
+  company_number  String?
+  compliance_type String?
+  file_name       String?
+  file_url        String?
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now()) @updatedAt
+
+  vendor Vendor @relation(fields: [vendor_id], references: [id], onDelete: Cascade)
+
+  @@map("vendor_tax_compliance")
+}
+
+model VendorFinancial {
+  id                  String  @id @default(cuid())
+  vendor_id           String  @unique
+  bank_name           String?
+  bank_account_number String?
+  swift_iban_code     String?
+  preferred_currency  String
+  payment_terms       String
+  default_tax_rate    String?
+  credit_limit        Float?
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now()) @updatedAt
+
+  vendor Vendor @relation(fields: [vendor_id], references: [id], onDelete: Cascade)
+
+  @@map("vendor_financials")
+}
+
+model VendorOperationalSetting {
+  id                     String   @id @default(cuid())
+  vendor_id              String   @unique
+  status                 String?
+  shipping_method        String?
+  lead_time              Int?
+  minimum_order_quantity Int?
+  categories             String[] @default([])
+  manager                String
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now()) @updatedAt
+
+  vendor Vendor @relation(fields: [vendor_id], references: [id], onDelete: Cascade)
+
+  @@map("vendor_operational_settings")
+}
+
+model VendorMetadata {
+  id          String    @id @default(cuid())
+  vendor_id   String    @unique
+  notes       String?
+  tags        String[]  @default([])
+  score       Int?
+  last_order  DateTime  @default(now())
+  next_review DateTime?
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now()) @updatedAt
+
+  vendor Vendor @relation(fields: [vendor_id], references: [id], onDelete: Cascade)
+
+  @@map("vendor_metadata")
+}
+
+model company_vendor_capabilities {
+  id         String   @id @default(cuid())
+  name       String
+  is_active  Boolean  @default(true)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  subCategories company_vendor_capability_sub_categories[]
+
+  @@map("company_vendor_capabilities")
+}
+
+model company_vendor_capability_sub_categories {
+  id                   String   @id @default(cuid())
+  name                 String
+  vendor_capability_id String
+  is_active            Boolean  @default(true)
+  created_at           DateTime @default(now())
+  updated_at           DateTime @updatedAt
+
+  capability company_vendor_capabilities @relation(fields: [vendor_capability_id], references: [id])
+
+  @@map("company_vendor_capability_sub_categories")
+}
+
+model company_vendor_certifications {
+  id         String   @id @default(cuid())
+  name       String
+  is_active  Boolean  @default(true)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("company_vendor_certifications")
+}
+
+model company_vendor_flags {
+  id         String   @id @default(cuid())
+  name       String
+  is_active  Boolean  @default(true)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("company_vendor_flags")
+}

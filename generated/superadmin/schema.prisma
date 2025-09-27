@@ -1,0 +1,208 @@
+datasource superadminClient {
+  provider = "postgresql"
+  url      = env("DATABASE_URL_SUPERADMIN")
+}
+
+generator superadminClient {
+  provider = "prisma-client-js"
+  output   = "../src/generated/superadmin"
+}
+
+// enum Role {
+//   company
+//   super_admin
+// }
+
+// Company
+model company {
+  id              String   @id @default(cuid())
+  company_id      Int      @unique @default(autoincrement())
+  company_name    String
+  sub_domain      String   @unique
+  currency_code   String
+  currency_symbol String
+  timezone        String
+  first_name      String?
+  last_name       String?
+  phone           String?
+  email           String?
+  password        String?
+  db_url          String
+  is_active       Boolean  @default(true)
+  company_logo    String?
+  logo_name       String?
+  logo_size       Int?
+  roles           Json
+  // roles         Role     @default(company)
+  created_at      DateTime @default(now())
+  updated_at      DateTime @default(now()) @updatedAt
+
+  @@map("company")
+}
+
+model Service {
+  id                      String     @id @default(cuid())
+  exclude_inspection      Boolean    @default(false)
+  invoice50               Boolean    @default(false)
+  fob_china               Boolean    @default(false)
+  require_deposit_invoice Boolean    @default(false)
+  name                    String
+  materials               Material[]
+  finishes                Finish[]
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now()) @updatedAt
+
+  @@map("services")
+}
+
+model Material {
+  id         String  @id @default(cuid())
+  service_id String
+  name       String?
+
+  service Service @relation(fields: [service_id], references: [id], onDelete: Cascade)
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now()) @updatedAt
+
+  @@map("service_materials")
+}
+
+model Finish {
+  id         String  @id @default(cuid())
+  service_id String
+  name       String?
+
+  service Service @relation(fields: [service_id], references: [id], onDelete: Cascade)
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now()) @updatedAt
+
+  @@map("service_finishes")
+}
+
+// Currency
+model currency {
+  id          String   @id @default(cuid())
+  currency_id Int      @default(autoincrement())
+  code        String   @unique
+  name        String
+  symbol      String
+  is_active   Boolean  @default(true)
+  created_at  DateTime @default(now())
+  updated_at  DateTime @default(now()) @updatedAt
+
+  @@map("currency")
+}
+
+// Payment Terms
+model payment_terms {
+  id               String   @id @default(cuid())
+  payment_terms_id Int      @default(autoincrement())
+  name             String   @unique
+  description      String?
+  due_days         Int      @default(0)
+  discount_days    Int?
+  discount_percent Decimal?
+  is_active        Boolean  @default(true)
+  created_at       DateTime @default(now())
+  updated_at       DateTime @default(now()) @updatedAt
+
+  @@map("payment_terms")
+}
+
+model PaymentStatus {
+  id         String   @id @default(cuid())
+  name       String
+  is_active  Boolean  @default(true)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("payment_status")
+}
+
+model QuoteStatus {
+  id         String   @id @default(cuid())
+  name       String
+  is_active  Boolean  @default(true)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("quote_status")
+}
+
+model OrderStatus {
+  id         String   @id @default(cuid())
+  name       String
+  is_active  Boolean  @default(true)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("order_status")
+}
+
+model LogisticsStatus {
+  id         String   @id @default(cuid())
+  name       String
+  is_active  Boolean  @default(true)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("logistics_status")
+}
+
+model FinanceStatus {
+  id         String   @id @default(cuid())
+  name       String
+  is_active  Boolean  @default(true)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("finance_status")
+}
+
+model vendor_capabilities {
+  id         String   @id @default(cuid())
+  name       String
+  is_active  Boolean  @default(true)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  subCategories vendor_capability_sub_categories[]
+
+  @@map("vendor_capabilities")
+}
+
+model vendor_capability_sub_categories {
+  id                   String   @id @default(cuid())
+  name                 String
+  vendor_capability_id String
+  is_active            Boolean  @default(true)
+  created_at           DateTime @default(now())
+  updated_at           DateTime @updatedAt
+
+  capability vendor_capabilities @relation(fields: [vendor_capability_id], references: [id])
+
+  @@map("vendor_capability_sub_categories")
+}
+
+model vendor_certifications {
+  id         String   @id @default(cuid())
+  name       String
+  is_active  Boolean  @default(true)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("vendor_certifications")
+}
+
+model vendor_flags {
+  id         String   @id @default(cuid())
+  name       String
+  is_active  Boolean  @default(true)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("vendor_flags")
+}
