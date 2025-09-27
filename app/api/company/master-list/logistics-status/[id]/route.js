@@ -6,7 +6,7 @@ export async function PATCH(req, { params }) {
   const { id } = await params;
   try {
     const body = await req.json();
-    const tenantDb = await getTenantDbFromHeaders();
+    const {tenantDb} = await getTenantDbFromHeaders();
     const updated = await tenantDb.tenantLogisticsStatus.update({
       where: { id },
       data: {
@@ -20,9 +20,9 @@ export async function PATCH(req, { params }) {
       message: "Logistics status updated successfully.",
     });
   } catch (error) {
-    console.error(error);
+    // console.error(error);
     return NextResponse.json(
-      { error: "Failed to update logistics status" },
+      { error: "Failed to update logistics status." },
       { status: 500 }
     );
   }
@@ -32,7 +32,7 @@ export async function PATCH(req, { params }) {
 export async function DELETE(req, { params }) {
   const { id } = await params;
   try {
-    const tenantDb = await getTenantDbFromHeaders();
+    const {tenantDb} = await getTenantDbFromHeaders();
     await tenantDb.tenantLogisticsStatus.delete({
       where: { id },
     });
@@ -42,7 +42,7 @@ export async function DELETE(req, { params }) {
       message: "Logistics status deleted successfully.",
     });
   } catch (error) {
-    console.error("Delete logistics error:", error);
+    // console.error("Delete logistics error:", error);
     return NextResponse.json(
       { success: false, error: "Failed to delete logistics status." },
       { status: 500 }

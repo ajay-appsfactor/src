@@ -46,7 +46,7 @@ export async function GET(req) {
     }
 
     // Fetch user info from tenant DB
-    const tenantDb = await getTenantDbFromHeaders(req.headers);
+    const { tenantDb } = await getTenantDbFromHeaders();
     const user = await tenantDb.user.findFirst({
       select: {
         first_name: true,
@@ -63,7 +63,7 @@ export async function GET(req) {
       },
     });
   } catch (error) {
-    console.error("Error fetching company:", error);
+    // console.error("Error fetching company:", error);
     return NextResponse.json(
       { success: false, message: "Internal server error" },
       { status: 500 }
@@ -172,7 +172,7 @@ export async function PUT(req) {
       company: updatedCompany,
     });
   } catch (error) {
-    console.error("Error updating general settings:", error);
+    // console.error("Error updating general settings:", error);
     return NextResponse.json(
       { success: false, message: error.message || "Internal Server Error" },
       { status: 500 }

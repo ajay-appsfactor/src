@@ -6,7 +6,7 @@ export async function DELETE(req, { params }) {
 
   try {
     // Get tenant DB client
-    const tenantDb = await getTenantDbFromHeaders();
+    const {tenantDb}  = await getTenantDbFromHeaders();
 
     // Validate address exists
     const existingAddress = await tenantDb.customerAddress.findUnique({
@@ -25,7 +25,7 @@ export async function DELETE(req, { params }) {
     // console.log(`Address ${customerId} deleted successfully`);
     return NextResponse.json({ success: true }, { status: 200 });
   } catch (error) {
-    console.error("Error deleting address:", error);
+    // console.error("Error deleting address:", error);
     return NextResponse.json(
       { error: "Failed to delete address" },
       { status: 500 }

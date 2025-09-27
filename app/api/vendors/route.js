@@ -1,10 +1,11 @@
 import { NextResponse } from "next/server";
 import { getTenantDbFromHeaders } from "@/lib/db/getTenantDbFromRequest";
+import { formatDates } from "@/utils/formatDates";
 
 export async function GET(req) {
   try {
     // Create tenant Prisma client dynamically
-    const prisma =  await getTenantDbFromHeaders();
+     const { tenantDb, timezone } = await getTenantDbFromHeaders();
 
     const { searchParams } = new URL(req.url);
     const page = parseInt(searchParams.get("page") || "1");
@@ -28,7 +29,7 @@ export async function GET(req) {
     };
 
     const [data, totalCount] = await Promise.all([
-      prisma.vendor.findMany({
+      tenantDb.vendor.findMany({
         where,
         skip: (page - 1) * pageSize,
         take: pageSize,
@@ -41,12 +42,14 @@ export async function GET(req) {
           created_at: true,
         },
       }),
-      prisma.vendor.count({ where }),
+      tenantDb.vendor.count({ where }),
     ]);
 
-    return NextResponse.json({ data, totalCount });
+       const formattedData = formatDates(data, timezone);
+
+    return NextResponse.json({ data :formattedData, totalCount });
   } catch (error) {
-    console.error("API Error:", error);
+    // console.error("API Error:", error);
     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }

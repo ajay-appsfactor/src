@@ -50,7 +50,7 @@ export const columns = (
         }}
         className="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums cursor-pointer hover:bg-gray-600 dark:hover:bg-gray-700"
       >
-        {row.original.sub_category?.length ?? 0}
+      {row.original._count?.subCategories ?? 0}  
       </Badge>
     ),
   },

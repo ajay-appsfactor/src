@@ -227,7 +227,7 @@ export default function CompanyQuoteStatusTable() {
       {/* Table */}
       <div className="p-6 overflow-x-auto">
         <Table className="rounded-md border">
-          <TableHeader>
+          <TableHeader  className="bg-muted">
             <TableRow>
               <TableHead className="w-[20px]"></TableHead>
               <TableHead>Quote Status Name</TableHead>

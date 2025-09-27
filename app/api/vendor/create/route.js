@@ -3,7 +3,7 @@ import { getTenantDbFromHeaders } from "@/lib/db/getTenantDbFromRequest";
 import { hashPassword } from "@/utils/hashPassword";
 
 export async function POST(req) {
-  const tenantDb = await getTenantDbFromHeaders();
+  const {tenantDb}  = await getTenantDbFromHeaders();
   const body = await req.json();
 
   const {
@@ -61,9 +61,9 @@ export async function POST(req) {
       data: {
         first_name,
         last_name,
-        email: normalizedEmail, 
+        email: normalizedEmail,
         password: hashedPassword,
-        phone,
+        phone: phone.trim() || null,
         roles: ["vendor"],
       },
     });
@@ -75,10 +75,10 @@ export async function POST(req) {
         last_name,
         vendor_name: `${first_name} ${last_name}`,
         vendor_type,
-        email: normalizedEmail, 
+        email: normalizedEmail,
         password: hashedPassword,
-        phone,
-        website,
+        phone: phone.trim() || null,
+        website: website.trim() || null,
         user: { connect: { id: newUser.id } },
       },
     });
@@ -91,11 +91,10 @@ export async function POST(req) {
       { status: 201 }
     );
   } catch (error) {
-    console.error("Create Vendor Error:", error);
+    // console.error("Create Vendor Error:", error);
     return NextResponse.json(
       { error: "Something went wrong" },
       { status: 500 }
     );
   }
 }
-

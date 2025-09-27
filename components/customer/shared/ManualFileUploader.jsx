@@ -38,7 +38,7 @@ export default function ManualFileUploader({
     let progress = 0;
     const stepTime = 100;
     const interval = setInterval(() => {
-      progress += 5;
+      progress += 20;
       if (progress > 100) progress = 100;
       setProgressMap((prev) => ({ ...prev, [file.name]: progress }));
       if (progress >= 100) clearInterval(interval);

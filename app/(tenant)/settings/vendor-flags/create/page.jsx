@@ -46,15 +46,15 @@ export default function VendorFlagsCreate() {
 
       router.push("/settings/vendor-flags");
     } catch (error) {
-      console.error("Error submitting form:", error);
-      toast.error("Failed to save Vendor Flags");
+      // console.error("Error submitting form:", error);
+      toast.error("Failed to save Vendor Flags.");
     } finally {
       setSubmitting(false);
     }
   };
 
   return (
-    <section className="bg-white border border-gray-200 rounded">
+    <section className="bg-white">
       {/* Header */}
       <div className="py-2 px-6 sm:px-4 w-full max-w-7xl flex justify-between items-center">
         <div className="flex items-center gap-4">
@@ -75,7 +75,7 @@ export default function VendorFlagsCreate() {
       <hr />
 
       {/* Form */}
-      <div className="w-full px-6 sm:px-6 py-4 mt-2 max-w-5xl">
+      <div className="w-full px-6 sm:px-6 py-4 mt-2">
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}

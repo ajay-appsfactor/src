@@ -9,8 +9,8 @@ export async function GET(req, { params }) {
       return NextResponse.json({ error: "Service ID is required." }, { status: 400 });
     }
 
-    const prisma = await getTenantDbFromHeaders();
-    const service = await prisma.companyService.findUnique({
+    const {tenantDb} = await getTenantDbFromHeaders();
+    const service = await tenantDb.companyService.findUnique({
       where: { id },
       include: {
         materials: true,
@@ -35,8 +35,8 @@ export async function GET(req, { params }) {
 
     return NextResponse.json(formattedService, { status: 200 });
   } catch (error) {
-    console.error(error);
-    return NextResponse.json({ error: "Failed to fetch service" }, { status: 500 });
+    // console.error(error);
+    return NextResponse.json({ error: "Failed to fetch service." }, { status: 500 });
   }
 }
 
@@ -48,13 +48,13 @@ export async function DELETE(req, { params }) {
       return NextResponse.json({ error: "Service ID is required." }, { status: 400 });
     }
 
-    const prisma = await getTenantDbFromHeaders();
-    await prisma.companyService.delete({ where: { id } });
+    const {tenantDb} = await getTenantDbFromHeaders();
+    await tenantDb.companyService.delete({ where: { id } });
 
     return NextResponse.json({ message: "Service deleted successfully." }, { status: 200 });
   } catch (error) {
-    console.error(error);
-    return NextResponse.json({ error: "Failed to delete service" }, { status: 500 });
+    // console.error(error);
+    return NextResponse.json({ error: "Failed to delete service." }, { status: 500 });
   }
 }
 
@@ -81,10 +81,10 @@ export async function PATCH(req, { params }) {
       return NextResponse.json({ error: "Service name is required." }, { status: 400 });
     }
 
-    const prisma = await getTenantDbFromHeaders();
+    const {tenantDb} = await getTenantDbFromHeaders();
 
     // Update main service fields
-    await prisma.companyService.update({
+    await tenantDb.companyService.update({
       where: { id },
       data: {
         name: name.trim(),
@@ -96,24 +96,24 @@ export async function PATCH(req, { params }) {
     });
 
     // Replace materials
-    await prisma.companyMaterial.deleteMany({ where: { service_id: id } });
+    await tenantDb.companyMaterial.deleteMany({ where: { service_id: id } });
     if (materials.length > 0) {
-      await prisma.companyMaterial.createMany({
+      await tenantDb.companyMaterial.createMany({
         data: materials.map(m => ({ name: m, service_id: id })),
       });
     }
 
     // Replace finishes
-    await prisma.companyFinish.deleteMany({ where: { service_id: id } });
+    await tenantDb.companyFinish.deleteMany({ where: { service_id: id } });
     if (finishes.length > 0) {
-      await prisma.companyFinish.createMany({
+      await tenantDb.companyFinish.createMany({
         data: finishes.map(f => ({ name: f, service_id: id })),
       });
     }
 
     return NextResponse.json({ message: "Service updated successfully." }, { status: 200 });
   } catch (error) {
-    console.error(error);
+    // console.error(error);
     return NextResponse.json({ error: "Failed to update service" }, { status: 500 });
   }
 }

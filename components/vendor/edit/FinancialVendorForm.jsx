@@ -29,7 +29,10 @@ const FinancialVendorForm = ({ vendor }) => {
       .min(0, "Cannot be negative")
       .max(100, "Cannot be more than 100")
       .nullable(),
-    credit_limit: Yup.number().nullable(),
+    credit_limit: Yup.number()
+      .typeError("Must be a number")
+      .min(0, "Cannot be negative")
+      .nullable(),
   });
 
   const initialValues = {
@@ -63,7 +66,7 @@ const FinancialVendorForm = ({ vendor }) => {
         router.push(`/vendor/${vendorId}/operational-settings`);
       }
     } catch (error) {
-      console.error("Submit error:", error);
+      // console.error("Submit error:", error);
       toast.error("Something went wrong.");
     } finally {
       setSubmitting(false);
@@ -152,11 +155,13 @@ const FinancialVendorForm = ({ vendor }) => {
                 </Label>
                 <Field
                   as={Input}
+                  type="number"
+                  step="0.01"
                   id="default_tax_rate"
                   name="default_tax_rate"
                   className="w-full"
                 />
-                 <ErrorMessage
+                <ErrorMessage
                   name="default_tax_rate"
                   component="div"
                   className="text-xs text-red-500 mt-1"
@@ -184,9 +189,15 @@ const FinancialVendorForm = ({ vendor }) => {
                 </Label>
                 <Field
                   as={Input}
+                  type="number"
                   id="credit_limit"
                   name="credit_limit"
                   className="w-full"
+                />
+                <ErrorMessage
+                  name="credit_limit"
+                  component="div"
+                  className="text-xs text-red-500 mt-1"
                 />
               </div>
 

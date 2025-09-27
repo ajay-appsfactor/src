@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { getTenantDbFromHeaders } from "@/lib/db/getTenantDbFromRequest";
+import { formatDates } from "@/utils/formatDates";
 
 // Get All
 export async function GET(req) {
@@ -27,18 +28,19 @@ export async function GET(req) {
     const where = {
       AND: [
         search && { name: { contains: search, mode: "insensitive" } },
-        status && status !== "all" && {
-          is_active: status === "Active" ? true : false,
-        },
+        status &&
+          status !== "all" && {
+            is_active: status === "Active" ? true : false,
+          },
       ].filter(Boolean),
     };
 
     // Get tenant-specific Prisma client
-    const prisma = await getTenantDbFromHeaders();
+    const { tenantDb, timezone } = await getTenantDbFromHeaders();
 
-     // Fetch vendor capabilities + total count
+    // Fetch vendor capabilities + total count
     const [data, totalCount] = await Promise.all([
-      prisma.company_vendor_certifications.findMany({
+      tenantDb.company_vendor_certifications.findMany({
         where,
         skip: (page - 1) * pageSize,
         take: pageSize,
@@ -51,19 +53,19 @@ export async function GET(req) {
           is_active: true,
         },
       }),
-      prisma.company_vendor_certifications.count({ where }),
+      tenantDb.company_vendor_certifications.count({ where }),
     ]);
+    const formattedData = formatDates(data, timezone);
 
-    return NextResponse.json({ data, totalCount });
+    return NextResponse.json({ data: formattedData, totalCount });
   } catch (error) {
-    console.error("API Error vendor certification:", error);
+    // console.error("API Error vendor certification:", error);
     return NextResponse.json(
       { error: "Failed to fetch vendor certification" },
       { status: 500 }
     );
   }
 }
-
 
 // Post
 export async function POST(req) {
@@ -77,13 +79,13 @@ export async function POST(req) {
       );
     }
 
-    const prisma = await getTenantDbFromHeaders();
-    const created = await prisma.company_vendor_certifications.createMany({
+    const { tenantDb } = await getTenantDbFromHeaders();
+    const created = await tenantDb.company_vendor_certifications.createMany({
       data: body.certifications.map((cert) => ({
         name: cert.name,
         is_active: true,
       })),
-      skipDuplicates: true,
+      // skipDuplicates: true,
     });
 
     return NextResponse.json(
@@ -94,7 +96,7 @@ export async function POST(req) {
       { status: 201 }
     );
   } catch (error) {
-    console.error("Error creating vendor certifications:", error);
+    // console.error("Error creating vendor certifications:", error);
     return NextResponse.json(
       { error: "Failed to create vendor certifications." },
       { status: 500 }

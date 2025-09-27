@@ -6,19 +6,19 @@ export async function PUT(req, { params }) {
     const body = await req.json();
     const { customer_key } = await params;
 
-    const {
-      contact_name,
-      contact_email,
-      contact_phone,
-      job_title,
-      is_primary,
-    } = body;
+    let { contact_name, contact_email, contact_phone, job_title, is_primary } =
+      body;
 
-    const tenantDb = await getTenantDbFromHeaders(); 
+    // Convert email to lowercase
+    if (contact_email) {
+      contact_email = contact_email.toLowerCase();
+    }
+
+    const { tenantDb } = await getTenantDbFromHeaders();
 
     //  Get existing contact
     const existingContact = await tenantDb.customerContact.findUnique({
-      where: {id : customer_key },
+      where: { id: customer_key },
     });
 
     // console.log("Existing Data Contact :", existingContact)
@@ -32,7 +32,7 @@ export async function PUT(req, { params }) {
         where: {
           customer_id: existingContact.customer_id,
           is_primary: true,
-          NOT: { id :customer_key },
+          NOT: { id: customer_key },
         },
       });
 
@@ -50,7 +50,7 @@ export async function PUT(req, { params }) {
         where: {
           customer_id: existingContact.customer_id,
           is_primary: true,
-          NOT: { id :customer_key },
+          NOT: { id: customer_key },
         },
         data: { is_primary: false },
       });
@@ -62,20 +62,18 @@ export async function PUT(req, { params }) {
       data: {
         contact_name,
         contact_email,
-        contact_phone,
-        job_title,
+        contact_phone: contact_phone?.trim() || null,
+        job_title: job_title?.trim() || null,
         is_primary: is_primary === true,
       },
     });
 
     return NextResponse.json(updatedContact);
   } catch (error) {
-    console.error("Error in PUT /contact-person:", error);
+    // console.error("Error in PUT /contact-person:", error);
     return NextResponse.json(
       { error: "Failed to update contact person" },
       { status: 500 }
     );
   }
 }
-
-

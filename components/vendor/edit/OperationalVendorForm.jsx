@@ -63,16 +63,15 @@ const OperationalVendorForm = ({ vendor }) => {
 
       const data = await res.json();
 
-
       if (!res.ok) {
         toast.error(data.error || "Failed to save operational settings.");
       } else {
-        toast.success(data.message || "Operational Settings Saved");
+        toast.success(data.message || "Operational Settings Saved.");
         router.push(`/vendor/${vendorId}/notes-and-metadata`);
       }
     } catch (error) {
-      console.error("Submit error:", error);
-      toast.error("Failed operational settings saved");
+      // console.error("Submit error:", error);
+      toast.error("Failed operational settings saved.");
     } finally {
       setSubmitting(false);
     }
@@ -109,7 +108,7 @@ const OperationalVendorForm = ({ vendor }) => {
                       value={field.value }
                       onValueChange={(value) => setFieldValue("status", value)}
                     >
-                      <SelectTrigger className="w-full">
+                      <SelectTrigger className="w-full cursor-pointer">
                         <SelectValue placeholder="Select status" />
                       </SelectTrigger>
                       <SelectContent>
@@ -166,7 +165,7 @@ const OperationalVendorForm = ({ vendor }) => {
                   as={Input}
                   id="lead_time"
                   name="lead_time"
-                  type="text"
+                  type="number"
                   className="w-full"
                 />
                 <ErrorMessage
@@ -203,7 +202,6 @@ const OperationalVendorForm = ({ vendor }) => {
                   value={values.categories}
                   onValueChange={(val) => setFieldValue("categories", val)}
                   placeholder="Select categories"
-                  maxCount={3}
                 />
                 <ErrorMessage
                   name="categories"

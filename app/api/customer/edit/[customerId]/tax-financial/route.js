@@ -21,7 +21,7 @@ export async function PUT(req, { params }) {
       );
     }
 
-    const tenantDb = await getTenantDbFromHeaders();
+    const {tenantDb} = await getTenantDbFromHeaders();
 
     // Check if customer exists
     const existingCustomer = await tenantDb.customer.findUnique({
@@ -66,7 +66,7 @@ export async function PUT(req, { params }) {
       { status: 200 }
     );
   } catch (err) {
-    console.error("Update Tax Info Error:", err);
+    // console.error("Update Tax Info Error:", err);
     return NextResponse.json(
       { error: "Failed to update tax info." },
       { status: 500 }

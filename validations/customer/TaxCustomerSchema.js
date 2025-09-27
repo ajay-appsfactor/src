@@ -16,9 +16,3 @@ const taxCustomerSchema = Yup.object().shape({
 });
 
 export default taxCustomerSchema;
-
-// payment_terms: Yup.string({
-//   payment_terms_id: Yup.string().required("Payment terms is required"),
-//   name: Yup.string(),
-//   due_days: Yup.number().nullable(),
-// }).required("Payment terms is required"),

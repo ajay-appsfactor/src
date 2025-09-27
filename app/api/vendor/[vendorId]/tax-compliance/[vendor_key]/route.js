@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { headers } from "next/headers";
 import { getTenantDb } from "@/lib/db/getTenantClient";
 import { superAdminDb } from "@/lib/db/superadmin";
+import { getTenantDbFromHeaders } from "@/lib/db/getTenantDbFromRequest";
 import { randomUUID } from "crypto";
 import path from "path";
 import fs from "fs/promises";
@@ -17,7 +18,7 @@ async function getTenantPrisma() {
   });
 
   if (!company) {
-    throw new Error("Company not found");
+    throw new Error("Company not found.");
   }
 
   return getTenantDb(company.db_url);
@@ -29,7 +30,7 @@ export async function PUT(req, { params }) {
     const { vendor_key, vendorId } = await params;
 
     // console.log("vendor id :", vendor_key, "vendor_id :", vendorId);
-    const prisma = await getTenantPrisma();
+    const {tenantDb} = await getTenantDbFromHeaders();
 
     const headersList = await headers();
     const host = headersList.get("host") || "";
@@ -37,7 +38,7 @@ export async function PUT(req, { params }) {
     // Handle localhost (remove port if present)
     const subdomain = host.split(".")[0];
 
-    const record = await prisma.vendorTaxCompliance.findUnique({
+    const record = await tenantDb.vendorTaxCompliance.findUnique({
       where: { id: vendor_key },
     });
     if (!record) {
@@ -96,7 +97,7 @@ export async function PUT(req, { params }) {
       fileUrl = encryptedName;
     }
 
-    const updated = await prisma.vendorTaxCompliance.update({
+    const updated = await tenantDb.vendorTaxCompliance.update({
       where: { id: vendor_key },
       data: {
         tax_number: taxNumber,
@@ -110,9 +111,9 @@ export async function PUT(req, { params }) {
 
     return NextResponse.json(updated, { status: 200 });
   } catch (error) {
-    console.error("Error updating tax compliance:", error);
+    // console.error("Error updating tax compliance:", error);
     return NextResponse.json(
-      { error: "Failed to update tax compliance" },
+      { error: "Failed to update tax compliance." },
       { status: 500 }
     );
   }
@@ -124,7 +125,7 @@ export async function DELETE(req, { params }) {
     const { vendor_key, vendorId } = await params;
 
     // console.log("Delete vendor id :", vendor_key, "Delete vendor_id :", vendorId);
-    const prisma = await getTenantPrisma();
+    const {tenantDb} = await getTenantDbFromHeaders();
 
     const headersList = await headers();
     const host = headersList.get("host") || "";
@@ -133,7 +134,7 @@ export async function DELETE(req, { params }) {
     const subdomain = host.split(".")[0];
 
     // Check Vendor exists
-    const vendor = await prisma.vendor.findUnique({
+    const vendor = await tenantDb.vendor.findUnique({
       where: { id: vendorId },
     });
 
@@ -141,7 +142,7 @@ export async function DELETE(req, { params }) {
       return NextResponse.json({ error: "Vendor not found." }, { status: 404 });
     }
 
-    const record = await prisma.vendorTaxCompliance.findUnique({
+    const record = await tenantDb.vendorTaxCompliance.findUnique({
       where: { id: vendor_key },
     });
     if (!record) {
@@ -162,17 +163,17 @@ export async function DELETE(req, { params }) {
       try {
         await fs.unlink(filePath);
       } catch {
-        console.warn("File already deleted or not found");
+        console.warn("File already deleted or not found.");
       }
     }
 
-    await prisma.vendorTaxCompliance.delete({ where: { id: vendor_key } });
+    await tenantDb.vendorTaxCompliance.delete({ where: { id: vendor_key } });
 
-    return NextResponse.json({ message: "Record deleted" }, { status: 200 });
+    return NextResponse.json({ message: "Record deleted." }, { status: 200 });
   } catch (error) {
-    console.error("Error deleting tax compliance:", error);
+    // console.error("Error deleting tax compliance:", error);
     return NextResponse.json(
-      { error: "Failed to delete tax compliance" },
+      { error: "Failed to delete tax compliance." },
       { status: 500 }
     );
   }

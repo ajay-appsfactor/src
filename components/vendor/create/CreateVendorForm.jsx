@@ -62,7 +62,6 @@ const CreateVendorForm = () => {
   const initialValues = {
     first_name: "",
     last_name: "",
-    company_name: "",
     vendor_type: "",
     email: "",
     phone: "",
@@ -88,7 +87,7 @@ const CreateVendorForm = () => {
         router.push(`/vendor/${data.vendor_id}`);
       }
     } catch (error) {
-      console.error(error);
+      // console.error(error);
       toast.error("Failed to save vendor");
     } finally {
       setSubmitting(false);
@@ -219,19 +218,6 @@ const CreateVendorForm = () => {
                 />
               </div>
 
-              {/* Company Name */}
-              <div>
-                <Label htmlFor="company_name" className="mb-2">
-                  Company Name
-                </Label>
-                <Field
-                  as={Input}
-                  id="company_name"
-                  name="company_name"
-                  placeholder="Company Name"
-                />
-              </div>
-
               {/* Phone */}
               <div>
                 <Label htmlFor="phone" className="mb-2">
@@ -307,7 +293,7 @@ const CreateVendorForm = () => {
                       value={field.value}
                       onValueChange={(value) => form.setFieldValue(field.name, value)}
                     >
-                      <SelectTrigger className="w-full">
+                      <SelectTrigger className="w-full cursor-pointer">
                         <SelectValue placeholder="Select vendor type" />
                       </SelectTrigger>
                       <SelectContent>

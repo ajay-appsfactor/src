@@ -9,10 +9,10 @@ const Quotepage = async ({ params }) => {
   const { customerId } = await params;
 
   //  Get tenant DB client
-  const tenantPrisma = await getTenantDbFromHeaders();
+  const {tenantDb} = await getTenantDbFromHeaders();
 
   //  Query customer
-  const customer = await tenantPrisma.customer.findUnique({
+  const customer = await tenantDb.customer.findUnique({
     where: {
       id: customerId,
     },
@@ -25,7 +25,7 @@ const Quotepage = async ({ params }) => {
 
   if (!customer) return notFound();
 
-  console.log("customer data :", customer);
+  // console.log("customer data :", customer);
   return (
     <main>
       <CreateQuotePage customer={customer} />

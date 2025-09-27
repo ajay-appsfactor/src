@@ -35,7 +35,7 @@ const UserProfilePage = () => {
         <h2 className="text-lg font-semibold text-slate-800">Profile</h2>
       </div>
       <hr />
-      <div className="w-full px-6 py-4 max-w-5xl">
+      <div className="w-full px-6 py-4">
         <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-8">
           {/*  Manage Details Form  */}
           <Formik

@@ -9,16 +9,8 @@ export async function PUT(req, { params }) {
   const { delivery_method, quote_format } = body;
 
   try {
-    // Validate required fields
-    // if (!delivery_method || !quote_format) {
-    //   return NextResponse.json(
-    //     { error: "Missing required fields." },
-    //     { status: 400 }
-    //   );
-    // }
-
     // Get tenant DB client
-    const tenantDb =  await getTenantDbFromHeaders();
+    const { tenantDb } = await getTenantDbFromHeaders();
 
     // Ensure customer exists
     const customer = await tenantDb.customer.findUnique({
@@ -32,17 +24,21 @@ export async function PUT(req, { params }) {
       );
     }
 
+    // Convert empty fields to null
+    const deliveryMethodValue = delivery_method?.trim() || null;
+    const quoteFormatValue = quote_format?.trim() || null;
+
     // Upsert operational info in tenant DB
     await tenantDb.customerOperationalInfo.upsert({
       where: { customer_id: customerId },
       update: {
-        delivery_method,
-        quote_format,
+        delivery_method: deliveryMethodValue,
+        quote_format: quoteFormatValue,
       },
       create: {
         customer_id: customerId,
-        delivery_method,
-        quote_format 
+        delivery_method: deliveryMethodValue,
+        quote_format: quoteFormatValue,
       },
     });
 
@@ -51,13 +47,10 @@ export async function PUT(req, { params }) {
       { status: 200 }
     );
   } catch (error) {
-    console.error("Update Operational Info Error:", error);
+    // console.error("Update Operational Info Error:", error);
     return NextResponse.json(
       { error: "Failed to update operational details." },
       { status: 500 }
     );
   }
 }
-
-
-

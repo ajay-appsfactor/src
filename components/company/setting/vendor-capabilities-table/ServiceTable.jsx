@@ -5,12 +5,17 @@ import DataTable from "./DataTable";
 import { columns as getColumns } from "./columns";
 import DeleteConfirmDialog from "./DeleteConfirmDialog";
 import EditVendorCapabilityDialog from "./EditVendorCapabilityDialog";
+import SubCategoryDialog from "./SubCategoryDialog";
 import { toast } from "react-toastify";
 
 export default function ServiceTable() {
   const [data, setData] = useState([]);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(true);
+
+  // SubCategory states
+  const [subCategoryOpen, setSubCategoryOpen] = useState(false);
+  const [selectedVendor, setSelectedVendor] = useState(null);
 
   const [filters, setFilters] = useState({
     page: 1,
@@ -30,7 +35,14 @@ export default function ServiceTable() {
   const [deleteOpen, setDeleteOpen] = useState(false);
 
   const [columns, setColumns] = useState(() =>
-    getColumns(setDeleteId, setDeleteOpen, setEditOpen, setEditData)
+    getColumns(
+      setDeleteId,
+      setDeleteOpen,
+      setEditOpen,
+      setEditData,
+      setSelectedVendor,
+      setSubCategoryOpen
+    )
   );
 
   const fetchData = async () => {
@@ -84,7 +96,8 @@ export default function ServiceTable() {
 
       const data = await res.json();
 
-      if (!res.ok) throw new Error(data.error || "Failed to delete vendor capability.");
+      if (!res.ok)
+        throw new Error(data.error || "Failed to delete vendor capability.");
       toast.success(data.message || "Vendor capability deleted successfully.");
       // console.log("Deleted ID:", id);
       setData((d) => d.filter((r) => r.id !== id));
@@ -125,6 +138,14 @@ export default function ServiceTable() {
         setOpen={setDeleteOpen}
         deleteId={deleteId}
         onConfirm={handleDelete}
+      />
+
+      {/* Sub Category Dialog */}
+      <SubCategoryDialog
+        open={subCategoryOpen}
+        setOpen={setSubCategoryOpen}
+        vendor={selectedVendor}
+        refreshList={fetchData}
       />
     </>
   );

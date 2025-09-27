@@ -1,18 +1,20 @@
 import { NextResponse } from "next/server";
 import { getTenantDbFromHeaders } from "@/lib/db/getTenantDbFromRequest";
+import { formatDates } from "@/utils/formatDates";
 
 // GET: Fetch all Payment
 export async function GET(req) {
   try {
-    const tenantDb = await getTenantDbFromHeaders();
+    const { tenantDb , timezone} = await getTenantDbFromHeaders();
     const logistics = await tenantDb.tenantLogisticsStatus.findMany({
       orderBy: { created_at: "desc" },
     });
-    return NextResponse.json({ data: logistics });
+    const formattedData = formatDates(logistics, timezone);
+    return NextResponse.json({ data: formattedData });
   } catch (err) {
-    console.error("Error fetching logistics:", err);
+    // console.error("Error fetching logistics:", err);
     return NextResponse.json(
-      { error: "Internal Server Error" },
+      { error: "Internal Server Error." },
       { status: 500 }
     );
   }
@@ -25,7 +27,7 @@ export async function POST(req) {
     const { logistics } = body;
 
     // Save all payments in a single transaction
-    const tenantDb = await getTenantDbFromHeaders();
+    const { tenantDb } = await getTenantDbFromHeaders();
     const createdlogistics = await tenantDb.tenantLogisticsStatus.createMany({
       data: logistics.map((c) => ({
         name: c.name,
@@ -37,9 +39,9 @@ export async function POST(req) {
       message: `${createdlogistics.count} logistics status create successfully.`,
     });
   } catch (err) {
-    console.error("Error creating logistics status:", err);
+    // console.error("Error creating logistics status:", err);
     return NextResponse.json(
-      { error: "Internal Server Error" },
+      { error: "Internal Server Error." },
       { status: 500 }
     );
   }

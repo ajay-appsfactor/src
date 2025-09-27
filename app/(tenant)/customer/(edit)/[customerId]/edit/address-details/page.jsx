@@ -2,14 +2,18 @@ import { notFound } from "next/navigation";
 import AddressCustomerForm from "@/components/customer/edit/AddressCustomerForm";
 import { getTenantDbFromHeaders } from "@/lib/db/getTenantDbFromRequest";
 
+export const metadata = {
+  title: "Customer | Customer Addresses",
+};
+
 export default async function AddressDetailsPage({ params }) {
   const { customerId } = await params;
 
   //  Get tenant DB client
-  const tenantPrisma = await getTenantDbFromHeaders();
+  const { tenantDb } = await getTenantDbFromHeaders();
 
   //  Query customer
-  const customer = await tenantPrisma.customer.findUnique({
+  const customer = await tenantDb.customer.findUnique({
     where: {
       id: customerId,
     },

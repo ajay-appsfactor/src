@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { getTenantDbFromHeaders } from "@/lib/db/getTenantDbFromRequest";
+import { formatDates } from "@/utils/formatDates";
 
 export async function GET(req) {
   try {
@@ -34,11 +35,11 @@ export async function GET(req) {
       : {};
 
     // Get tenant-specific Prisma client
-    const prisma = await getTenantDbFromHeaders();
+    const { tenantDb, timezone } = await getTenantDbFromHeaders();
 
     // Fetch services with pagination and total count
     const [data, totalCount] = await Promise.all([
-      prisma.companyService.findMany({
+      tenantDb.companyService.findMany({
         where,
         skip: (page - 1) * pageSize,
         take: pageSize,
@@ -48,14 +49,15 @@ export async function GET(req) {
           finishes: true,
         },
       }),
-      prisma.companyService.count({ where }),
+      tenantDb.companyService.count({ where }),
     ]);
+    const formattedData = formatDates(data, timezone);
 
-    return NextResponse.json({ data, totalCount });
+    return NextResponse.json({ data: formattedData, totalCount });
   } catch (error) {
-    console.error("API Error:", error);
+    // console.error("API Error:", error);
     return NextResponse.json(
-      { error: "Failed to fetch services" },
+      { error: "Failed to fetch services." },
       { status: 500 }
     );
   }
@@ -77,14 +79,14 @@ export async function POST(req) {
 
     if (!name) {
       return NextResponse.json(
-        { error: "Service name is required" },
+        { error: "Service name is required." },
         { status: 400 }
       );
     }
 
-    const prisma = await getTenantDbFromHeaders();
+    const {tenantDb} = await getTenantDbFromHeaders();
     // Create service with related materials and finishes
-    const service = await prisma.companyService.create({
+    const service = await tenantDb.companyService.create({
       data: {
         exclude_inspection,
         invoice50,
@@ -109,7 +111,7 @@ export async function POST(req) {
       { status: 201 }
     );
   } catch (error) {
-    console.error(error);
+    // console.error(error);
     return NextResponse.json(
       { error: "Something went wrong." },
       { status: 500 }

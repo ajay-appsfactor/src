@@ -15,7 +15,6 @@ import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { roleOptions } from "@/constants/role";
 
-
 const CreateUser = () => {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
@@ -30,8 +29,7 @@ const CreateUser = () => {
 
     lastName: Yup.string()
       .trim()
-      .nullable()
-      .notRequired()
+      .required("Last name is required")
       .min(2, "Last name must be at least 2 characters")
       .max(100, "Last name cannot exceed 100 characters"),
 
@@ -138,7 +136,7 @@ const CreateUser = () => {
                 {/* Last Name */}
                 <div>
                   <Label htmlFor="lastName" className="mb-2">
-                    Last Name
+                    Last Name<span className="text-rose-500">*</span>
                   </Label>
                   <Field name="lastName" as={Input} />
                   <ErrorMessage

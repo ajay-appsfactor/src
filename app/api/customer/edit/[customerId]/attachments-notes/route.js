@@ -6,7 +6,6 @@ import { NextResponse } from "next/server";
 import { headers } from "next/headers";
 import { superAdminDb } from "@/lib/db/superadmin";
 import { getTenantDbFromHeaders } from "@/lib/db/getTenantDbFromRequest";
-import { getTenantDb } from "@/lib/db/getTenantClient";
 
 export const config = {
   api: {
@@ -17,15 +16,16 @@ export const config = {
 // Get Attachments & Notes Data
 export async function GET(req, { params }) {
   const { customerId } = await params;
-  const prisma = await getTenantDbFromHeaders();
-  const checkCustomer = await prisma.customer.findUnique({
+  // const prisma = await getTenantDbFromHeaders();
+  const { tenantDb, timezone } = await getTenantDbFromHeaders();
+  const checkCustomer = await tenantDb.customer.findUnique({
     where: { id: customerId },
   });
 
   if (!checkCustomer)
     return NextResponse.json({ error: "Customer not found" }, { status: 404 });
 
-  const data = await prisma.customerNotesAndAttachments.findMany({
+  const data = await tenantDb.customerNotesAndAttachments.findMany({
     orderBy: { created_at: "desc" },
   });
 
@@ -54,7 +54,7 @@ export async function POST(req, { params }) {
     }
 
     // Get tenant DB client
-    const tenantDb = getTenantDb(company.db_url);
+    const { tenantDb, timezone } = await getTenantDbFromHeaders();
 
     // Check if customer exists
     const existingCustomer = await tenantDb.customer.findUnique({
@@ -70,7 +70,7 @@ export async function POST(req, { params }) {
 
     // Read form data
     const formData = await req.formData();
-    const internal_notes = formData.get("internal_notes") || "";
+    const internal_notes = formData.get("internal_notes");
     const rawTags = formData.get("tags");
     const file = formData.get("files");
 
@@ -118,12 +118,15 @@ export async function POST(req, { params }) {
       return NextResponse.json({ error: "No data provided." }, { status: 400 });
     }
 
+    const internalNotesValue = internal_notes?.trim() || null;
+    const tagsValue = tags.length > 0 ? tags : [];
+
     // Save in tenant DB
     await tenantDb.customerNotesAndAttachments.create({
       data: {
         customer_id: customerId,
-        internal_notes,
-        tags,
+        internal_notes: internalNotesValue,
+        tags: tagsValue,
         file_url,
         file_name,
       },
@@ -136,7 +139,7 @@ export async function POST(req, { params }) {
       { status: 200 }
     );
   } catch (err) {
-    console.error("Upload Error:", err);
+    // console.error("Upload Error:", err);
     return NextResponse.json(
       { error: "Failed to save attachment." },
       { status: 500 }

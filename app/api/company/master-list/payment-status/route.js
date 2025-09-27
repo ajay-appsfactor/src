@@ -1,18 +1,20 @@
 import { NextResponse } from "next/server";
 import { getTenantDbFromHeaders } from "@/lib/db/getTenantDbFromRequest";
+import { formatDates } from "@/utils/formatDates";
 
 // GET: Fetch all Payment
 export async function GET(req) {
   try {
-    const tenantDb = await getTenantDbFromHeaders();
+    const {tenantDb, timezone} = await getTenantDbFromHeaders();
     const payments = await tenantDb.tenantPaymentStatus.findMany({
       orderBy: { created_at: "desc" },
     });
-    return NextResponse.json({ data: payments });
+        const formattedData = formatDates(payments, timezone);
+    return NextResponse.json({ data: formattedData });
   } catch (err) {
-    console.error("Error fetching payments:", err);
+    // console.error("Error fetching payments:", err);
     return NextResponse.json(
-      { error: "Internal Server Error" },
+      { error: "Internal Server Error." },
       { status: 500 }
     );
   }
@@ -24,7 +26,7 @@ export async function POST(req) {
     const body = await req.json();
     const { payments } = body;
 
-    const tenantDb = await getTenantDbFromHeaders();
+    const {tenantDb} = await getTenantDbFromHeaders();
     // Save all payments in a single transaction
     const createdPayments = await tenantDb.tenantPaymentStatus.createMany({
       data: payments.map((c) => ({
@@ -41,7 +43,7 @@ export async function POST(req) {
       { status: 201 }
     );
   } catch (err) {
-    console.error("Error creating payments status:", err);
+    // console.error("Error creating payments status:", err);
     return NextResponse.json(
       { error: "Internal Server Error" },
       { status: 500 }

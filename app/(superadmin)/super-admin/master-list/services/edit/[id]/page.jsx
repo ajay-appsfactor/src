@@ -42,7 +42,7 @@ export default function EditService() {
         const res = await fetch(`/api/superadmin/service-setup/${id}`);
         const data = await res.json();
 
-        if (!res.ok) throw new Error(data.error || "Failed to load service");
+        if (!res.ok) throw new Error(data.error || "Failed to load service.");
 
         setServiceData({
           name: data.name || "",
@@ -121,7 +121,7 @@ export default function EditService() {
 
       <hr />
 
-      <div className="w-full px-6 py-4 max-w-5xl mt-2">
+      <div className="w-full px-6 py-4  mt-2">
         <Formik
           enableReinitialize
           initialValues={{

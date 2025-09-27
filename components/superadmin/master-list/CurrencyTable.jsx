@@ -86,7 +86,7 @@ export default function MasterCurrencyForm() {
         setCurrencies(data.data || []);
         setFilteredCurrencies(data.data || []);
       } catch (error) {
-        console.error("Fetch error:", error);
+        // console.error("Fetch error:", error);
         toast.error(error.message || "Failed to fetch currencies");
       } finally {
         setLoading(false);
@@ -242,7 +242,7 @@ export default function MasterCurrencyForm() {
       {/* Table */}
       <div className="p-6 overflow-x-auto">
         <Table className="border rounded-md">
-          <TableHeader className="sticky top-0">
+          <TableHeader className="sticky top-0 bg-muted">
             <TableRow>
               <TableHead className="w-[20px]"></TableHead>
               <TableHead>Currency</TableHead>

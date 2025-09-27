@@ -229,7 +229,7 @@ export default function OrderStatusTable() {
       {/* Table */}
       <div className="p-6 overflow-x-auto">
         <Table className="border rounded-lg">
-          <TableHeader>
+          <TableHeader className="bg-muted">
             <TableRow>
               <TableHead className="w-[20px]"></TableHead>
               <TableHead>Order Status Name</TableHead>

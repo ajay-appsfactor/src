@@ -4,17 +4,22 @@ import { getTenantDbFromHeaders } from "@/lib/db/getTenantDbFromRequest";
 // Post : Create Contact Person
 export async function POST(req, { params }) {
   try {
-    const tenantDb = await getTenantDbFromHeaders();
+   const { tenantDb } = await getTenantDbFromHeaders();
     const body = await req.json();
-
     const { customerId } = await params;
-    const {
+    let {
       contact_name,
       contact_email,
       contact_phone,
       job_title,
       is_primary,
     } = body;
+
+     // Convert email to lowercase
+    if (contact_email) {
+      contact_email = contact_email.toLowerCase();
+    }
+
 
     // Step 1: Check if customer exists
     const existingCustomer = await tenantDb.customer.findUnique({
@@ -56,15 +61,15 @@ export async function POST(req, { params }) {
         customer_name: existingCustomer.customer_name,
         contact_name,
         contact_email,
-        contact_phone,
-        job_title,
+        contact_phone:contact_phone?.trim() || null,
+        job_title :job_title?.trim() || null,
         is_primary: makePrimary,
       },
     });
 
     return NextResponse.json({ status: 201 });
   } catch (error) {
-    console.error("Error in POST /contact-person:", error);
+    // console.error("Error in POST /contact-person:", error);
     return NextResponse.json(
       { error: "Internal Server Error" },
       { status: 500 }
@@ -75,8 +80,9 @@ export async function POST(req, { params }) {
 // Get All  Contact
 export async function GET(req, { params }) {
   const { customerId } = await params;
-  const prisma = await getTenantDbFromHeaders();
-  const checkCustomer = await prisma.customer.findUnique({
+  // const prisma = await getTenantDbFromHeaders();
+  const { tenantDb } = await getTenantDbFromHeaders();
+  const checkCustomer = await tenantDb.customer.findUnique({
     where: { id: customerId },
     select: { id: true, customer_name: true },
   });
@@ -84,7 +90,7 @@ export async function GET(req, { params }) {
   if (!checkCustomer)
     return NextResponse.json({ error: "Customer not found" }, { status: 404 });
 
-  const data = await prisma.customerContact.findMany({
+  const data = await tenantDb.customerContact.findMany({
     orderBy: { created_at: "desc" },
   });
 

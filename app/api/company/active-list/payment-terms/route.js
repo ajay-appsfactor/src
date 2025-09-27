@@ -3,9 +3,9 @@ import { getTenantDbFromHeaders } from "@/lib/db/getTenantDbFromRequest";
 
 export async function GET(req) {
   try {
-    const prisma = await getTenantDbFromHeaders();
+    const {tenantDb} = await getTenantDbFromHeaders();
 
-    const terms = await prisma.tenantPaymentTerms.findMany({
+    const terms = await tenantDb.tenantPaymentTerms.findMany({
       where: { is_active: true },
       orderBy: { name: "asc" },
       select: {
@@ -20,9 +20,9 @@ export async function GET(req) {
 
     return NextResponse.json({ success: true, data: terms });
   } catch (error) {
-    console.error("Error fetching payment terms:", error);
+    // console.error("Error fetching payment terms:", error);
     return NextResponse.json(
-      { success: false, error: "Failed to fetch payment terms" },
+      { success: false, error: "Failed to fetch payment terms." },
       { status: 500 }
     );
   }

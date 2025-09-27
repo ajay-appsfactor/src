@@ -6,9 +6,9 @@ export default async function ContactPersonsPage({ params }) {
   const { customerId } = await params;
 
   // Get tenant DB from headers
-  const prisma = await getTenantDbFromHeaders();
+   const { tenantDb } = await getTenantDbFromHeaders();
 
-  const customer = await prisma.customer.findUnique({
+  const customer = await tenantDb.customer.findUnique({
     where: { id: customerId },
     select: {
       id: true,

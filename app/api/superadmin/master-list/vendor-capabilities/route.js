@@ -47,6 +47,11 @@ export async function GET(req) {
           created_at: true,
           updated_at: true,
           is_active: true,
+          _count: {
+            select: {
+              subCategories: true, 
+            },
+          },
         },
       }),
       superAdminDb.vendor_capabilities.count({ where }),
@@ -54,7 +59,7 @@ export async function GET(req) {
 
     return NextResponse.json({ data, totalCount });
   } catch (error) {
-    console.error("API Error (vendor capabilities GET):", error);
+    // console.error("API Error (vendor capabilities GET):", error);
     return NextResponse.json(
       { error: "Failed to fetch vendor capabilities" },
       { status: 500 }
@@ -91,7 +96,7 @@ export async function POST(req) {
       { status: 201 }
     );
   } catch (error) {
-    console.error("Error creating vendor capabilities:", error);
+    // console.error("Error creating vendor capabilities:", error);
     return NextResponse.json(
       { error: "Failed to create vendor capabilities." },
       { status: 500 }

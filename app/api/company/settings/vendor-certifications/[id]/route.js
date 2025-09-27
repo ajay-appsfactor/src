@@ -7,7 +7,7 @@ export async function PUT(req, { params }) {
   try {
     const body = await req.json();
 
-    const tenantDb = await getTenantDbFromHeaders();
+    const {tenantDb} = await getTenantDbFromHeaders();
     const updated = await tenantDb.company_vendor_certifications.update({
       where: { id },
       data: {
@@ -21,9 +21,9 @@ export async function PUT(req, { params }) {
       message: "Vendor capabilities status updated successfully.",
     });
   } catch (error) {
-    console.error(error);
+    // console.error(error);
     return NextResponse.json(
-      { error: "Failed to update vendor capabilities status" },
+      { error: "Failed to update vendor capabilities status." },
       { status: 500 }
     );
   }
@@ -40,17 +40,17 @@ export async function DELETE(req, { params }) {
       );
     }
 
-    const prisma = await getTenantDbFromHeaders();
-    await prisma.company_vendor_certifications.delete({ where: { id } });
+    const {tenantDb} = await getTenantDbFromHeaders();
+    await tenantDb.company_vendor_certifications.delete({ where: { id } });
 
     return NextResponse.json(
       { message: "Vendor certification deleted successfully." },
       { status: 200 }
     );
   } catch (error) {
-    console.error(error);
+    // console.error(error);
     return NextResponse.json(
-      { error: "Failed to delete Vendor certification" },
+      { error: "Failed to delete Vendor certification." },
       { status: 500 }
     );
   }

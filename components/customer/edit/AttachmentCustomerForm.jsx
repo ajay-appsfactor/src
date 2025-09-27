@@ -11,8 +11,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
-import { format } from "date-fns";
-import Link from "next/link";
+import moment from "moment-timezone";
 import { useRouter } from "next/navigation";
 
 const tagOptions = [
@@ -326,10 +325,6 @@ export default function SingleAttachmentForm({ customer }) {
     return filePath.split("/").pop() || "Unnamed file";
   };
 
-  //Download file
-  const getDownloadUrl = (fileUrl) => {
-    return `${protocol}//${subDomain}/uploads/${domain}/customers/attachment-notes/${customerId}/${fileUrl}`;
-  };
   return (
     <div className="bg-white rounded-md">
       {/* Top Header */}
@@ -525,11 +520,10 @@ export default function SingleAttachmentForm({ customer }) {
                                 {getFileName(block.file_name)}
                               </p>
                               <p className="text-xs text-gray-500 mt-1">
-                                {block.created_at
-                                  ? format(
-                                      new Date(block.updated_at),
-                                      "MMM dd, yyyy · hh:mm a"
-                                    )
+                                {block.updated_at
+                                  ? moment(block.updated_at)
+                                      .tz(customer.timezone)
+                                      .format("MMM DD, YYYY · hh:mm A")
                                   : "Date unknown"}
                               </p>
                             </div>
@@ -589,19 +583,23 @@ export default function SingleAttachmentForm({ customer }) {
                           {/* Download Button - Only show if file exists */}
                           {block.file_url && (
                             <div className="mt-4 flex justify-end">
-                              <Link
-                                href={getDownloadUrl(block.file_url)}
-                                target="_blank"
+                              <Button
+                                variant="outline"
+                                className="cursor-pointer"
+                                size="sm"
+                                onClick={() => {
+                                  const realFileUrl = `${protocol}//${subDomain}/uploads/${domain}/customers/attachment-notes/${customerId}/${block.file_url}`;
+                                  const a = document.createElement("a");
+                                  a.href = realFileUrl;
+                                  a.download = getFileName(block.file_name);
+                                  document.body.appendChild(a);
+                                  a.click();
+                                  a.remove();
+                                }}
                               >
-                                <Button
-                                  variant="outline"
-                                  size="sm"
-                                  className="cursor-pointer"
-                                >
-                                  <Download className="w-4 h-4 mr-2" />
-                                  Download
-                                </Button>
-                              </Link>
+                                <Download className="w-4 h-4 mr-2" />
+                                Download
+                              </Button>
                             </div>
                           )}
                         </div>

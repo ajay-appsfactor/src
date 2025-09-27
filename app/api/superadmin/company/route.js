@@ -8,6 +8,7 @@ import { mkdir, writeFile } from "fs/promises";
 import { existsSync } from "fs";
 import { join, extname } from "path";
 import { hashPassword } from "@/utils/hashPassword";
+// import { getCurrentTime } from "@/utils/getCurrentTime";
 
 const execAsync = promisify(exec);
 
@@ -68,7 +69,7 @@ export async function GET(req) {
 
           return { ...company, userCount };
         } catch (err) {
-          console.error(`Failed to fetch users for company ${company.id}`, err);
+          // console.error(`Failed to fetch users for company ${company.id}`, err);
           return { ...company, userCount: 0 };
         }
       })
@@ -76,7 +77,7 @@ export async function GET(req) {
 
     return NextResponse.json({ data: companiesWithCounts, totalCount });
   } catch (error) {
-    console.error("Error fetching companies:", error);
+    // console.error("Error fetching companies:", error);
     return NextResponse.json(
       { error: "Failed to fetch companies" },
       { status: 500 }
@@ -95,7 +96,7 @@ export async function POST(req) {
     const sub_domain = formData.get("sub_domain");
     const currency_code = formData.get("currency_code");
     const currency_symbol = formData.get("currency_symbol");
-    const timezone = formData.get("timezone");
+    const timezone = formData.get("timezone") || "UTC";
     const email = formData.get("email")?.toLowerCase();
     const password = formData.get("password");
     const first_name = formData.get("first_name");
@@ -209,11 +210,16 @@ export async function POST(req) {
         `npx cross-env DATABASE_URL="${tenantDbUrl}" prisma migrate deploy --schema=prisma/schema.tenant.prisma`
       );
     } catch (err) {
-      console.error("Migration failed, dropping DB...");
+      // console.error("Migration failed, dropping DB...");
       // Rollback: drop database if migration fails
       await rawPrisma.$executeRawUnsafe(`DROP DATABASE IF EXISTS "${dbName}"`);
       throw err;
     }
+
+    //  Current time according to company timezone
+    // const now = moment().tz(timezone).format();
+    // const now = getCurrentTime(timezone);
+    // console.log("Company Time :", now);
 
     // 7. Save company in superadmin DB
     await superAdminDb.company.create({
@@ -439,7 +445,7 @@ export async function POST(req) {
       { status: 201 }
     );
   } catch (error) {
-    console.error("Error creating company:", error);
+    // console.error("Error creating company:", error);
     return NextResponse.json(
       { success: false, message: error.message || "Internal Server Error" },
       { status: 500 }

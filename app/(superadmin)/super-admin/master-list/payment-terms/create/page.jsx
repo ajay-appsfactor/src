@@ -68,7 +68,7 @@ export default function MasterPaymentTermsForm() {
       toast.success(data.message || "Payment terms saved");
       router.push("/super-admin/master-list/payment-terms");
     } catch (error) {
-      console.error("Error submitting form:", error);
+      // console.error("Error submitting form:", error);
       toast.error("Failed to save payment terms");
     } finally {
       setSubmitting(false);
@@ -76,7 +76,7 @@ export default function MasterPaymentTermsForm() {
   };
 
   return (
-    <section className="bg-white border border-gray-200 rounded">
+    <section className="bg-white">
       {/* Header */}
       <div className="py-2 px-6 sm:px-4 flex justify-between items-center">
         <div className="flex items-center gap-4">
@@ -96,7 +96,7 @@ export default function MasterPaymentTermsForm() {
       <hr />
 
       {/* Form */}
-      <div className="px-6 py-4 max-w-5xl">
+      <div className="px-6 py-4">
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}

@@ -52,7 +52,7 @@ export default function UserSection() {
         </DropdownMenuTrigger>
 
         <DropdownMenuContent align="end" className="w-56">
-          <DropdownMenuItem asChild>
+          {/* <DropdownMenuItem asChild>
             <Link href="/profile" className="flex items-center gap-2">
               <User className="h-4 w-4" /> Profile
             </Link>
@@ -62,7 +62,7 @@ export default function UserSection() {
               <Settings className="h-4 w-4" /> Settings
             </Link>
           </DropdownMenuItem>
-          <DropdownMenuSeparator />
+          <DropdownMenuSeparator /> */}
           <DropdownMenuItem
             onClick={handleLogout}
             className="text-red-600 focus:text-red-600 cursor-pointer"

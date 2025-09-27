@@ -13,9 +13,9 @@ export async function GET(req, { params }) {
       );
     }
 
-    const prisma = await getTenantDbFromHeaders();
+    const { tenantDb } = await getTenantDbFromHeaders();
 
-    const user = await prisma.user.findUnique({
+    const user = await tenantDb.user.findUnique({
       where: { id },
     });
 
@@ -37,7 +37,7 @@ export async function GET(req, { params }) {
 
     return NextResponse.json(formattedUser, { status: 200 });
   } catch (error) {
-    console.error("GET User Error:", error);
+    // console.error("GET User Error:", error);
     return NextResponse.json(
       { error: "Failed to fetch user" },
       { status: 500 }
@@ -54,10 +54,10 @@ export async function PUT(req, { params }) {
     // console.log("Body Result :", body);
     const { first_name, last_name, email, password, phone, roles } = body;
 
-    const prisma = await getTenantDbFromHeaders();
+    const {tenantDb} = await getTenantDbFromHeaders();
 
     // Fetch existing user
-    const existingUser = await prisma.user.findUnique({ where: { id } });
+    const existingUser = await tenantDb.user.findUnique({ where: { id } });
     if (!existingUser) {
       return NextResponse.json({ error: "User not found." }, { status: 404 });
     }
@@ -91,19 +91,19 @@ export async function PUT(req, { params }) {
     if (normalizedEmail !== existingUser.email.toLowerCase()) {
       const [customerConflict, vendorConflict, userConflict] =
         await Promise.all([
-          prisma.customer.findFirst({
+          tenantDb.customer.findFirst({
             where: {
               email: { equals: normalizedEmail, mode: "insensitive" },
               NOT: { id: existingUser.customer_id || "" },
             },
           }),
-          prisma.vendor.findFirst({
+          tenantDb.vendor.findFirst({
             where: {
               email: { equals: normalizedEmail, mode: "insensitive" },
               NOT: { id: existingUser.vendor_id || "" },
             },
           }),
-          prisma.user.findFirst({
+          tenantDb.user.findFirst({
             where: {
               email: { equals: normalizedEmail, mode: "insensitive" },
               NOT: { id: existingUser.id },
@@ -137,7 +137,7 @@ export async function PUT(req, { params }) {
       : existingUser.password;
 
     // Full replace update
-    const updateUser = await prisma.user.update({
+    const updateUser = await tenantDb.user.update({
       where: { id },
       data: {
         first_name: first_name.trim(),
@@ -154,7 +154,7 @@ export async function PUT(req, { params }) {
       { status: 200 }
     );
   } catch (error) {
-    console.error("PUT /users/:id error:", error);
+    // console.error("PUT /users/:id error:", error);
     return NextResponse.json(
       { error: "Failed to update user." },
       { status: 500 }
@@ -168,14 +168,14 @@ export async function DELETE(req, { params }) {
 
   try {
     // Check if user exists
-    const prisma = await getTenantDbFromHeaders();
-    const existingUser = await prisma.user.findUnique({ where: { id } });
+    const {tenantDb} = await getTenantDbFromHeaders();
+    const existingUser = await tenantDb.user.findUnique({ where: { id } });
     if (!existingUser) {
       return NextResponse.json({ error: "User not found." }, { status: 404 });
     }
 
     // Delete user
-    await prisma.user.delete({ where: { id } });
+    await tenantDb.user.delete({ where: { id } });
 
     return NextResponse.json(
       { message: "User deleted successfully." },
@@ -191,12 +191,11 @@ export async function DELETE(req, { params }) {
 }
 
 // Manage Password
-
 export async function PATCH(req, { params }) {
   const { id } = await params;
   try {
     const { oldPassword, password } = await req.json();
-    console.log("Old Password :", oldPassword ,"Password :", password)
+    // console.log("Old Password :", oldPassword ,"Password :", password)
     if (!oldPassword || !password) {
       return NextResponse.json(
         { error: "All fields required." },
@@ -204,10 +203,10 @@ export async function PATCH(req, { params }) {
       );
     }
 
-    const prisma = await getTenantDbFromHeaders();
+    const {tenantDb} = await getTenantDbFromHeaders();
 
     // Fetch user from DB
-    const user = await prisma.user.findUnique({ where: { id } });
+    const user = await tenantDb.user.findUnique({ where: { id } });
     if (!user) {
       return NextResponse.json({ error: "User not found." }, { status: 404 });
     }
@@ -225,7 +224,7 @@ export async function PATCH(req, { params }) {
     const hashedPassword = await hashPassword(password);
 
     // Update in DB
-    await prisma.user.update({
+    await tenantDb.user.update({
       where: { id },
       data: { password: hashedPassword },
     });

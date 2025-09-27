@@ -11,7 +11,6 @@ import * as Yup from "yup";
 import { Loader, Eye, EyeOff, ArrowLeft } from "lucide-react";
 import { rootDomain } from "@/utils/rootDomain";
 import { useState } from "react";
-import { timezones } from "@/utils/timezone";
 import CurrencyField from "./CurrencyField";
 import { toast } from "react-toastify";
 import TimezoneField from "@/utils/TimezoneField";
@@ -164,7 +163,7 @@ export default function CompanyCreate() {
       </div>
 
       <hr />
-      <div className="w-full px-6 sm:px-6 py-4 mt-2 max-w-2xl">
+      <div className="w-full px-6 sm:px-6 py-6 max-w-2xl mb-8">
         <Formik
           initialValues={{
             company_name: "",
@@ -410,6 +409,7 @@ export default function CompanyCreate() {
                   className="text-xs text-red-600 mt-1"
                 />
               </div>
+              {/* Company Logo */}
               <div>
                 <Label htmlFor="company_logo" className="mb-2">
                   Company Logo Upload<span className="text-rose-500">*</span>

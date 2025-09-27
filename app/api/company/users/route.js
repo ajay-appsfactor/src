@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { hashPassword } from "@/utils/hashPassword";
 import { getTenantDbFromHeaders } from "@/lib/db/getTenantDbFromRequest";
+import { formatDates } from "@/utils/formatDates";
 
 export async function POST(req) {
   try {
@@ -46,10 +47,10 @@ export async function POST(req) {
       );
     }
 
-    const prisma = await getTenantDbFromHeaders();
+    const {tenantDb} = await getTenantDbFromHeaders();
 
     // Cross-check in Customers
-    const existingCustomer = await prisma.customer.findFirst({
+    const existingCustomer = await tenantDb.customer.findFirst({
       where: {
         email: { equals: normalizedEmail, mode: "insensitive" },
       },
@@ -62,7 +63,7 @@ export async function POST(req) {
     }
 
     // Cross-check in Vendors
-    const existingVendor = await prisma.vendor.findFirst({
+    const existingVendor = await tenantDb.vendor.findFirst({
       where: {
         email: { equals: normalizedEmail, mode: "insensitive" },
       },
@@ -75,7 +76,7 @@ export async function POST(req) {
     }
 
     // Cross-check in Users
-    const existingUser = await prisma.user.findFirst({
+    const existingUser = await tenantDb.user.findFirst({
       where: {
         email: { equals: normalizedEmail, mode: "insensitive" },
       },
@@ -91,7 +92,7 @@ export async function POST(req) {
     const hashedPassword = await hashPassword(password);
 
     // Create User
-    await prisma.user.create({
+    await tenantDb.user.create({
       data: {
         first_name: firstName,
         last_name: lastName || null,
@@ -107,7 +108,7 @@ export async function POST(req) {
       { status: 201 }
     );
   } catch (error) {
-    console.error("Create User Error:", error);
+    // console.error("Create User Error:", error);
     return NextResponse.json(
       { error: "Internal Server Error" },
       { status: 500 }
@@ -165,10 +166,10 @@ export async function GET(req) {
     // Combine filters
     const where = { ...searchFilter, ...rolesFilter };
 
-    const prisma = await getTenantDbFromHeaders();
+    const {tenantDb, timezone} = await getTenantDbFromHeaders();
 
     const [data, totalCount] = await Promise.all([
-      prisma.user.findMany({
+      tenantDb.user.findMany({
         where,
         skip: (page - 1) * pageSize,
         take: pageSize,
@@ -184,14 +185,16 @@ export async function GET(req) {
           updated_at: true,
         },
       }),
-      prisma.user.count({ where }),
+      tenantDb.user.count({ where }),
     ]);
 
-    return NextResponse.json({ data, totalCount, page, pageSize });
+    const formattedData = formatDates(data, timezone);
+
+    return NextResponse.json({ data:formattedData, totalCount, page, pageSize });
   } catch (error) {
-    console.error("API Error:", error);
+    // console.error("API Error:", error);
     return NextResponse.json(
-      { error: "Failed to fetch users" },
+      { error: "Failed to fetch users." },
       { status: 500 }
     );
   }

@@ -7,25 +7,24 @@ export async function PUT(req, { params }) {
   const { address_1, address_2, city, state, zip, country } = body;
 
   try {
-
     // Get tenant-specific Prisma client
-    const prisma = await getTenantDbFromHeaders();
+    const { tenantDb } = await getTenantDbFromHeaders();
 
     // Check if vendor exists in tenant DB
-    const vendor = await prisma.vendor.findUnique({
+    const vendor = await tenantDb.vendor.findUnique({
       where: { id: vendorId },
     });
 
     if (!vendor) {
-      return NextResponse.json({ error: "Vendor not found" }, { status: 404 });
+      return NextResponse.json({ error: "Vendor not found." }, { status: 404 });
     }
 
     // Create or update vendor address
-    await prisma.vendorAddress.upsert({
+    await tenantDb.vendorAddress.upsert({
       where: { vendor_id: vendorId },
       update: {
         address_1,
-        address_2,
+        address_2: address_2.trim() || null,
         city,
         state,
         zip,
@@ -34,7 +33,7 @@ export async function PUT(req, { params }) {
       create: {
         vendor_id: vendorId,
         address_1,
-        address_2,
+        address_2: address_2.trim() || null,
         city,
         state,
         zip,
@@ -42,13 +41,15 @@ export async function PUT(req, { params }) {
       },
     });
 
-    return NextResponse.json({ message: "Address saved successfully." }, { status: 200 });
-  } catch (error) {
-    console.error("Vendor address save failed:", error);
     return NextResponse.json(
-      { success: false, error: "Internal Server Error" },
+      { message: "Address saved successfully." },
+      { status: 200 }
+    );
+  } catch (error) {
+    // console.error("Vendor address save failed:", error);
+    return NextResponse.json(
+      { success: false, error: "Internal Server Error." },
       { status: 500 }
     );
   }
 }
-

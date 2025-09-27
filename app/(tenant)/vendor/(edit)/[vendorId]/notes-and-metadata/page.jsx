@@ -11,10 +11,10 @@ export default async function VendorNotesPage({ params }) {
   if (!vendorId) return notFound();
 
   // Tenant-specific Prisma client
-  const prisma = await getTenantDbFromHeaders();
+     const { tenantDb } = await getTenantDbFromHeaders();
 
   // Fetch metadata for this vendor
-  const vendorMetadata = await prisma.vendorMetadata.findUnique({
+  const vendorMetadata = await tenantDb.vendorMetadata.findUnique({
     where: { vendor_id: vendorId }, 
     include: {
       vendor: {
@@ -40,7 +40,7 @@ export default async function VendorNotesPage({ params }) {
     };
   } else {
     // fallback to vendor basic data
-    const fallbackVendor = await prisma.vendor.findUnique({
+    const fallbackVendor = await tenantDb.vendor.findUnique({
       where: { id: vendorId },
       select: {
         id: true,

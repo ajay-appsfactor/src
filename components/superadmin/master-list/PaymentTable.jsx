@@ -42,6 +42,9 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { Badge } from "@/components/ui/badge";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
+
 const STATUS_BADGE_MAP = {
   active: "bg-green-100 text-green-800",
   inactive: "bg-gray-200 text-gray-700",
@@ -53,6 +56,27 @@ export default function PaymentTermsTable() {
   const [filteredTerms, setFilteredTerms] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
+
+  const editValidationSchema = Yup.object({
+    name: Yup.string()
+      .trim()
+      .required("Payment term name is required")
+      .max(100, "Payment name too long"),
+    description: Yup.string().trim().max(255, "Description too long"),
+    due_days: Yup.number()
+      .typeError("Due days must be a number")
+      .min(0, "Cannot be negative")
+      .required("Due days are required"),
+    discount_days: Yup.number()
+      .typeError("Discount days must be a number")
+      .min(0, "Cannot be negative")
+      .nullable(),
+    discount_percent: Yup.number()
+      .typeError("Discount percent must be a number")
+      .min(0, "Cannot be negative")
+      .max(100, "Cannot exceed 100%")
+      .nullable(),
+  });
 
   // Dialog states
   const [editOpen, setEditOpen] = useState(false);
@@ -109,11 +133,14 @@ export default function PaymentTermsTable() {
   // Handle status change
   const handleStatusChange = async (id, newStatus) => {
     try {
-      const res = await fetch(`/api/superadmin/master-list/payment-terms/${id}`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ is_active: newStatus === "active" }),
-      });
+      const res = await fetch(
+        `/api/superadmin/master-list/payment-terms/${id}`,
+        {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ is_active: newStatus === "active" }),
+        }
+      );
 
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Failed to update status");
@@ -141,11 +168,14 @@ export default function PaymentTermsTable() {
         discount_percent: Number(editData.discount_percent),
       };
 
-      const res = await fetch(`/api/superadmin/master-list/payment-terms/${editData.id}`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(dataToSend),
-      });
+      const res = await fetch(
+        `/api/superadmin/master-list/payment-terms/${editData.id}`,
+        {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(dataToSend),
+        }
+      );
 
       const data = await res.json();
       if (!res.ok)
@@ -167,9 +197,12 @@ export default function PaymentTermsTable() {
   const handleDelete = async () => {
     try {
       setIsDeleting(true);
-      const res = await fetch(`/api/superadmin/master-list/payment-terms/${deleteId}`, {
-        method: "DELETE",
-      });
+      const res = await fetch(
+        `/api/superadmin/master-list/payment-terms/${deleteId}`,
+        {
+          method: "DELETE",
+        }
+      );
 
       const data = await res.json();
       if (!res.ok)
@@ -233,7 +266,7 @@ export default function PaymentTermsTable() {
       {/* Table */}
       <div className="p-6 overflow-x-auto">
         <Table className="border rounded-lg">
-          <TableHeader>
+          <TableHeader className="bg-muted">
             <TableRow>
               <TableHead className="w-[20px]"></TableHead>
               <TableHead>Name</TableHead>
@@ -377,20 +410,6 @@ export default function PaymentTermsTable() {
                 className="col-span-3"
               />
             </div>
-            {/* Description */}
-            <div>
-              <Label htmlFor="description" className="mb-2">
-                Description
-              </Label>
-              <Input
-                id="description"
-                value={editData.description || ""}
-                onChange={(e) =>
-                  setEditData({ ...editData, description: e.target.value })
-                }
-                className="col-span-3"
-              />
-            </div>
             {/* Due Days */}
             <div>
               <Label htmlFor="due-days" className="mb-2">
@@ -432,6 +451,20 @@ export default function PaymentTermsTable() {
                 value={editData.discount_percent || ""}
                 onChange={(e) =>
                   setEditData({ ...editData, discount_percent: e.target.value })
+                }
+                className="col-span-3"
+              />
+            </div>
+            {/* Description */}
+            <div>
+              <Label htmlFor="description" className="mb-2">
+                Description
+              </Label>
+              <Input
+                id="description"
+                value={editData.description || ""}
+                onChange={(e) =>
+                  setEditData({ ...editData, description: e.target.value })
                 }
                 className="col-span-3"
               />

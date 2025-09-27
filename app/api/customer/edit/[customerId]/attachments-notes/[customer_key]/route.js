@@ -5,7 +5,7 @@ import { randomUUID } from "crypto";
 import { unlink, mkdir, writeFile } from "fs/promises";
 import { headers } from "next/headers";
 import { superAdminDb } from "@/lib/db/superadmin";
-import { getTenantDb } from "@/lib/db/getTenantClient";
+import { getTenantDbFromHeaders } from "@/lib/db/getTenantDbFromRequest";
 
 //  Get subdomain from headers
 async function getSubdomainFromHeaders() {
@@ -22,15 +22,15 @@ export async function PUT(req, { params }) {
     const subdomain = await getSubdomainFromHeaders();
 
     // Get company from Super Admin DB
-    const company = await superAdminDb.company.findUnique({
-      where: { sub_domain: subdomain },
-    });
-    if (!company) {
-      return NextResponse.json({ error: "Company not found" }, { status: 404 });
-    }
+    // const company = await superAdminDb.company.findUnique({
+    //   where: { sub_domain: subdomain },
+    // });
+    // if (!company) {
+    //   return NextResponse.json({ error: "Company not found" }, { status: 404 });
+    // }
 
     // Get tenant DB client
-    const tenantDb = getTenantDb(company.db_url);
+      const { tenantDb, timezone } = await getTenantDbFromHeaders();
 
     // Check if customer exists
     const existingCustomer = await tenantDb.customer.findUnique({
@@ -140,7 +140,7 @@ export async function PUT(req, { params }) {
       { status: 200 }
     );
   } catch (err) {
-    console.error("Update Error:", err);
+    // console.error("Update Error:", err);
     return NextResponse.json(
       { error: "Failed to update attachment." },
       { status: 500 }
@@ -159,10 +159,10 @@ export async function DELETE(req, { params }) {
       where: { sub_domain: subdomain },
     });
     if (!company) {
-      return NextResponse.json({ error: "Company not found" }, { status: 404 });
+      return NextResponse.json({ error: "Company not found." }, { status: 404 });
     }
 
-    const tenantDb = getTenantDb(company.db_url);
+    const { tenantDb, timezone } = await getTenantDbFromHeaders();
 
     // Fetch attachments for the customer_key
     const attachments = await tenantDb.customerNotesAndAttachments.findMany({
@@ -202,7 +202,7 @@ export async function DELETE(req, { params }) {
       { status: 200 }
     );
   } catch (err) {
-    console.error("Delete Error:", err);
+    // console.error("Delete Error:", err);
     return NextResponse.json(
       { error: "Failed to delete attachments and files." },
       { status: 500 }

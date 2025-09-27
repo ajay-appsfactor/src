@@ -53,7 +53,7 @@ const CompanyServiceCreate = () => {
   };
 
   return (
-    <div className="bg-white border border-gray-200 rounded ">
+    <div className="bg-white">
       {/* Header */}
       <div className="py-2 px-6 sm:px-4 w-full max-w-7xl flex justify-between items-center">
         <div className="flex items-center gap-4">
@@ -73,7 +73,7 @@ const CompanyServiceCreate = () => {
 
       <hr />
 
-      <div className="w-full px-6 py-4 max-w-5xl mt-2">
+      <div className="w-full px-6 py-4 mt-2">
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}

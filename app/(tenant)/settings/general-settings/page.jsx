@@ -11,15 +11,6 @@ import { Loader, ArrowLeft } from "lucide-react";
 import { rootDomain } from "@/utils/rootDomain";
 import { toast } from "react-toastify";
 import CompanyLogoUploader from "@/components/company/company-logo/CompanyLogoUplaod";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { useCompany } from "@/context/CompanyContext";
 import TimezoneField from "@/utils/TimezoneField";
 import CurrencyField from "@/components/superadmin/company/create/CurrencyField";
@@ -110,7 +101,7 @@ export default function GeneralSettingPage() {
         ]);
       }
     } catch (error) {
-      console.error(error);
+      // console.error(error);
       setFieldError(error.message || "Something went wrong.");
     } finally {
       setSubmitting(false);

@@ -202,7 +202,7 @@ const AddressVendorForm = ({ vendor }) => {
                   <PopoverTrigger asChild>
                     <Button
                       variant="outline"
-                      className="w-full justify-between"
+                      className="w-full justify-between cursor-pointer"
                     >
                       {values.country
                         ? countries.find((c) => c.value === values.country)

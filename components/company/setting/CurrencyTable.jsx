@@ -84,7 +84,7 @@ export default function MasterCurrencyForm() {
         setCurrencies(data.data || []);
         setFilteredCurrencies(data.data || []);
       } catch (error) {
-        console.error("Fetch error:", error);
+        // console.error("Fetch error:", error);
         toast.error(error.message || "Failed to fetch currencies");
       } finally {
         setLoading(false);
@@ -147,7 +147,7 @@ export default function MasterCurrencyForm() {
   // Handle edit save
   const handleEditSave = async () => {
     try {
-      setSaving(true); // start saving spinner
+      setSaving(true); 
 
       const res = await fetch(
         `/api/company/master-list/currency/${editData.id}`,
@@ -160,16 +160,16 @@ export default function MasterCurrencyForm() {
 
       const data = await res.json();
       if (!res.ok) {
-        throw new Error(data.error || "Failed to update currency");
+        throw new Error(data.error || "Failed to update currency.");
       }
 
-      toast.success("Currency updated successfully");
+      toast.success("Currency updated successfully.");
       setCurrencies((prev) =>
         prev.map((c) => (c.id === editData.id ? editData : c))
       );
       setEditOpen(false);
     } catch (error) {
-      toast.error(error.message || "Error saving changes");
+      toast.error(error.message || "Error saving changes.");
     } finally {
       setSaving(false);
     }
@@ -185,14 +185,14 @@ export default function MasterCurrencyForm() {
 
       const data = await res.json();
       if (!res.ok) {
-        throw new Error(data.error || "Failed to delete currency");
+        throw new Error(data.error || "Failed to delete currency.");
       }
 
-      toast.success("Currency deleted successfully");
+      toast.success("Currency deleted successfully.");
       setCurrencies((prev) => prev.filter((c) => c.id !== deleteId));
       setDeleteOpen(false);
     } catch (error) {
-      toast.error(error.message || "Error deleting currency");
+      toast.error(error.message || "Error deleting currency.");
     } finally {
       setIsDeleting(false);
     }
@@ -243,7 +243,7 @@ export default function MasterCurrencyForm() {
       {/* Table */}
       <div className="p-6 overflow-x-auto">
         <Table className="rounded-md border">
-          <TableHeader className="sticky top-0">
+          <TableHeader className="sticky top-0 bg-muted">
             <TableRow>
               <TableHead className="w-[20px]"></TableHead>
               <TableHead>Currency</TableHead>
@@ -354,7 +354,7 @@ export default function MasterCurrencyForm() {
           </DialogHeader>
           <div className="space-y-4 py-2">
             <div>
-              <Label>Currency Name</Label>
+              <Label htmlFor="currency-name" className="mb-2">Currency Name</Label>
               <Input
                 value={editData.name || ""}
                 onChange={(e) =>
@@ -364,7 +364,7 @@ export default function MasterCurrencyForm() {
               />
             </div>
             <div>
-              <Label htmlFor="currency-code">Currency Code</Label>
+              <Label htmlFor="currency-code" className="mb-2">Currency Code</Label>
               <Input
                 id="currency-code"
                 value={editData.code || ""}
@@ -375,7 +375,7 @@ export default function MasterCurrencyForm() {
               />
             </div>
             <div>
-              <Label htmlFor="currency-symbol">Symbol</Label>
+              <Label htmlFor="currency-symbol" className="mb-2">Symbol</Label>
               <Input
                 id="currency-symbol"
                 value={editData.symbol || ""}

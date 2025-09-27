@@ -7,7 +7,7 @@ export async function PUT(req, { params }) {
     const { customer_key } = await params;
 
     // Get tenant DB client
-    const tenantDb = await getTenantDbFromHeaders();
+    const { tenantDb } = await getTenantDbFromHeaders();
 
     // Get current address
     const existingAddress = await tenantDb.customerAddress.findUnique({
@@ -72,11 +72,10 @@ export async function PUT(req, { params }) {
 
     return NextResponse.json(updated);
   } catch (error) {
-    console.error("PUT address error:", error);
+    // console.error("PUT address error:", error);
     return NextResponse.json(
       { error: "Failed to update address" },
       { status: 500 }
     );
   }
 }
-

@@ -38,7 +38,7 @@ export default function VendorCapabilitiesCreate() {
       const data = await res.json();
 
       if (!res.ok) {
-        toast.error(data.error || "Something went wrong!");
+        toast.error(data.error || "Something went wrong.");
         return;
       }
 
@@ -46,15 +46,15 @@ export default function VendorCapabilitiesCreate() {
 
       router.push("/super-admin/master-list/vendor-capabilities");
     } catch (error) {
-      console.error("Error submitting form:", error);
-      toast.error("Failed to save Vendor Capabilities");
+      // console.error("Error submitting form:", error);
+      toast.error("Failed to save Vendor Capabilities.");
     } finally {
       setSubmitting(false);
     }
   };
 
   return (
-    <section className="bg-white border border-gray-200 rounded">
+    <section className="bg-white">
       {/* Header */}
       <div className="py-2 px-6 sm:px-4 w-full max-w-7xl flex justify-between items-center">
         <div className="flex items-center gap-4">
@@ -75,7 +75,7 @@ export default function VendorCapabilitiesCreate() {
       <hr />
 
       {/* Form */}
-      <div className="w-full px-6 sm:px-6 py-4 mt-2 max-w-5xl">
+      <div className="w-full px-6 sm:px-6 py-4 mt-2">
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}

@@ -54,7 +54,7 @@ export const columns = (setDeleteId, setDeleteOpen) => [
     visible: true,
     disableSort: true,
     cell: ({ row }) => (
-      <div className="flex justify-center gap-2">
+      <div className="flex gap-2">
         <Button variant="outline" size="sm" asChild>
           <Link href={`/super-admin/master-list/services/edit/${row.original.id}`}>
             <SquarePen className="w-4 h-4" />

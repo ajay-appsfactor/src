@@ -7,7 +7,7 @@ export default async function TaxFinancialPage({ params }) {
   const { customerId } = await params;
 
   // Get tenant DB client
-  const tenantDb = await getTenantDbFromHeaders();
+  const {tenantDb} = await getTenantDbFromHeaders();
 
   // Fetch tax info with customer name
   const taxInfo = await tenantDb.customerTaxInfo.findUnique({
@@ -65,7 +65,6 @@ export default async function TaxFinancialPage({ params }) {
     };
   }
 
-  // console.log("customer tax server data :", customer);
   return (
     <main>
       <TaxCustomerForm customer={customer} />

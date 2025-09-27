@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { headers } from "next/headers";
 import { getTenantDb } from "@/lib/db/getTenantClient";
 import { superAdminDb } from "@/lib/db/superadmin";
+import { getTenantDbFromHeaders } from "@/lib/db/getTenantDbFromRequest";
 import path from "path";
 import fs from "fs/promises";
 import { join } from "path";
@@ -26,14 +27,14 @@ async function getTenantPrisma() {
 
 export async function GET(req, { params }) {
   const { vendorId } = await params;
-  const prisma = await getTenantPrisma(req);
-  const checkVendor = await prisma.vendor.findUnique({
+  const {tenantDb} = await getTenantDbFromHeaders();
+  const checkVendor = await tenantDb.vendor.findUnique({
     where: { id: vendorId },
   });
   if (!checkVendor)
     return NextResponse.json({ error: "Vendor not found." }, { status: 404 });
 
-  const data = await prisma.vendorTaxCompliance.findMany({
+  const data = await tenantDb.vendorTaxCompliance.findMany({
     orderBy: { created_at: "desc" },
   });
 
@@ -45,7 +46,7 @@ export async function GET(req, { params }) {
 export async function POST(req, { params }) {
   try {
     const { vendorId } = await params;
-    const prisma = await getTenantPrisma();
+    const {tenantDb} = await getTenantDbFromHeaders();
 
     const headersList = await headers();
     const host = headersList.get("host") || "";
@@ -53,7 +54,7 @@ export async function POST(req, { params }) {
     // Handle localhost (remove port if present)
     const subdomain = host.split(".")[0];
 
-    const vendor = await prisma.vendor.findUnique({
+    const vendor = await tenantDb.vendor.findUnique({
       where: { id: vendorId },
     });
 
@@ -62,7 +63,7 @@ export async function POST(req, { params }) {
     }
 
     // Pehle check karo
-    const existingCompliance = await prisma.vendorTaxCompliance.findFirst({
+    const existingCompliance = await tenantDb.vendorTaxCompliance.findFirst({
       where: {
         vendor_id: vendorId,
         file_url: { not: null },
@@ -122,7 +123,7 @@ export async function POST(req, { params }) {
       fileUrl = encryptedName;
     }
 
-    await prisma.vendorTaxCompliance.create({
+    await tenantDb.vendorTaxCompliance.create({
       data: {
         vendor_id: vendorId,
         tax_number: taxNumber,
@@ -140,7 +141,7 @@ export async function POST(req, { params }) {
       { status: 201 }
     );
   } catch (error) {
-    console.error("Error creating tax compliance:", error);
+    // console.error("Error creating tax compliance:", error);
     return NextResponse.json(
       { error: "Failed to create tax compliance" },
       { status: 500 }

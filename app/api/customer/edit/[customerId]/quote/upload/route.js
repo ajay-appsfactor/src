@@ -40,17 +40,28 @@ export async function POST(req, { params }) {
     });
 
     if (!company) {
-      return NextResponse.json({ error: "Company not found" }, { status: 404 });
+      return NextResponse.json(
+        { error: "Company not found." },
+        { status: 404 }
+      );
     }
 
     // Tenant DB connection
-    const tenantDb = await getTenantDbFromHeaders();
+    const  {tenantDb} = await getTenantDbFromHeaders();
 
     // Check if customer exists + default address
     const customer = await tenantDb.customer.findUnique({
       where: { id: customerId },
       select: {
-        user: { select: { id: true } },
+        user: {
+          select: {
+            id: true,
+            email: true,
+            first_name: true,
+            last_name: true,
+            phone: true,
+          },
+        },
         addresses: { where: { is_default: true }, take: 1 },
       },
     });
@@ -62,11 +73,15 @@ export async function POST(req, { params }) {
       );
     }
 
-    const userId = customer.user.id;
-    console.log("UserID :", userId);
-    const customerEmail = customer.user.email;
+    // const userId = customer.user.id;
+    // console.log("UserID :", userId);
+    // const customerEmail = customer.user.email;
+    // console.log("customerEmail :", customerEmail);
     const customerAddress = customer.addresses[0];
-    console.log("customerAddress :", customerAddress);
+    // console.log("customerAddress :", customerAddress);
+
+    // const userData = customer.user;
+    // console.log("User data :", userData);
 
     // Current date
     const now = new Date();
@@ -76,23 +91,29 @@ export async function POST(req, { params }) {
     // Create new quote with copied address
     const newQuote = await tenantDb.quote.create({
       data: {
-        user_id: userId,
+        // user_id: customer.user.id,
+        User: {
+          connect: { id: customer.user.id },
+        },
 
-        customer_email: customerEmail,
+        customer_email: customer.user.email,
+        billing_phone: customer.user?.phone ?? null,
+        billing_name:
+          customer.user.first_name && customer.user.last_name
+            ? customer.user.first_name + " " + customer.user.last_name
+            : customer.user.first_name || null,
 
-        billing_address: customerAddress?.billing_address || "",
-        billing_address2: customerAddress?.billing_address2 || null,
-        billing_city: customerAddress?.billing_city || "",
-        billing_state: customerAddress?.billing_state || "",
-        billing_zip: customerAddress?.billing_zip || "",
-        billing_country: customerAddress?.billing_country || "",
+        billing_address: customerAddress?.billing_address || null,
+        billing_city: customerAddress?.billing_city || null,
+        billing_state: customerAddress?.billing_state || null,
+        billing_zip: customerAddress?.billing_zip || null,
+        billing_country: customerAddress?.billing_country || null,
 
-        shipping_address: customerAddress?.shipping_address || "",
-        shipping_address2: customerAddress?.shipping_address2 || null,
-        shipping_city: customerAddress?.shipping_city || "",
-        shipping_state: customerAddress?.shipping_state || "",
-        shipping_zip: customerAddress?.shipping_zip || "",
-        shipping_country: customerAddress?.shipping_country || "",
+        shipping_address: customerAddress?.shipping_address || null,
+        shipping_city: customerAddress?.shipping_city || null,
+        shipping_state: customerAddress?.shipping_state || null,
+        shipping_zip: customerAddress?.shipping_zip || null,
+        shipping_country: customerAddress?.shipping_country || null,
 
         created_month: month,
         created_year: String(year),
@@ -146,7 +167,7 @@ export async function POST(req, { params }) {
                 await fs.mkdir(path.dirname(entryPath), { recursive: true });
                 await fs.writeFile(entryPath, entry.getData());
 
-                const savedFile = await tenantDb.quoteAttachment.create({
+                const savedFile = await tenantDb.quoteItem.create({
                   data: {
                     quote_id: newQuote.id,
                     file_name: entry.entryName,
@@ -166,7 +187,7 @@ export async function POST(req, { params }) {
 
           await fs.writeFile(filePath, buffer);
 
-          const savedFile = await tenantDb.quoteAttachment.create({
+          const savedFile = await tenantDb.quoteItem.create({
             data: {
               quote_id: newQuote.id,
               file_name: file.name,
@@ -180,14 +201,13 @@ export async function POST(req, { params }) {
     );
 
     return NextResponse.json({
-      message: "Quote created & files uploaded successfully.",
-      quote: newQuote,
-      attachments: savedFiles,
+      message: "Files uploaded successfully.",
+      quote_id: newQuote.id,
     });
   } catch (err) {
-    console.error("File upload error:", err);
+    // console.error("File upload error:", err);
     return NextResponse.json(
-      { error: "Upload failed", details: err.message },
+      { error: "Upload failed.", details: err.message },
       { status: 500 }
     );
   }

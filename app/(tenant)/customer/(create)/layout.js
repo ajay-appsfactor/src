@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 
 const sidebarLinks = [
@@ -14,12 +13,10 @@ const sidebarLinks = [
 ];
 
 export default function CustomerLayout({ children }) {
-  const pathname = usePathname();
-
   return (
     <div className="flex flex-col md:flex-row gap-4">
       {/* Sidebar */}
-      <aside className="w-full md:w-80 bg-white border border-gray-200 rounded p-4 h-fit">
+      <aside className="w-full md:w-96 bg-white border border-gray-200 rounded p-4 h-fit">
         <nav className="space-y-2">
           {sidebarLinks.map((link, index) => {
             const isFirst = index === 0;
@@ -46,7 +43,7 @@ export default function CustomerLayout({ children }) {
       </aside>
 
       {/* Main Content */}
-      <section className="flex-1 bg-white border border-gray-200 rounded overflow-auto">
+      <section className="w-full bg-white border border-gray-200 rounded overflow-auto">
         {children}
       </section>
     </div>

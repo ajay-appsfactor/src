@@ -80,16 +80,19 @@ export default function DataTable({
       </div>
 
       {/* Table */}
-      <div className="overflow-auto rounded-md border">
-        <Table className="w-full border-collapse table-fixed bg-white">
-          <TableHeader className="sticky top-0 hover:bg-white z-10">
+      {/* <div className="overflow-auto rounded-md border">
+        <Table className="w-full border-collapse "> */}
+
+      <div>
+        <Table className="rounded-md border">
+          <TableHeader className="bg-muted">
             <TableRow>
               {resolvedColumns.map(
                 (col) =>
                   col.visible !== false && (
                     <TableHead
                       key={col.accessorKey ?? col.header}
-                      className={`text-center px-4 py-2 ${
+                      className={`px-4 py-2 ${
                         col.disableSort ? "" : "cursor-pointer select-none"
                       }`}
                       onClick={() => {
@@ -127,10 +130,7 @@ export default function DataTable({
               </TableRow>
             ) : data.length === 0 ? (
               <TableRow>
-                <TableCell
-                  colSpan={resolvedColumns.length}
-                  className="text-center py-8"
-                >
+                <TableCell colSpan={resolvedColumns.length} className="py-8">
                   No Services found.
                 </TableCell>
               </TableRow>
@@ -142,7 +142,7 @@ export default function DataTable({
                       col.visible !== false && (
                         <TableCell
                           key={col.accessorKey ?? `${col.header}-${cIndex}`}
-                          className="text-center px-4 py-2"
+                          className="px-4 py-2"
                         >
                           {col.cell
                             ? col.cell({ row: { original: row } })

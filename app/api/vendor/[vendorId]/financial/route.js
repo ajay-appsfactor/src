@@ -7,10 +7,10 @@ export async function PUT(req, { params }) {
 
   try {
     // Get tenant-specific Prisma client
-    const prisma = await getTenantDbFromHeaders();
+    const {tenantDb} = await getTenantDbFromHeaders();
 
     // Validate vendor existence
-    const vendor = await prisma.vendor.findUnique({
+    const vendor = await tenantDb.vendor.findUnique({
       where: { id: vendorId }, 
     });
 
@@ -39,7 +39,7 @@ export async function PUT(req, { params }) {
       );
     }
 
-    await prisma.vendorFinancial.upsert({
+    await tenantDb.vendorFinancial.upsert({
       where: { vendor_id: vendorId },
       update: {
         bank_name,
@@ -67,7 +67,7 @@ export async function PUT(req, { params }) {
       { status: 200 }
     );
   } catch (error) {
-    console.error("Vendor Financial PUT Error:", error);
+    // console.error("Vendor Financial PUT Error:", error);
     return NextResponse.json({ error: "Internal server error." }, { status: 500 });
   }
 }

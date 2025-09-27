@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import CreateCustomerInfoForm from "@/components/customer/edit/CreateCustomerInfoForm";
 import { getTenantDbFromHeaders } from "@/lib/db/getTenantDbFromRequest";
+import { formatDates } from "@/utils/formatDates";
 
 export const metadata = {
   title: "Customer | Edit Information",
@@ -9,7 +10,7 @@ export const metadata = {
 export default async function EditCustomerPage({ params }) {
   const { customerId } = await params;
   // Get tenant Prisma client
-  const tenantDb = await getTenantDbFromHeaders();
+  const { tenantDb, timezone } = await getTenantDbFromHeaders();
 
   // Fetch customer data from tenant DB
   const customer = await tenantDb.customer.findUnique({
@@ -26,6 +27,7 @@ export default async function EditCustomerPage({ params }) {
       website: true,
       notes: true,
       created_at: true,
+      updated_at: true,
     },
   });
 
@@ -33,11 +35,12 @@ export default async function EditCustomerPage({ params }) {
     return notFound();
   }
 
+  // Format dates according to tenant timezone
+  const [formattedCustomer] = formatDates([customer], timezone);
+
   return (
     <main>
-      <CreateCustomerInfoForm customer={customer} />
+      <CreateCustomerInfoForm customer={formattedCustomer} />
     </main>
   );
 }
-
-

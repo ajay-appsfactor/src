@@ -232,7 +232,7 @@ export default function LogisticsStatusTable() {
       {/* Table */}
       <div className="p-6 overflow-x-auto">
         <Table className="border rounded-lg">
-          <TableHeader>
+          <TableHeader className="bg-muted">
             <TableRow>
               <TableHead className="w-[20px]"></TableHead>
               <TableHead>Logistics Status Name</TableHead>

@@ -47,16 +47,8 @@ export default function PaymentTermsSelect({ name, label, required }) {
             onValueChange={(id) => {
               form.setFieldValue(name, id);
             }}
-            // value={field.value?.payment_terms_id?.toString() || ""}
-            // onValueChange={(id) => {
-            //   const selected = terms.find(
-            //     (t) => t.payment_terms_id.toString() === id
-            //   );
-            //   // form.setFieldValue(name, selected || {});
-            //   form.setFieldValue(name, id);
-            // }}
           >
-            <SelectTrigger className="w-full">
+            <SelectTrigger className="w-full cursor-pointer">
               <SelectValue placeholder="Select payment terms" />
             </SelectTrigger>
             <SelectContent>

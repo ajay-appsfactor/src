@@ -89,7 +89,7 @@ export default function VendorContactForm({ vendor }) {
 
       <hr />
 
-      <div className="px-6 py-4 mt-2 max-w-7xl">
+      <div className="px-6 py-4 mt-2 w-full">
         <Formik
           enableReinitialize
           initialValues={initialValues}

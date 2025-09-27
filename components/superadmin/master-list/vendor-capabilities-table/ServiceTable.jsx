@@ -72,7 +72,7 @@ export default function ServiceTable() {
       // setTotal(totalCount || 0);
     } catch (error) {
       toast.error(error.message || "Failed to fetch vendor capability.");
-      console.error("Failed to fetch vendor capability data", error);
+      // console.error("Failed to fetch vendor capability data", error);
       setData([]);
       setTotal(0);
     } finally {
@@ -105,7 +105,7 @@ export default function ServiceTable() {
       // await fetchData();
     } catch (error) {
       toast.error(error.message || "Error deleting Vendor capability.");
-      console.error(err);
+      // console.error(err);
     }
   };
 

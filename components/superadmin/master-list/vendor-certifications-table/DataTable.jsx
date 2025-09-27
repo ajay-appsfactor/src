@@ -82,7 +82,7 @@ export default function DataTable({
       {/* Table */}
       <div>
         <Table className="border rounded-md">
-          <TableHeader>
+          <TableHeader className="bg-muted">
             <TableRow>
               {resolvedColumns.map(
                 (col) =>

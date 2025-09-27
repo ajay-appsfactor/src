@@ -7,7 +7,7 @@ export default async function Layout({ children, params }) {
       {/* Sidebar  */}
       <Sidebar customerId={customerId} />
 
-      {/* Main content */}
+      {/* Main content */} 
       <div className="w-full bg-white border border-gray-200 rounded">
         {children}
       </div>

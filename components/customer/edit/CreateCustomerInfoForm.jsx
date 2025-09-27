@@ -340,7 +340,7 @@ export default function CreateCustomerInfoForm({ customer }) {
                         form.setFieldValue(field.name, value)
                       }
                     >
-                      <SelectTrigger className="w-full">
+                      <SelectTrigger className="w-full cursor-pointer">
                         <SelectValue placeholder="Select customer type" />
                       </SelectTrigger>
                       <SelectContent>

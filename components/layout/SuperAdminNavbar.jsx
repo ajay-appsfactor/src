@@ -84,17 +84,17 @@ export default function SuperAdminNavbar({ user }) {
             </DropdownMenuTrigger>
 
             <DropdownMenuContent align="end" className="w-56">
-              <DropdownMenuItem asChild>
+              {/* <DropdownMenuItem asChild>
                 <Link href="/profile" className="flex items-center gap-2">
                   <User className="h-4 w-4" /> Profile
                 </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
+              </DropdownMenuItem> */}
+              {/* <DropdownMenuItem asChild>
                 <Link href="/settings" className="flex items-center gap-2">
                   <Settings className="h-4 w-4" /> Settings
                 </Link>
               </DropdownMenuItem>
-              <DropdownMenuSeparator />
+              <DropdownMenuSeparator /> */}
               <DropdownMenuItem
                 onClick={handleLogout}
                 className="text-red-600 focus:text-red-600 cursor-pointer"
@@ -110,7 +110,7 @@ export default function SuperAdminNavbar({ user }) {
       {mobileMenuOpen && (
         <div className="sm:hidden bg-white border-t absolute w-full z-10 left-0 px-4 py-2">
           <div className="flex flex-col gap-3">
-            <Link
+            {/* <Link
               href="/profile"
               className="flex items-center gap-2 py-2"
               onClick={() => setMobileMenuOpen(false)}
@@ -123,7 +123,7 @@ export default function SuperAdminNavbar({ user }) {
               onClick={() => setMobileMenuOpen(false)}
             >
               <Settings className="h-4 w-4" /> Settings
-            </Link>
+            </Link> */}
             <div
               className="flex items-center gap-2 py-2 text-red-600 cursor-pointer"
               onClick={() => {

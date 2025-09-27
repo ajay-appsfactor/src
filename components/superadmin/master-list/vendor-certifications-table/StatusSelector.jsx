@@ -23,7 +23,7 @@ export default function StatusSelector({ id, currentStatus }) {
     // Convert string → boolean for API
     const statusBool = newStatus === "Active";
 
-    await fetch(`/api/company/settings/vendor-certifications/${id}`, {
+    await fetch(`/api/superadmin/master-list/vendor-certifications/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

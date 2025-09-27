@@ -3,7 +3,7 @@ import { getTenantDbFromHeaders } from "@/lib/db/getTenantDbFromRequest";
 
 export async function PUT(req, { params }) {
   const { vendorId } = await params;
-  const prisma = await getTenantDbFromHeaders();
+  const {tenantDb} = await getTenantDbFromHeaders();
   const body = await req.json();
 
   const {
@@ -17,11 +17,11 @@ export async function PUT(req, { params }) {
 
   try {
     // Validate vendor existence
-    const vendor = await prisma.vendor.findUnique({
+    const vendor = await tenantDb.vendor.findUnique({
       where: { id: vendorId },
     });
 
-    console.log("vendor found :", vendor);
+    // console.log("vendor found :", vendor);
 
     if (!vendor) {
       return NextResponse.json({ error: "Vendor not found." }, { status: 404 });
@@ -34,7 +34,7 @@ export async function PUT(req, { params }) {
       );
     }
 
-    await prisma.vendorOperationalSetting.upsert({
+    await tenantDb.vendorOperationalSetting.upsert({
       where: { vendor_id: vendorId },
       update: {
         status,

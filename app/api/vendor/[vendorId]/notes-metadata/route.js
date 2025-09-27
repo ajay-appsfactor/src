@@ -7,10 +7,10 @@ export async function PUT(req, { params }) {
   const { notes, tags, score, last_order, next_review } = body;
 
   try {
-    const prisma = await getTenantDbFromHeaders();
+    const {tenantDb} = await getTenantDbFromHeaders();
 
     //  Validate vendor existence
-    const vendor = await prisma.vendor.findUnique({
+    const vendor = await tenantDb.vendor.findUnique({
       where: { id: vendorId }, 
     });
 
@@ -19,7 +19,7 @@ export async function PUT(req, { params }) {
     }
 
     // Upsert metadata by vendor_id
-    await prisma.vendorMetadata.upsert({
+    await tenantDb.vendorMetadata.upsert({
       where: { vendor_id: vendorId },
       update: {
         notes,
@@ -43,7 +43,7 @@ export async function PUT(req, { params }) {
       { status: 200 }
     );
   } catch (error) {
-    console.error("Metadata update error:", error);
+    // console.error("Metadata update error:", error);
     return NextResponse.json(
       { error: "Failed to save vendor metadata." },
       { status: 500 }

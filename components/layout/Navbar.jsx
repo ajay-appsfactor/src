@@ -111,7 +111,7 @@ export default function Navbar() {
       {mobileMenuOpen && (
         <div className="sm:hidden bg-white border-t absolute w-full z-10 left-0 px-4 py-2">
           <div className="flex flex-col gap-3">
-            <Link
+            {/* <Link
               href="/profile"
               className="flex items-center gap-2 py-2"
               onClick={() => setMobileMenuOpen(false)}
@@ -124,7 +124,7 @@ export default function Navbar() {
               onClick={() => setMobileMenuOpen(false)}
             >
               Settings
-            </Link>
+            </Link> */}
             <div
               className="flex items-center gap-2 py-2 text-red-600 cursor-pointer"
               onClick={() => setMobileMenuOpen(false)}

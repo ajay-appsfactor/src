@@ -117,7 +117,7 @@ const AddressCustomerForm = ({ customer }) => {
     shipping_country: "",
 
     copy_billing: false,
-    is_default: false, 
+    is_default: false,
   };
 
   // Store initial billing values when copy_billing is enabled
@@ -295,9 +295,9 @@ const AddressCustomerForm = ({ customer }) => {
           </Button>
         )}
       </div>
-
+      {/* max-w-7xl */}
       {showForm && (
-        <div className="px-6 py-4 max-w-7xl">
+        <div className="px-6 py-4 w-full">
           <Formik
             innerRef={formikRef}
             enableReinitialize
@@ -461,7 +461,7 @@ const AddressCustomerForm = ({ customer }) => {
                         <PopoverTrigger asChild>
                           <Button
                             variant="outline"
-                            className="w-full justify-between"
+                            className="w-full justify-between cursor-pointer"
                           >
                             {values.billing_country
                               ? countries.find(
@@ -636,7 +636,7 @@ const AddressCustomerForm = ({ customer }) => {
                         <PopoverTrigger asChild>
                           <Button
                             variant="outline"
-                            className="w-full justify-between"
+                            className="w-full justify-between cursor-pointer"
                             disabled={values.copy_billing}
                           >
                             {values.shipping_country
@@ -715,7 +715,7 @@ const AddressCustomerForm = ({ customer }) => {
       )}
 
       {/* Address List Rendering */}
-      <div className="px-6 py-4 max-w-7xl">
+      <div className="px-6 py-4 w-full">
         {loading ? (
           <div className="flex flex-col items-center justify-center p-12 text-center">
             <Loader className="w-8 h-8 animate-spin text-gray-800 mb-3" />

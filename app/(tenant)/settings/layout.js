@@ -64,7 +64,7 @@ export default function CustomerLayout({ children }) {
         <nav className="space-y-4">
           {sidebarGroups.map((group, i) => (
             <div key={i} className="space-y-2">
-              <h3 className="font-semibold text-sm text-slate-800 uppercase tracking-wide">
+              <h3 className="font-semibold text-sm text-slate-800 tracking-wide">
                 {group.title}
               </h3>
               <div className="flex flex-col space-y-1">

@@ -51,14 +51,14 @@ export default function EditCustomerTaxForm({ customer }) {
       const data = await res.json();
       // console.log("Customer Tax Data:", data);
 
-      if (!res.ok) throw new Error(data.error || "Failed to update");
+      if (!res.ok) throw new Error(data.error || "Failed to update.");
 
-      toast.success(data.message || "Tax & Financial Info saved successfully!");
+      toast.success(data.message || "Tax & Financial Info saved successfully.");
 
       router.push(`/customer/${customerId}/edit/contact-persons`);
     } catch (error) {
-      console.error("Submit error:", error);
-      toast.error("Failed to save tax & financial info");
+      // console.error("Submit error:", error);
+      toast.error("Failed to save tax & financial info.");
     } finally {
       setSubmitting(false);
     }
@@ -110,6 +110,8 @@ export default function EditCustomerTaxForm({ customer }) {
                 </Label>
                 <Field
                   as={Input}
+                  type="number"
+                  step="0.01"
                   id="default_tax_rate"
                   name="default_tax_rate"
                   className="w-full"
@@ -122,11 +124,7 @@ export default function EditCustomerTaxForm({ customer }) {
               </div>
 
               {/* Master Currency */}
-              <CurrencySelect
-                name="currency"
-                label="Currency"
-                required
-              />
+              <CurrencySelect name="currency" label="Currency" required />
 
               {/* Master Payment Terms */}
               <PaymentTermsSelect
@@ -142,6 +140,8 @@ export default function EditCustomerTaxForm({ customer }) {
                 </Label>
                 <Field
                   as={Input}
+                  type="number"
+                  step="0.01"
                   id="credit_limit"
                   name="credit_limit"
                   className="w-full"

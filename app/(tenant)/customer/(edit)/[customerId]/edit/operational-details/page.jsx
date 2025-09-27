@@ -7,7 +7,7 @@ export default async function OperationalDetailsPage({ params }) {
   const { customerId } = await params;
 
   // Get tenant DB client
-  const tenantDb = await getTenantDbFromHeaders();
+    const { tenantDb } = await getTenantDbFromHeaders();
 
   // Fetch operational info with customer name
   const operationalInfo = await tenantDb.customerOperationalInfo.findUnique({

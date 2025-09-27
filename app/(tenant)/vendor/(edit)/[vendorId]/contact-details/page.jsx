@@ -11,10 +11,11 @@ export default async function ContactPersonsPage({ params }) {
 
 
   // Create tenant-specific Prisma client
-  const prisma =  await getTenantDbFromHeaders();
+  const { tenantDb} = await getTenantDbFromHeaders();
+
 
   // Fetch contact info with vendor name
-  const vendorContact = await prisma.vendorContact.findUnique({
+  const vendorContact = await tenantDb.vendorContact.findUnique({
     where: { vendor_id: vendorId },
     include: {
       vendor: {
@@ -37,7 +38,7 @@ export default async function ContactPersonsPage({ params }) {
     };
   } else {
     // Fallback to basic vendor if no contact exists
-    const fallbackVendor = await prisma.vendor.findUnique({
+    const fallbackVendor = await tenantDb.vendor.findUnique({
       where: {id: vendorId },
       select: {
         id: true,

@@ -70,7 +70,7 @@ const VendorNotesForm = ({ vendor }) => {
         router.push("/vendors");
       }
     } catch (error) {
-      console.error("Submit error:", error);
+      // console.error("Submit error:", error);
       toast.error("Failed Notes & Metadata Saved.");
     } finally {
       setSubmitting(false);

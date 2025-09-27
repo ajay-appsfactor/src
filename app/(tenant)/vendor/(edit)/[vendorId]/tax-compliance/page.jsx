@@ -12,18 +12,17 @@ export default async function VendorTaxPage({ params }) {
   if (!vendorId) return notFound();
 
   // Tenant-specific Prisma client
-  const prisma = await getTenantDbFromHeaders();
+  const { tenantDb, timezone } = await getTenantDbFromHeaders();
 
   // Also get subdomain from headers
   const header = await headers();
   const host = header.get("host") || "";
- 
 
   // Protocol
   const protocol = host.includes("localhost") ? "http:" : "https:";
 
   // vendor check
-  const vendor = await prisma.vendor.findUnique({
+  const vendor = await tenantDb.vendor.findUnique({
     where: { id: vendorId },
     select: {
       id: true,
@@ -36,7 +35,8 @@ export default async function VendorTaxPage({ params }) {
   const vendorWithMeta = {
     ...vendor,
     protocol,
-    subdomain :host,
+    subdomain: host,
+    timezone,
   };
 
   // console.log("Vendor data :", vendorWithMeta);
@@ -47,6 +47,3 @@ export default async function VendorTaxPage({ params }) {
     </main>
   );
 }
-
-
-

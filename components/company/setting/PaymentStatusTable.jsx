@@ -233,7 +233,7 @@ export default function CompanyPaymentStatusTable() {
       {/* Table */}
       <div className="p-6 overflow-x-auto">
         <Table className="rounded-md border">
-          <TableHeader>
+          <TableHeader  className="bg-muted">
             <TableRow>
               <TableHead className="w-[20px]"></TableHead>
               <TableHead>Payment Status Name</TableHead>

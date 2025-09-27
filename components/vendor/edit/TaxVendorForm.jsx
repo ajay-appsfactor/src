@@ -9,9 +9,9 @@ import { Save, Loader, Pencil, Trash2, Download } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge"
+import { Badge } from "@/components/ui/badge";
 import { format } from "date-fns";
-import Link from "next/link";
+import moment from "moment-timezone";
 import ManualFileUploader from "@/components/customer/shared/ManualFileUploader";
 import {
   Select,
@@ -523,14 +523,21 @@ const TaxVendorForm = ({ vendor }) => {
                         <p className="text-base truncate font-semibold text-gray-900">
                           {getFileName(b.file_name)}
                         </p>
-                        <p className="text-xs text-gray-500 mt-0.5">
+                        <p className="text-xs text-gray-500 mt-1">
+                          {b.updated_at
+                            ? moment(b.updated_at)
+                                .tz(vendor.timezone)
+                                .format("MMM DD, YYYY · hh:mm A")
+                            : "Date unknown"}
+                        </p>
+                        {/* <p className="text-xs text-gray-500 mt-0.5">
                           {b.created_at
                             ? format(
                                 new Date(b.updated_at),
                                 "MMM dd, yyyy · hh:mm a"
                               )
                             : ""}
-                        </p>
+                        </p> */}
                         <div className="mt-2 grid grid-cols-1 gap-x-4 gap-y-1 text-xs text-gray-600">
                           <p className="text-base">
                             <span className="font-medium text-gray-700">
@@ -586,7 +593,27 @@ const TaxVendorForm = ({ vendor }) => {
                     </div>
 
                     {/* Download link */}
-                    {b.file_url && (
+                    <div className="flex justify-end items-end">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="flex items-center gap-1 cursor-pointer"
+                        onClick={() => {
+                          const fileUrl = getDownloadUrl(b.file_url);
+                          const a = document.createElement("a");
+                          a.href = fileUrl;
+                          a.download = getFileName(b.file_name);
+                          document.body.appendChild(a);
+                          a.click();
+                          a.remove();
+                        }}
+                      >
+                        <Download className="w-4 h-4" />
+                        Download
+                      </Button>
+                    </div>
+
+                    {/* {b.file_url && (
                       <Link
                         href={getDownloadUrl(b.file_url)}
                         target="_blank"
@@ -595,7 +622,7 @@ const TaxVendorForm = ({ vendor }) => {
                       >
                         <Download className="w-4 h-4 mr-1" /> Download
                       </Link>
-                    )}
+                    )} */}
                   </div>
                 ))}
               </div>

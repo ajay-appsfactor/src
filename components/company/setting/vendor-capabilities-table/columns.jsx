@@ -2,12 +2,15 @@ import { Button } from "@/components/ui/button";
 import { SquarePen, Trash2 } from "lucide-react";
 import { format } from "date-fns";
 import StatusSelector from "./StatusSelector";
+import { Badge } from "@/components/ui/badge";
 
 export const columns = (
   setDeleteId,
   setDeleteOpen,
   setEditOpen,
-  setEditData
+  setEditData,
+  setSelectedVendor,
+  setSubCategoryOpen
 ) => [
   {
     accessorKey: "name",
@@ -26,6 +29,22 @@ export const columns = (
           currentStatus={row.original.is_active}
         />
       </div>
+    ),
+  },
+  {
+    accessorKey: "sub_category",
+    header: "Sub Category",
+    visible: true,
+    cell: ({ row }) => (
+      <Badge
+        onClick={() => {
+          setSelectedVendor(row.original);
+          setSubCategoryOpen(true);
+        }}
+        className="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums cursor-pointer hover:bg-gray-600 dark:hover:bg-gray-700"
+      >
+        {row.original._count?.subCategories ?? 0}
+      </Badge>
     ),
   },
   {

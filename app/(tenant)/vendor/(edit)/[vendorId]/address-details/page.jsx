@@ -7,11 +7,12 @@ export const metadata = {
 };
 
 export default async function VendorAddressPage({ params }) {
-  const { vendorId } = await params; 
-  const prisma = await getTenantDbFromHeaders();
+  const { vendorId } = await params;
+  // const prisma = await getTenantDbFromHeaders();
+  const { tenantDb } = await getTenantDbFromHeaders();
 
   // Fetch vendor address by vendor_id
-  const vendorAddress = await prisma.vendorAddress.findUnique({
+  const vendorAddress = await tenantDb.vendorAddress.findUnique({
     where: { vendor_id: vendorId },
     include: {
       vendor: {
@@ -35,7 +36,7 @@ export default async function VendorAddressPage({ params }) {
     };
   } else {
     // Fallback: get basic vendor data
-    const fallbackVendor = await prisma.vendor.findUnique({
+    const fallbackVendor = await tenantDb.vendor.findUnique({
       where: { id: vendorId },
       select: { id: true, vendor_name: true },
     });
@@ -60,13 +61,6 @@ export default async function VendorAddressPage({ params }) {
     </main>
   );
 }
-
-
-
-
-
-
-
 
 // import { prisma } from "@/lib/prisma";
 // import { notFound } from "next/navigation";

@@ -14,7 +14,6 @@ import { toast } from "react-toastify";
 import { useRouter, useParams } from "next/navigation";
 import { roleOptions } from "@/constants/role";
 
-
 const EditUser = () => {
   const router = useRouter();
   const { id } = useParams();
@@ -51,8 +50,16 @@ const EditUser = () => {
   }, [id]);
 
   const validationSchema = Yup.object({
-    firstName: Yup.string().trim().required("First name is required"),
-    lastName: Yup.string().trim().nullable(),
+    firstName: Yup.string()
+      .trim()
+      .required("First name is required")
+      .min(2, "First name must be at least 2 characters")
+      .max(100, "First name cannot exceed 100 characters"),
+    lastName: Yup.string()
+      .trim()
+      .required("Last name is required")
+      .min(2, "Last name must be at least 2 characters")
+      .max(100, "Last name cannot exceed 100 characters"),
     email: Yup.string()
       .email("Invalid email address")
       .required("Email is required"),
@@ -80,7 +87,7 @@ const EditUser = () => {
       .min(1, "At least one role must be selected"),
   });
 
-    if (loadingUser) {
+  if (loadingUser) {
     return (
       <div className="flex justify-center items-center h-64">
         <Loader className="animate-spin w-6 h-6 text-slate-700" />
@@ -169,7 +176,7 @@ const EditUser = () => {
                 {/* Last Name */}
                 <div>
                   <Label htmlFor="lastName" className="mb-2">
-                    Last Name
+                    Last Name<span className="text-rose-500">*</span>
                   </Label>
                   <Field name="lastName" as={Input} />
                   <ErrorMessage

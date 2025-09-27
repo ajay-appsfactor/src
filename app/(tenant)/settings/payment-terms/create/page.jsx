@@ -18,7 +18,7 @@ export default function MasterPaymentTermsForm() {
       {
         name: "",
         description: "",
-        due_days:"",
+        due_days: "",
         discount_days: "",
         discount_percent: "",
         is_active: true,
@@ -61,22 +61,22 @@ export default function MasterPaymentTermsForm() {
 
       const data = await res.json();
       if (!res.ok) {
-        toast.error(data.error || "Something went wrong!");
+        toast.error(data.error || "Something went wrong.");
         return;
       }
 
-      toast.success(data.message || "Payment terms saved");
+      toast.success(data.message || "Payment terms saved.");
       router.push("/settings/payment-terms");
     } catch (error) {
-      console.error("Error submitting form:", error);
-      toast.error("Failed to save payment terms");
+      // console.error("Error submitting form:", error);
+      toast.error("Failed to save payment terms.");
     } finally {
       setSubmitting(false);
     }
   };
 
   return (
-    <section className="bg-white border border-gray-200 rounded">
+    <section className="bg-white">
       {/* Header */}
       <div className="py-2 px-6 sm:px-4 flex justify-between items-center">
         <div className="flex items-center gap-4">
@@ -96,7 +96,7 @@ export default function MasterPaymentTermsForm() {
       <hr />
 
       {/* Form */}
-      <div className="px-6 py-4 max-w-5xl">
+      <div className="px-6 py-4 w-full">
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}

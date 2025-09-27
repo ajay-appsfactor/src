@@ -20,7 +20,7 @@ export default function Sidebar({ customerId }) {
 
   return (
     <aside className="w-full md:w-96 bg-white border border-gray-200 rounded p-4 h-fit">
-      <nav className="space-y-2">
+      <nav className="space-y-2"> 
         {sidebarLinks.map((link) => {
           const fullPath = `/customer/${customerId}/edit/${link.href}`;
           const isActive = normalize(pathname) === normalize(fullPath);

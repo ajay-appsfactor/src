@@ -247,7 +247,7 @@ export default function PaymentTermsTable() {
       {/* Table */}
       <div className="p-6 overflow-x-auto">
         <Table className="rounded-md border">
-          <TableHeader>
+          <TableHeader  className="bg-muted">
             <TableRow>
               <TableHead className="w-[20px]"></TableHead>
               <TableHead>Name</TableHead>
@@ -281,7 +281,7 @@ export default function PaymentTermsTable() {
                     <Badge variant="outline">{term.due_days}</Badge>
                   </TableCell>
                   <TableCell>
-                    <Badge variant="outline">{term.discount_days}</Badge>
+                    <Badge variant="outline">{term.discount_days || "-"}</Badge>
                   </TableCell>
                   <TableCell>
                     <Badge variant="outline">{term.discount_percent}%</Badge>
@@ -355,8 +355,8 @@ export default function PaymentTermsTable() {
                   className="text-center text-gray-500 py-8"
                 >
                   {searchTerm
-                    ? "No matching payment terms found"
-                    : "No payment terms available"}
+                    ? "No matching payment terms found."
+                    : "No payment terms available."}
                 </TableCell>
               </TableRow>
             )}

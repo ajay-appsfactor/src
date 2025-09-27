@@ -39,7 +39,7 @@ export default function CurrencySelect({ name, label, required }) {
             value={field.value || ""}
             onValueChange={(val) => form.setFieldValue(name, val)}
           >
-            <SelectTrigger className="w-full">
+            <SelectTrigger className="w-full cursor-pointer">
               <SelectValue placeholder="Select currency" />
             </SelectTrigger>
             <SelectContent>

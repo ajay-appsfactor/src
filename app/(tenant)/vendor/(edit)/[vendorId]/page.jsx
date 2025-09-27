@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import CreateVendorForm from "@/components/vendor/edit/CreateVendorInfo";
 import { getTenantDbFromHeaders } from "@/lib/db/getTenantDbFromRequest";
+import { formatDates } from "@/utils/formatDates";
 
 export const metadata = {
   title: "Vendor | Edit Information",
@@ -8,10 +9,9 @@ export const metadata = {
 
 export default async function EditVendorPage({ params }) {
   const { vendorId } = await params; 
+  const { tenantDb, timezone } = await getTenantDbFromHeaders();
 
-  const tenantPrisma = await getTenantDbFromHeaders();
-
-  const vendor = await tenantPrisma.vendor.findUnique({
+  const vendor = await tenantDb.vendor.findUnique({
     where: { id: vendorId },
     select: {
       id: true,
@@ -23,14 +23,18 @@ export default async function EditVendorPage({ params }) {
       phone: true,
       website: true,
       created_at: true,
+      updated_at:true,
     },
   });
 
   if (!vendor) return notFound();
   // console.log("Vendor Info :", vendor);
+
+  // Format dates according to tenant timezone
+    const [formattedVendor] = formatDates([vendor], timezone);
   return (
     <main>
-      <CreateVendorForm vendor={vendor} />
+      <CreateVendorForm vendor={formattedVendor} />
     </main>
   );
 }

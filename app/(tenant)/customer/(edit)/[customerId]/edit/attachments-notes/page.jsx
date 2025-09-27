@@ -7,7 +7,7 @@ export default async function AttachmentsNotesPage({ params }) {
   const { customerId } = await params;
 
   // Get tenant DB client
-  const prisma = await getTenantDbFromHeaders();
+  const { tenantDb, timezone } = await getTenantDbFromHeaders();
 
   // Also get subdomain from headers
   const header = await headers();
@@ -16,10 +16,8 @@ export default async function AttachmentsNotesPage({ params }) {
   // Protocol
   const protocol = host.includes("localhost") ? "http:" : "https:";
 
-
-
   // Fetch customer with attachments/notes
-  const customer = await prisma.customer.findUnique({
+  const customer = await tenantDb.customer.findUnique({
     where: { id: customerId },
     select: {
       id: true,
@@ -27,13 +25,13 @@ export default async function AttachmentsNotesPage({ params }) {
     },
   });
 
-
   if (!customer) return notFound();
 
- const customerWithMeta = {
+  const customerWithMeta = {
     ...customer,
     protocol,
-    subdomain :host,
+    subdomain: host,
+    timezone,
   };
   // console.log("Customer attachements  data :", customerWithMeta)
   return (

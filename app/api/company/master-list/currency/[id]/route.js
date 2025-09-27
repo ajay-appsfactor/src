@@ -6,7 +6,7 @@ export async function PATCH(req, { params }) {
   try {
     const body = await req.json();
 
-    const tenantDb = await getTenantDbFromHeaders();
+    const {tenantDb} = await getTenantDbFromHeaders();
     const updated = await tenantDb.tenantCurrency.update({
       where: { id },
       data: {
@@ -18,9 +18,9 @@ export async function PATCH(req, { params }) {
     });
     return NextResponse.json({ success: true, data: updated });
   } catch (error) {
-    console.error(error);
+    // console.error(error);
     return NextResponse.json(
-      { error: "Failed to update currency" },
+      { error: "Failed to update currency." },
       { status: 500 }
     );
   }
@@ -30,16 +30,16 @@ export async function PATCH(req, { params }) {
 export async function DELETE(req, { params }) {
   const { id } = await params;
   try {
-    const tenantDb = await getTenantDbFromHeaders();
+    const {tenantDb} = await getTenantDbFromHeaders();
     await tenantDb.tenantCurrency.delete({
       where: { id },
     });
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error("DELETE currency error:", error);
+    // console.error("DELETE currency error:", error);
     return NextResponse.json(
-      { success: false, error: "Failed to delete currency" },
+      { success: false, error: "Failed to delete currency." },
       { status: 500 }
     );
   }
