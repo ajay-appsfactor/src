@@ -12,7 +12,7 @@ const normalize = (val) => {
 export async function POST(req) {
   try {
     // Get tenant-specific Prisma client
-    const prisma = await getTenantDbFromHeaders(req.headers);
+    const {tenantDb} = await getTenantDbFromHeaders();
 
     const formData = await req.formData();
     const file = formData.get("file");
@@ -72,7 +72,7 @@ export async function POST(req) {
     let importedCount = 0;
 
     for (const customer of data) {
-      await prisma.customer.upsert({
+      await tenantDb.customer.upsert({
         where: { email: customer.email },
         update: {
           first_name: customer.first_name,
@@ -94,7 +94,7 @@ export async function POST(req) {
       message: `${importedCount} customers imported  successfully.`,
     });
   } catch (error) {
-    console.error("IMPORT ERROR:", error);
+    // console.error("IMPORT ERROR:", error);
     return NextResponse.json(
       { error: "Error importing file", details: error.message },
       { status: 500 }

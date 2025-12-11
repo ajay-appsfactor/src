@@ -8,6 +8,7 @@ import { UserProvider } from "@/context/UserContext";
 
 export default async function SuperAdminLayout({ children }) {
   const session = await getServerSession(authOptions);
+  // console.log("Company Customer: ", session)
 
   if (!session) {
     redirect("/login");
@@ -26,7 +27,7 @@ export default async function SuperAdminLayout({ children }) {
           <Navbar />
 
           {/* Top Header under Navbar */}
-          <TenantTopHeader />
+          <TenantTopHeader session={session} />
 
           {/* Main Content below headers */}
           <main className="flex-1 overflow-auto p-4 md:p-6">{children}</main>

@@ -132,6 +132,98 @@ exports.Prisma.UserScalarFieldEnum = {
   updated_at: 'updated_at'
 };
 
+exports.Prisma.QuoteScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  quote_item_id: 'quote_item_id',
+  status: 'status',
+  payment_status: 'payment_status',
+  quote_type: 'quote_type',
+  tax: 'tax',
+  deposit_paid: 'deposit_paid',
+  shipping: 'shipping',
+  tax_buy_price: 'tax_buy_price',
+  shipping_buy_price: 'shipping_buy_price',
+  lead_time: 'lead_time',
+  payable: 'payable',
+  freight_condition: 'freight_condition',
+  freight_condition_dismiss: 'freight_condition_dismiss',
+  customer_email: 'customer_email',
+  emails: 'emails',
+  invoice_date: 'invoice_date',
+  invoice_email: 'invoice_email',
+  billing_name: 'billing_name',
+  billing_company: 'billing_company',
+  billing_address: 'billing_address',
+  billing_city: 'billing_city',
+  billing_state: 'billing_state',
+  billing_country: 'billing_country',
+  billing_zip: 'billing_zip',
+  billing_phone: 'billing_phone',
+  billing_fax: 'billing_fax',
+  shipping_name: 'shipping_name',
+  shipping_company: 'shipping_company',
+  shipping_address: 'shipping_address',
+  shipping_city: 'shipping_city',
+  shipping_state: 'shipping_state',
+  shipping_country: 'shipping_country',
+  shipping_zip: 'shipping_zip',
+  shipping_phone: 'shipping_phone',
+  shipping_email: 'shipping_email',
+  shipping_fax: 'shipping_fax',
+  sales_person: 'sales_person',
+  project_manager: 'project_manager',
+  accept_agreement: 'accept_agreement',
+  date_created: 'date_created',
+  created_month: 'created_month',
+  created_year: 'created_year',
+  created_at: 'created_at',
+  updated_at: 'updated_at',
+  deleted_at: 'deleted_at',
+  is_deleted: 'is_deleted'
+};
+
+exports.Prisma.QuoteItemScalarFieldEnum = {
+  id: 'id',
+  quote_id: 'quote_id',
+  file_name: 'file_name',
+  file_url: 'file_url',
+  status: 'status',
+  quantity: 'quantity',
+  service: 'service',
+  material: 'material',
+  finish: 'finish',
+  description: 'description',
+  process: 'process',
+  specification: 'specification',
+  price: 'price',
+  cost: 'cost',
+  cost_shipping_price: 'cost_shipping_price',
+  cost_shipping_total: 'cost_shipping_total',
+  custom_shipping_total: 'custom_shipping_total',
+  buy_price: 'buy_price',
+  buy_shipping_price: 'buy_shipping_price',
+  buy_shipping_total: 'buy_shipping_total',
+  quantity_owed: 'quantity_owed',
+  invoiced: 'invoiced',
+  non_taxable: 'non_taxable',
+  non_shipping: 'non_shipping',
+  is_deleted: 'is_deleted',
+  vendor_id: 'vendor_id',
+  vendor_details: 'vendor_details',
+  last_updated_by: 'last_updated_by',
+  work_instructions: 'work_instructions',
+  add_vendor: 'add_vendor',
+  markings: 'markings',
+  part_item_number: 'part_item_number',
+  file_year: 'file_year',
+  file_month: 'file_month',
+  tab_open: 'tab_open',
+  created_at: 'created_at',
+  updated_at: 'updated_at',
+  deleted_at: 'deleted_at'
+};
+
 exports.Prisma.PasswordResetOTPScalarFieldEnum = {
   id: 'id',
   email: 'email',
@@ -233,15 +325,6 @@ exports.Prisma.CustomerScalarFieldEnum = {
   updated_at: 'updated_at',
   deleted_at: 'deleted_at',
   user_id: 'user_id'
-};
-
-exports.Prisma.QuotationAttachmentScalarFieldEnum = {
-  id: 'id',
-  customer_id: 'customer_id',
-  file_name: 'file_name',
-  file_url: 'file_url',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
 };
 
 exports.Prisma.CompanyServiceScalarFieldEnum = {
@@ -462,6 +545,13 @@ exports.Prisma.Company_vendor_flagsScalarFieldEnum = {
   updated_at: 'updated_at'
 };
 
+exports.Prisma.Company_schoolScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  class: 'class',
+  roll_no: 'roll_no'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -486,10 +576,15 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
-
+exports.QuoteType = exports.$Enums.QuoteType = {
+  Prototype: 'Prototype',
+  Production: 'Production'
+};
 
 exports.Prisma.ModelName = {
   User: 'User',
+  Quote: 'Quote',
+  QuoteItem: 'QuoteItem',
   PasswordResetOTP: 'PasswordResetOTP',
   PasswordResetToken: 'PasswordResetToken',
   tenantCurrency: 'tenantCurrency',
@@ -500,7 +595,6 @@ exports.Prisma.ModelName = {
   tenantLogisticsStatus: 'tenantLogisticsStatus',
   tenantFinanceStatus: 'tenantFinanceStatus',
   Customer: 'Customer',
-  QuotationAttachment: 'QuotationAttachment',
   companyService: 'companyService',
   companyMaterial: 'companyMaterial',
   companyFinish: 'companyFinish',
@@ -519,7 +613,8 @@ exports.Prisma.ModelName = {
   company_vendor_capabilities: 'company_vendor_capabilities',
   company_vendor_capability_sub_categories: 'company_vendor_capability_sub_categories',
   company_vendor_certifications: 'company_vendor_certifications',
-  company_vendor_flags: 'company_vendor_flags'
+  company_vendor_flags: 'company_vendor_flags',
+  company_school: 'company_school'
 };
 
 /**

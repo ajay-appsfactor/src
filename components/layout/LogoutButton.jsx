@@ -14,7 +14,7 @@ export function useLogout() {
       router.push("/login");
       router.refresh();
     } catch (error) {
-      console.error("Logout failed", error);
+      // console.error("Logout failed", error);
       toast.error("Failed to logout. Please try again.");
     }
   };

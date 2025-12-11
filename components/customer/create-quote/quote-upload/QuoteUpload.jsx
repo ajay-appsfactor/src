@@ -13,8 +13,8 @@ export default function FileUpload({ value, onChange, onError }) {
 
   const onDrop = useCallback(
   (acceptedFiles, rejectedFiles) => {
-    console.log("Accepted files:", acceptedFiles);
-    console.log("Rejected files:", rejectedFiles);
+    // console.log("Accepted files:", acceptedFiles);
+    // console.log("Rejected files:", rejectedFiles);
 
     const errors = [];
 

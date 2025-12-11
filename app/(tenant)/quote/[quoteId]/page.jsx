@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import QuoteItemsForm from "@/components/customer/quote-item/page";
 
 export const metadata = {
-  title: "Quote Item",
+  title: "Customer | Quote Item",
 };
 
 

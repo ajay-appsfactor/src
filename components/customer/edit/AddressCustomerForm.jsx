@@ -33,14 +33,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { toast } from "react-toastify";
-
-const countries = [
-  { value: "india", label: "India" },
-  { value: "usa", label: "United States" },
-  { value: "uk", label: "United Kingdom" },
-  { value: "canada", label: "Canada" },
-  { value: "australia", label: "Australia" },
-];
+import { countries } from "@/constants/countries";
 
 const AddressCustomerForm = ({ customer }) => {
   const router = useRouter();
@@ -165,7 +158,7 @@ const AddressCustomerForm = ({ customer }) => {
       // Redirect after new address
       // router.push(`/customer/${customerId}/edit/address-details`);
     } catch (error) {
-      console.error("Error creating address:", error);
+      // console.error("Error creating address:", error);
       toast.error("Something went wrong!");
     } finally {
       setSubmitting(false);
@@ -208,7 +201,7 @@ const AddressCustomerForm = ({ customer }) => {
       // Just refresh page after update
       router.refresh();
     } catch (error) {
-      console.error("Error updating address:", error);
+      // console.error("Error updating address:", error);
       toast.error("Something went wrong!");
     } finally {
       setSubmitting(false);

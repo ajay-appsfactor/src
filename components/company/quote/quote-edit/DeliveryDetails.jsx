@@ -1,9 +1,22 @@
-const DeliveryDetails = ({ delivery }) => {
+import { Button } from "@/components/ui/button";
+import { SquarePen } from "lucide-react";
+
+const DeliveryDetails = ({ delivery, onEdit }) => {
   return (
     <div className="p-4 col-span-1">
-      <h4 className="text-gray-800 font-semibold mb-2">Delivery Details</h4>
+      <h4 className="text-gray-800 font-semibold mb-2 flex justify-start gap-2 items-center">
+        Shipping Details
+        <Button
+          size="sm"
+          variant="outline"
+          className="cursor-pointer"
+          onClick={() => onEdit("delivery", delivery)}
+        >
+          {<SquarePen />}
+        </Button>
+      </h4>
       <div className="text-sm text-gray-700 space-y-1">
-        <div>Delivery address:</div>
+        <div>Shipping address:</div>
         <div>
           {delivery?.shipping_address || ""}
           {delivery?.shipping_city ? `, ${delivery.shipping_city}` : ""}

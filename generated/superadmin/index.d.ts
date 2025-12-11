@@ -7958,8 +7958,8 @@ export namespace Prisma {
     name: string
     description: string | null
     due_days: number
-    discount_days: number | null
-    discount_percent: Decimal | null
+    discount_days: number
+    discount_percent: Decimal
     is_active: boolean
     created_at: Date
     updated_at: Date
@@ -8047,8 +8047,8 @@ export namespace Prisma {
       name: string
       description: string | null
       due_days: number
-      discount_days: number | null
-      discount_percent: Prisma.Decimal | null
+      discount_days: number
+      discount_percent: Prisma.Decimal
       is_active: boolean
       created_at: Date
       updated_at: Date
@@ -18641,17 +18641,17 @@ export namespace Prisma {
 
   export type currencyWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    code?: string
     AND?: currencyWhereInput | currencyWhereInput[]
     OR?: currencyWhereInput[]
     NOT?: currencyWhereInput | currencyWhereInput[]
     currency_id?: IntFilter<"currency"> | number
+    code?: StringFilter<"currency"> | string
     name?: StringFilter<"currency"> | string
     symbol?: StringFilter<"currency"> | string
     is_active?: BoolFilter<"currency"> | boolean
     created_at?: DateTimeFilter<"currency"> | Date | string
     updated_at?: DateTimeFilter<"currency"> | Date | string
-  }, "id" | "code">
+  }, "id">
 
   export type currencyOrderByWithAggregationInput = {
     id?: SortOrder
@@ -18692,8 +18692,8 @@ export namespace Prisma {
     name?: StringFilter<"payment_terms"> | string
     description?: StringNullableFilter<"payment_terms"> | string | null
     due_days?: IntFilter<"payment_terms"> | number
-    discount_days?: IntNullableFilter<"payment_terms"> | number | null
-    discount_percent?: DecimalNullableFilter<"payment_terms"> | Decimal | DecimalJsLike | number | string | null
+    discount_days?: IntFilter<"payment_terms"> | number
+    discount_percent?: DecimalFilter<"payment_terms"> | Decimal | DecimalJsLike | number | string
     is_active?: BoolFilter<"payment_terms"> | boolean
     created_at?: DateTimeFilter<"payment_terms"> | Date | string
     updated_at?: DateTimeFilter<"payment_terms"> | Date | string
@@ -18705,8 +18705,8 @@ export namespace Prisma {
     name?: SortOrder
     description?: SortOrderInput | SortOrder
     due_days?: SortOrder
-    discount_days?: SortOrderInput | SortOrder
-    discount_percent?: SortOrderInput | SortOrder
+    discount_days?: SortOrder
+    discount_percent?: SortOrder
     is_active?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
@@ -18714,19 +18714,19 @@ export namespace Prisma {
 
   export type payment_termsWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    name?: string
     AND?: payment_termsWhereInput | payment_termsWhereInput[]
     OR?: payment_termsWhereInput[]
     NOT?: payment_termsWhereInput | payment_termsWhereInput[]
     payment_terms_id?: IntFilter<"payment_terms"> | number
+    name?: StringFilter<"payment_terms"> | string
     description?: StringNullableFilter<"payment_terms"> | string | null
     due_days?: IntFilter<"payment_terms"> | number
-    discount_days?: IntNullableFilter<"payment_terms"> | number | null
-    discount_percent?: DecimalNullableFilter<"payment_terms"> | Decimal | DecimalJsLike | number | string | null
+    discount_days?: IntFilter<"payment_terms"> | number
+    discount_percent?: DecimalFilter<"payment_terms"> | Decimal | DecimalJsLike | number | string
     is_active?: BoolFilter<"payment_terms"> | boolean
     created_at?: DateTimeFilter<"payment_terms"> | Date | string
     updated_at?: DateTimeFilter<"payment_terms"> | Date | string
-  }, "id" | "name">
+  }, "id">
 
   export type payment_termsOrderByWithAggregationInput = {
     id?: SortOrder
@@ -18734,8 +18734,8 @@ export namespace Prisma {
     name?: SortOrder
     description?: SortOrderInput | SortOrder
     due_days?: SortOrder
-    discount_days?: SortOrderInput | SortOrder
-    discount_percent?: SortOrderInput | SortOrder
+    discount_days?: SortOrder
+    discount_percent?: SortOrder
     is_active?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
@@ -18755,8 +18755,8 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"payment_terms"> | string
     description?: StringNullableWithAggregatesFilter<"payment_terms"> | string | null
     due_days?: IntWithAggregatesFilter<"payment_terms"> | number
-    discount_days?: IntNullableWithAggregatesFilter<"payment_terms"> | number | null
-    discount_percent?: DecimalNullableWithAggregatesFilter<"payment_terms"> | Decimal | DecimalJsLike | number | string | null
+    discount_days?: IntWithAggregatesFilter<"payment_terms"> | number
+    discount_percent?: DecimalWithAggregatesFilter<"payment_terms"> | Decimal | DecimalJsLike | number | string
     is_active?: BoolWithAggregatesFilter<"payment_terms"> | boolean
     created_at?: DateTimeWithAggregatesFilter<"payment_terms"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"payment_terms"> | Date | string
@@ -19248,7 +19248,7 @@ export namespace Prisma {
     sub_domain: string
     currency_code: string
     currency_symbol: string
-    timezone: string
+    timezone?: string
     first_name?: string | null
     last_name?: string | null
     phone?: string | null
@@ -19271,7 +19271,7 @@ export namespace Prisma {
     sub_domain: string
     currency_code: string
     currency_symbol: string
-    timezone: string
+    timezone?: string
     first_name?: string | null
     last_name?: string | null
     phone?: string | null
@@ -19339,7 +19339,7 @@ export namespace Prisma {
     sub_domain: string
     currency_code: string
     currency_symbol: string
-    timezone: string
+    timezone?: string
     first_name?: string | null
     last_name?: string | null
     phone?: string | null
@@ -19678,8 +19678,8 @@ export namespace Prisma {
     name: string
     description?: string | null
     due_days?: number
-    discount_days?: number | null
-    discount_percent?: Decimal | DecimalJsLike | number | string | null
+    discount_days?: number
+    discount_percent?: Decimal | DecimalJsLike | number | string
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
@@ -19691,8 +19691,8 @@ export namespace Prisma {
     name: string
     description?: string | null
     due_days?: number
-    discount_days?: number | null
-    discount_percent?: Decimal | DecimalJsLike | number | string | null
+    discount_days?: number
+    discount_percent?: Decimal | DecimalJsLike | number | string
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
@@ -19704,8 +19704,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     due_days?: IntFieldUpdateOperationsInput | number
-    discount_days?: NullableIntFieldUpdateOperationsInput | number | null
-    discount_percent?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    discount_days?: IntFieldUpdateOperationsInput | number
+    discount_percent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19717,8 +19717,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     due_days?: IntFieldUpdateOperationsInput | number
-    discount_days?: NullableIntFieldUpdateOperationsInput | number | null
-    discount_percent?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    discount_days?: IntFieldUpdateOperationsInput | number
+    discount_percent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19730,8 +19730,8 @@ export namespace Prisma {
     name: string
     description?: string | null
     due_days?: number
-    discount_days?: number | null
-    discount_percent?: Decimal | DecimalJsLike | number | string | null
+    discount_days?: number
+    discount_percent?: Decimal | DecimalJsLike | number | string
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
@@ -19743,8 +19743,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     due_days?: IntFieldUpdateOperationsInput | number
-    discount_days?: NullableIntFieldUpdateOperationsInput | number | null
-    discount_percent?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    discount_days?: IntFieldUpdateOperationsInput | number
+    discount_percent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19756,8 +19756,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     due_days?: IntFieldUpdateOperationsInput | number
-    discount_days?: NullableIntFieldUpdateOperationsInput | number | null
-    discount_percent?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    discount_days?: IntFieldUpdateOperationsInput | number
+    discount_percent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20713,15 +20713,15 @@ export namespace Prisma {
     currency_id?: SortOrder
   }
 
-  export type DecimalNullableFilter<$PrismaModel = never> = {
-    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
-    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
-    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+  export type DecimalFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
     lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
   }
 
   export type payment_termsCountOrderByAggregateInput = {
@@ -20777,20 +20777,20 @@ export namespace Prisma {
     discount_percent?: SortOrder
   }
 
-  export type DecimalNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
-    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
-    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+  export type DecimalWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
     lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    not?: NestedDecimalNullableWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedDecimalNullableFilter<$PrismaModel>
-    _sum?: NestedDecimalNullableFilter<$PrismaModel>
-    _min?: NestedDecimalNullableFilter<$PrismaModel>
-    _max?: NestedDecimalNullableFilter<$PrismaModel>
+    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedDecimalFilter<$PrismaModel>
+    _sum?: NestedDecimalFilter<$PrismaModel>
+    _min?: NestedDecimalFilter<$PrismaModel>
+    _max?: NestedDecimalFilter<$PrismaModel>
   }
 
   export type PaymentStatusCountOrderByAggregateInput = {
@@ -21171,8 +21171,8 @@ export namespace Prisma {
     update?: XOR<XOR<ServiceUpdateToOneWithWhereWithoutFinishesInput, ServiceUpdateWithoutFinishesInput>, ServiceUncheckedUpdateWithoutFinishesInput>
   }
 
-  export type NullableDecimalFieldUpdateOperationsInput = {
-    set?: Decimal | DecimalJsLike | number | string | null
+  export type DecimalFieldUpdateOperationsInput = {
+    set?: Decimal | DecimalJsLike | number | string
     increment?: Decimal | DecimalJsLike | number | string
     decrement?: Decimal | DecimalJsLike | number | string
     multiply?: Decimal | DecimalJsLike | number | string
@@ -21434,31 +21434,31 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type NestedDecimalNullableFilter<$PrismaModel = never> = {
-    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
-    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
-    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+  export type NestedDecimalFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
     lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
   }
 
-  export type NestedDecimalNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
-    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
-    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+  export type NestedDecimalWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
     lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    not?: NestedDecimalNullableWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedDecimalNullableFilter<$PrismaModel>
-    _sum?: NestedDecimalNullableFilter<$PrismaModel>
-    _min?: NestedDecimalNullableFilter<$PrismaModel>
-    _max?: NestedDecimalNullableFilter<$PrismaModel>
+    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedDecimalFilter<$PrismaModel>
+    _sum?: NestedDecimalFilter<$PrismaModel>
+    _min?: NestedDecimalFilter<$PrismaModel>
+    _max?: NestedDecimalFilter<$PrismaModel>
   }
 
   export type MaterialCreateWithoutServiceInput = {

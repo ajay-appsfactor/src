@@ -40,6 +40,7 @@ export async function GET(req, { params }) {
             service: true,
             material: true,
             finish: true,
+            description:true
           },
         },
       },

@@ -65,7 +65,7 @@ export const columns = [
     visible: true,
     disableSort: true,
     cell: ({ row }) => (
-      <Link href={`/customer/${row.original.id}/create-quote`}>
+      <Link href={`/customer/${row.original.user_id}/create-quote`}>
         <Button
           variant="ghost"
           size="icon"

@@ -21,7 +21,7 @@ model company {
   sub_domain      String   @unique
   currency_code   String
   currency_symbol String
-  timezone        String
+  timezone        String   @default("UTC")
   first_name      String?
   last_name       String?
   phone           String?
@@ -86,7 +86,7 @@ model Finish {
 model currency {
   id          String   @id @default(cuid())
   currency_id Int      @default(autoincrement())
-  code        String   @unique
+  code        String
   name        String
   symbol      String
   is_active   Boolean  @default(true)
@@ -100,11 +100,11 @@ model currency {
 model payment_terms {
   id               String   @id @default(cuid())
   payment_terms_id Int      @default(autoincrement())
-  name             String   @unique
+  name             String
   description      String?
   due_days         Int      @default(0)
-  discount_days    Int?
-  discount_percent Decimal?
+  discount_days    Int      @default(0)
+  discount_percent Decimal  @default(0)
   is_active        Boolean  @default(true)
   created_at       DateTime @default(now())
   updated_at       DateTime @default(now()) @updatedAt
@@ -182,7 +182,7 @@ model vendor_capability_sub_categories {
   created_at           DateTime @default(now())
   updated_at           DateTime @updatedAt
 
-  capability vendor_capabilities @relation(fields: [vendor_capability_id], references: [id])
+  capability vendor_capabilities @relation(fields: [vendor_capability_id], references: [id], onDelete: Cascade)
 
   @@map("vendor_capability_sub_categories")
 }

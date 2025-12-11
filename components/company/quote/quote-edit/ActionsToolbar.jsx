@@ -17,8 +17,12 @@ import {
   Book,
   Copy,
 } from "lucide-react";
+import Link from "next/link";
+import RFQActions from "./RFQ/RFQActions";
+import InvoiceActions from "./Invoice/InvoiceActions";
+import PurchaseActions from "./PurchaseOrder/PurchaseActions";
 
-const ActionsToolbar = () => {
+const ActionsToolbar = ({ data }) => {
   return (
     <div className="flex items-center sm:justify-start md:justify-end mb-6 overflow-x-auto p-4">
       <div className="flex flex-wrap gap-2 sm:justify-start md:justify-end">
@@ -34,24 +38,8 @@ const ActionsToolbar = () => {
             </Button>
           </HoverCardTrigger>
           <HoverCardContent className="w-64">
-            <div className="flex flex-col gap-2">
-              {/* Heading */}
-              <h4 className="text-sm text-center font-semibold">
-                Generate RFQ
-              </h4>
-              {/* View */}
-              <Button size="sm" variant="outline" className="cursor-pointer">
-                VIEW
-              </Button>
-              {/* Download */}
-              <Button size="sm" variant="outline" className="cursor-pointer">
-                DOWNLOAD
-              </Button>
-              {/* Email Customer */}
-              <Button size="sm" variant="outline" className="cursor-pointer">
-                EMAIL CUSTOMER
-              </Button>
-            </div>
+            {/* RFQ Actions */}
+            <RFQActions data={data} />
           </HoverCardContent>
         </HoverCard>
 
@@ -67,24 +55,8 @@ const ActionsToolbar = () => {
             </Button>
           </HoverCardTrigger>
           <HoverCardContent className="w-64">
-            <div className="flex flex-col gap-2">
-              {/* Heading */}
-              <h4 className="text-sm text-center font-semibold">
-                Generate Invoice
-              </h4>
-              {/* View */}
-              <Button size="sm" variant="outline" className="cursor-pointer">
-                VIEW
-              </Button>
-              {/* Download */}
-              <Button size="sm" variant="outline" className="cursor-pointer">
-                DOWNLOAD
-              </Button>
-              {/* Email Customer */}
-              <Button size="sm" variant="outline" className="cursor-pointer">
-                EMAIL CUSTOMER
-              </Button>
-            </div>
+            {/* Invoice Actions */}
+            <InvoiceActions data={data} />
           </HoverCardContent>
         </HoverCard>
 
@@ -100,24 +72,8 @@ const ActionsToolbar = () => {
             </Button>
           </HoverCardTrigger>
           <HoverCardContent className="w-64">
-            <div className="flex flex-col gap-2">
-              {/* Heading */}
-              <h4 className="text-sm text-center font-semibold">
-                Generate Purchase Order
-              </h4>
-              {/* View */}
-              <Button size="sm" variant="outline" className="cursor-pointer">
-                VIEW
-              </Button>
-              {/* Download */}
-              <Button size="sm" variant="outline" className="cursor-pointer">
-                DOWNLOAD
-              </Button>
-              {/* Email Customer */}
-              <Button size="sm" variant="outline" className="cursor-pointer">
-                EMAIL CUSTOMER
-              </Button>
-            </div>
+            {/* Purchase Actions */}
+            <PurchaseActions data={data} />
           </HoverCardContent>
         </HoverCard>
 

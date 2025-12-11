@@ -3,7 +3,7 @@ import QuoteEdit from '@/components/company/quote/quote-edit';
 
 
 export const metadata = {
-  title: "Quote Edit",
+  title: "Customer | Quote Edit",
 };
 
 export default async function QuoteEditPage({params}) { 

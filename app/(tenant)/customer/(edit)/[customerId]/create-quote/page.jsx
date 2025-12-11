@@ -12,17 +12,18 @@ const Quotepage = async ({ params }) => {
   const {tenantDb} = await getTenantDbFromHeaders();
 
   //  Query customer
-  const customer = await tenantDb.customer.findUnique({
+  const customer = await tenantDb.user.findUnique({
     where: {
       id: customerId,
     },
     select: {
       id: true,
-      customer_name: true,
+      first_name: true,
       email: true,
     },
   });
 
+  // console.log("User Data :", customer)s
   if (!customer) return notFound();
 
   // console.log("customer data :", customer);

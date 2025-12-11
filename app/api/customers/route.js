@@ -41,6 +41,7 @@ export async function GET(req) {
           phone: true,
           created_at: true,
           is_active: true,
+          user_id:true
         },
       }),
       tenantPrisma.customer.count({ where }),

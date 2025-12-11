@@ -9,7 +9,7 @@ export const metadata = {
 
 export default async function CustomerViewPage({ params }) {
   const { id } = await params;
-  const prisma = await getTenantDbFromHeaders();
+    const { tenantDb } = await getTenantDbFromHeaders();
 
   // Also get subdomain from headers
   const header = await headers();
@@ -18,7 +18,7 @@ export default async function CustomerViewPage({ params }) {
   // Protocol
   const protocol = host.includes("localhost") ? "http:" : "https:";
 
-  const vendor = await prisma.vendor.findUnique({
+  const vendor = await tenantDb.vendor.findUnique({
     where: { id },
     include: {
       addresses: true,

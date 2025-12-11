@@ -19,6 +19,16 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
 /**
+ * Model Quote
+ * 
+ */
+export type Quote = $Result.DefaultSelection<Prisma.$QuotePayload>
+/**
+ * Model QuoteItem
+ * 
+ */
+export type QuoteItem = $Result.DefaultSelection<Prisma.$QuoteItemPayload>
+/**
  * Model PasswordResetOTP
  * 
  */
@@ -68,11 +78,6 @@ export type tenantFinanceStatus = $Result.DefaultSelection<Prisma.$tenantFinance
  * 
  */
 export type Customer = $Result.DefaultSelection<Prisma.$CustomerPayload>
-/**
- * Model QuotationAttachment
- * 
- */
-export type QuotationAttachment = $Result.DefaultSelection<Prisma.$QuotationAttachmentPayload>
 /**
  * Model companyService
  * 
@@ -168,6 +173,28 @@ export type company_vendor_certifications = $Result.DefaultSelection<Prisma.$com
  * 
  */
 export type company_vendor_flags = $Result.DefaultSelection<Prisma.$company_vendor_flagsPayload>
+/**
+ * Model company_school
+ * 
+ */
+export type company_school = $Result.DefaultSelection<Prisma.$company_schoolPayload>
+
+/**
+ * Enums
+ */
+export namespace $Enums {
+  export const QuoteType: {
+  Prototype: 'Prototype',
+  Production: 'Production'
+};
+
+export type QuoteType = (typeof QuoteType)[keyof typeof QuoteType]
+
+}
+
+export type QuoteType = $Enums.QuoteType
+
+export const QuoteType: typeof $Enums.QuoteType
 
 /**
  * ##  Prisma Client ʲˢ
@@ -298,6 +325,26 @@ export class PrismaClient<
   get user(): Prisma.UserDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.quote`: Exposes CRUD operations for the **Quote** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Quotes
+    * const quotes = await prisma.quote.findMany()
+    * ```
+    */
+  get quote(): Prisma.QuoteDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.quoteItem`: Exposes CRUD operations for the **QuoteItem** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more QuoteItems
+    * const quoteItems = await prisma.quoteItem.findMany()
+    * ```
+    */
+  get quoteItem(): Prisma.QuoteItemDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.passwordResetOTP`: Exposes CRUD operations for the **PasswordResetOTP** model.
     * Example usage:
     * ```ts
@@ -396,16 +443,6 @@ export class PrismaClient<
     * ```
     */
   get customer(): Prisma.CustomerDelegate<ExtArgs, ClientOptions>;
-
-  /**
-   * `prisma.quotationAttachment`: Exposes CRUD operations for the **QuotationAttachment** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more QuotationAttachments
-    * const quotationAttachments = await prisma.quotationAttachment.findMany()
-    * ```
-    */
-  get quotationAttachment(): Prisma.QuotationAttachmentDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.companyService`: Exposes CRUD operations for the **companyService** model.
@@ -596,6 +633,16 @@ export class PrismaClient<
     * ```
     */
   get company_vendor_flags(): Prisma.company_vendor_flagsDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.company_school`: Exposes CRUD operations for the **company_school** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Company_schools
+    * const company_schools = await prisma.company_school.findMany()
+    * ```
+    */
+  get company_school(): Prisma.company_schoolDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -1037,6 +1084,8 @@ export namespace Prisma {
 
   export const ModelName: {
     User: 'User',
+    Quote: 'Quote',
+    QuoteItem: 'QuoteItem',
     PasswordResetOTP: 'PasswordResetOTP',
     PasswordResetToken: 'PasswordResetToken',
     tenantCurrency: 'tenantCurrency',
@@ -1047,7 +1096,6 @@ export namespace Prisma {
     tenantLogisticsStatus: 'tenantLogisticsStatus',
     tenantFinanceStatus: 'tenantFinanceStatus',
     Customer: 'Customer',
-    QuotationAttachment: 'QuotationAttachment',
     companyService: 'companyService',
     companyMaterial: 'companyMaterial',
     companyFinish: 'companyFinish',
@@ -1066,7 +1114,8 @@ export namespace Prisma {
     company_vendor_capabilities: 'company_vendor_capabilities',
     company_vendor_capability_sub_categories: 'company_vendor_capability_sub_categories',
     company_vendor_certifications: 'company_vendor_certifications',
-    company_vendor_flags: 'company_vendor_flags'
+    company_vendor_flags: 'company_vendor_flags',
+    company_school: 'company_school'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1085,7 +1134,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "passwordResetOTP" | "passwordResetToken" | "tenantCurrency" | "tenantPaymentTerms" | "tenantPaymentStatus" | "tenantQuoteStatus" | "tenantOrderStatus" | "tenantLogisticsStatus" | "tenantFinanceStatus" | "customer" | "quotationAttachment" | "companyService" | "companyMaterial" | "companyFinish" | "customerAddress" | "customerTaxInfo" | "customerContact" | "customerOperationalInfo" | "customerNotesAndAttachments" | "vendor" | "vendorContact" | "vendorAddress" | "vendorTaxCompliance" | "vendorFinancial" | "vendorOperationalSetting" | "vendorMetadata" | "company_vendor_capabilities" | "company_vendor_capability_sub_categories" | "company_vendor_certifications" | "company_vendor_flags"
+      modelProps: "user" | "quote" | "quoteItem" | "passwordResetOTP" | "passwordResetToken" | "tenantCurrency" | "tenantPaymentTerms" | "tenantPaymentStatus" | "tenantQuoteStatus" | "tenantOrderStatus" | "tenantLogisticsStatus" | "tenantFinanceStatus" | "customer" | "companyService" | "companyMaterial" | "companyFinish" | "customerAddress" | "customerTaxInfo" | "customerContact" | "customerOperationalInfo" | "customerNotesAndAttachments" | "vendor" | "vendorContact" | "vendorAddress" | "vendorTaxCompliance" | "vendorFinancial" | "vendorOperationalSetting" | "vendorMetadata" | "company_vendor_capabilities" | "company_vendor_capability_sub_categories" | "company_vendor_certifications" | "company_vendor_flags" | "company_school"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1160,6 +1209,154 @@ export namespace Prisma {
           count: {
             args: Prisma.UserCountArgs<ExtArgs>
             result: $Utils.Optional<UserCountAggregateOutputType> | number
+          }
+        }
+      }
+      Quote: {
+        payload: Prisma.$QuotePayload<ExtArgs>
+        fields: Prisma.QuoteFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.QuoteFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuotePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.QuoteFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuotePayload>
+          }
+          findFirst: {
+            args: Prisma.QuoteFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuotePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.QuoteFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuotePayload>
+          }
+          findMany: {
+            args: Prisma.QuoteFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuotePayload>[]
+          }
+          create: {
+            args: Prisma.QuoteCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuotePayload>
+          }
+          createMany: {
+            args: Prisma.QuoteCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.QuoteCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuotePayload>[]
+          }
+          delete: {
+            args: Prisma.QuoteDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuotePayload>
+          }
+          update: {
+            args: Prisma.QuoteUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuotePayload>
+          }
+          deleteMany: {
+            args: Prisma.QuoteDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.QuoteUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.QuoteUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuotePayload>[]
+          }
+          upsert: {
+            args: Prisma.QuoteUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuotePayload>
+          }
+          aggregate: {
+            args: Prisma.QuoteAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateQuote>
+          }
+          groupBy: {
+            args: Prisma.QuoteGroupByArgs<ExtArgs>
+            result: $Utils.Optional<QuoteGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.QuoteCountArgs<ExtArgs>
+            result: $Utils.Optional<QuoteCountAggregateOutputType> | number
+          }
+        }
+      }
+      QuoteItem: {
+        payload: Prisma.$QuoteItemPayload<ExtArgs>
+        fields: Prisma.QuoteItemFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.QuoteItemFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuoteItemPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.QuoteItemFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuoteItemPayload>
+          }
+          findFirst: {
+            args: Prisma.QuoteItemFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuoteItemPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.QuoteItemFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuoteItemPayload>
+          }
+          findMany: {
+            args: Prisma.QuoteItemFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuoteItemPayload>[]
+          }
+          create: {
+            args: Prisma.QuoteItemCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuoteItemPayload>
+          }
+          createMany: {
+            args: Prisma.QuoteItemCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.QuoteItemCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuoteItemPayload>[]
+          }
+          delete: {
+            args: Prisma.QuoteItemDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuoteItemPayload>
+          }
+          update: {
+            args: Prisma.QuoteItemUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuoteItemPayload>
+          }
+          deleteMany: {
+            args: Prisma.QuoteItemDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.QuoteItemUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.QuoteItemUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuoteItemPayload>[]
+          }
+          upsert: {
+            args: Prisma.QuoteItemUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuoteItemPayload>
+          }
+          aggregate: {
+            args: Prisma.QuoteItemAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateQuoteItem>
+          }
+          groupBy: {
+            args: Prisma.QuoteItemGroupByArgs<ExtArgs>
+            result: $Utils.Optional<QuoteItemGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.QuoteItemCountArgs<ExtArgs>
+            result: $Utils.Optional<QuoteItemCountAggregateOutputType> | number
           }
         }
       }
@@ -1900,80 +2097,6 @@ export namespace Prisma {
           count: {
             args: Prisma.CustomerCountArgs<ExtArgs>
             result: $Utils.Optional<CustomerCountAggregateOutputType> | number
-          }
-        }
-      }
-      QuotationAttachment: {
-        payload: Prisma.$QuotationAttachmentPayload<ExtArgs>
-        fields: Prisma.QuotationAttachmentFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.QuotationAttachmentFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$QuotationAttachmentPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.QuotationAttachmentFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$QuotationAttachmentPayload>
-          }
-          findFirst: {
-            args: Prisma.QuotationAttachmentFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$QuotationAttachmentPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.QuotationAttachmentFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$QuotationAttachmentPayload>
-          }
-          findMany: {
-            args: Prisma.QuotationAttachmentFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$QuotationAttachmentPayload>[]
-          }
-          create: {
-            args: Prisma.QuotationAttachmentCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$QuotationAttachmentPayload>
-          }
-          createMany: {
-            args: Prisma.QuotationAttachmentCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.QuotationAttachmentCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$QuotationAttachmentPayload>[]
-          }
-          delete: {
-            args: Prisma.QuotationAttachmentDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$QuotationAttachmentPayload>
-          }
-          update: {
-            args: Prisma.QuotationAttachmentUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$QuotationAttachmentPayload>
-          }
-          deleteMany: {
-            args: Prisma.QuotationAttachmentDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.QuotationAttachmentUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.QuotationAttachmentUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$QuotationAttachmentPayload>[]
-          }
-          upsert: {
-            args: Prisma.QuotationAttachmentUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$QuotationAttachmentPayload>
-          }
-          aggregate: {
-            args: Prisma.QuotationAttachmentAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateQuotationAttachment>
-          }
-          groupBy: {
-            args: Prisma.QuotationAttachmentGroupByArgs<ExtArgs>
-            result: $Utils.Optional<QuotationAttachmentGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.QuotationAttachmentCountArgs<ExtArgs>
-            result: $Utils.Optional<QuotationAttachmentCountAggregateOutputType> | number
           }
         }
       }
@@ -3383,6 +3506,80 @@ export namespace Prisma {
           }
         }
       }
+      company_school: {
+        payload: Prisma.$company_schoolPayload<ExtArgs>
+        fields: Prisma.company_schoolFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.company_schoolFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$company_schoolPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.company_schoolFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$company_schoolPayload>
+          }
+          findFirst: {
+            args: Prisma.company_schoolFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$company_schoolPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.company_schoolFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$company_schoolPayload>
+          }
+          findMany: {
+            args: Prisma.company_schoolFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$company_schoolPayload>[]
+          }
+          create: {
+            args: Prisma.company_schoolCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$company_schoolPayload>
+          }
+          createMany: {
+            args: Prisma.company_schoolCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.company_schoolCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$company_schoolPayload>[]
+          }
+          delete: {
+            args: Prisma.company_schoolDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$company_schoolPayload>
+          }
+          update: {
+            args: Prisma.company_schoolUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$company_schoolPayload>
+          }
+          deleteMany: {
+            args: Prisma.company_schoolDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.company_schoolUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.company_schoolUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$company_schoolPayload>[]
+          }
+          upsert: {
+            args: Prisma.company_schoolUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$company_schoolPayload>
+          }
+          aggregate: {
+            args: Prisma.Company_schoolAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCompany_school>
+          }
+          groupBy: {
+            args: Prisma.company_schoolGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Company_schoolGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.company_schoolCountArgs<ExtArgs>
+            result: $Utils.Optional<Company_schoolCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -3476,6 +3673,8 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     user?: UserOmit
+    quote?: QuoteOmit
+    quoteItem?: QuoteItemOmit
     passwordResetOTP?: PasswordResetOTPOmit
     passwordResetToken?: PasswordResetTokenOmit
     tenantCurrency?: tenantCurrencyOmit
@@ -3486,7 +3685,6 @@ export namespace Prisma {
     tenantLogisticsStatus?: tenantLogisticsStatusOmit
     tenantFinanceStatus?: tenantFinanceStatusOmit
     customer?: CustomerOmit
-    quotationAttachment?: QuotationAttachmentOmit
     companyService?: companyServiceOmit
     companyMaterial?: companyMaterialOmit
     companyFinish?: companyFinishOmit
@@ -3506,6 +3704,7 @@ export namespace Prisma {
     company_vendor_capability_sub_categories?: company_vendor_capability_sub_categoriesOmit
     company_vendor_certifications?: company_vendor_certificationsOmit
     company_vendor_flags?: company_vendor_flagsOmit
+    company_school?: company_schoolOmit
   }
 
   /* Types for Logging */
@@ -3588,11 +3787,13 @@ export namespace Prisma {
   export type UserCountOutputType = {
     otps: number
     resetTokens: number
+    quotes: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     otps?: boolean | UserCountOutputTypeCountOtpsArgs
     resetTokens?: boolean | UserCountOutputTypeCountResetTokensArgs
+    quotes?: boolean | UserCountOutputTypeCountQuotesArgs
   }
 
   // Custom InputTypes
@@ -3620,6 +3821,44 @@ export namespace Prisma {
     where?: PasswordResetTokenWhereInput
   }
 
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountQuotesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: QuoteWhereInput
+  }
+
+
+  /**
+   * Count Type QuoteCountOutputType
+   */
+
+  export type QuoteCountOutputType = {
+    QuoteItems: number
+  }
+
+  export type QuoteCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    QuoteItems?: boolean | QuoteCountOutputTypeCountQuoteItemsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * QuoteCountOutputType without action
+   */
+  export type QuoteCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QuoteCountOutputType
+     */
+    select?: QuoteCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * QuoteCountOutputType without action
+   */
+  export type QuoteCountOutputTypeCountQuoteItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: QuoteItemWhereInput
+  }
+
 
   /**
    * Count Type CustomerCountOutputType
@@ -3629,14 +3868,12 @@ export namespace Prisma {
     addresses: number
     contacts: number
     attachments: number
-    quotation: number
   }
 
   export type CustomerCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     addresses?: boolean | CustomerCountOutputTypeCountAddressesArgs
     contacts?: boolean | CustomerCountOutputTypeCountContactsArgs
     attachments?: boolean | CustomerCountOutputTypeCountAttachmentsArgs
-    quotation?: boolean | CustomerCountOutputTypeCountQuotationArgs
   }
 
   // Custom InputTypes
@@ -3669,13 +3906,6 @@ export namespace Prisma {
    */
   export type CustomerCountOutputTypeCountAttachmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: CustomerNotesAndAttachmentsWhereInput
-  }
-
-  /**
-   * CustomerCountOutputType without action
-   */
-  export type CustomerCountOutputTypeCountQuotationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: QuotationAttachmentWhereInput
   }
 
 
@@ -3910,7 +4140,7 @@ export namespace Prisma {
   export type UserGroupByOutputType = {
     id: string
     first_name: string
-    last_name: string | null
+    last_name: string
     email: string
     password: string
     phone: string | null
@@ -3950,6 +4180,7 @@ export namespace Prisma {
     vendor?: boolean | User$vendorArgs<ExtArgs>
     otps?: boolean | User$otpsArgs<ExtArgs>
     resetTokens?: boolean | User$resetTokensArgs<ExtArgs>
+    quotes?: boolean | User$quotesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -3995,6 +4226,7 @@ export namespace Prisma {
     vendor?: boolean | User$vendorArgs<ExtArgs>
     otps?: boolean | User$otpsArgs<ExtArgs>
     resetTokens?: boolean | User$resetTokensArgs<ExtArgs>
+    quotes?: boolean | User$quotesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -4007,11 +4239,12 @@ export namespace Prisma {
       vendor: Prisma.$VendorPayload<ExtArgs> | null
       otps: Prisma.$PasswordResetOTPPayload<ExtArgs>[]
       resetTokens: Prisma.$PasswordResetTokenPayload<ExtArgs>[]
+      quotes: Prisma.$QuotePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       first_name: string
-      last_name: string | null
+      last_name: string
       email: string
       password: string
       phone: string | null
@@ -4416,6 +4649,7 @@ export namespace Prisma {
     vendor<T extends User$vendorArgs<ExtArgs> = {}>(args?: Subset<T, User$vendorArgs<ExtArgs>>): Prisma__VendorClient<$Result.GetResult<Prisma.$VendorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     otps<T extends User$otpsArgs<ExtArgs> = {}>(args?: Subset<T, User$otpsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PasswordResetOTPPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     resetTokens<T extends User$resetTokensArgs<ExtArgs> = {}>(args?: Subset<T, User$resetTokensArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PasswordResetTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    quotes<T extends User$quotesArgs<ExtArgs> = {}>(args?: Subset<T, User$quotesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QuotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4928,6 +5162,30 @@ export namespace Prisma {
   }
 
   /**
+   * User.quotes
+   */
+  export type User$quotesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Quote
+     */
+    select?: QuoteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Quote
+     */
+    omit?: QuoteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuoteInclude<ExtArgs> | null
+    where?: QuoteWhereInput
+    orderBy?: QuoteOrderByWithRelationInput | QuoteOrderByWithRelationInput[]
+    cursor?: QuoteWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: QuoteScalarFieldEnum | QuoteScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4943,6 +5201,3251 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: UserInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Quote
+   */
+
+  export type AggregateQuote = {
+    _count: QuoteCountAggregateOutputType | null
+    _avg: QuoteAvgAggregateOutputType | null
+    _sum: QuoteSumAggregateOutputType | null
+    _min: QuoteMinAggregateOutputType | null
+    _max: QuoteMaxAggregateOutputType | null
+  }
+
+  export type QuoteAvgAggregateOutputType = {
+    quote_item_id: number | null
+    sales_person: number | null
+    project_manager: number | null
+    accept_agreement: number | null
+  }
+
+  export type QuoteSumAggregateOutputType = {
+    quote_item_id: number | null
+    sales_person: number | null
+    project_manager: number | null
+    accept_agreement: number | null
+  }
+
+  export type QuoteMinAggregateOutputType = {
+    id: string | null
+    user_id: string | null
+    quote_item_id: number | null
+    status: string | null
+    payment_status: string | null
+    quote_type: $Enums.QuoteType | null
+    tax: string | null
+    deposit_paid: string | null
+    shipping: string | null
+    tax_buy_price: string | null
+    shipping_buy_price: string | null
+    lead_time: string | null
+    payable: string | null
+    freight_condition: string | null
+    freight_condition_dismiss: boolean | null
+    customer_email: string | null
+    emails: string | null
+    invoice_date: Date | null
+    invoice_email: string | null
+    billing_name: string | null
+    billing_company: string | null
+    billing_address: string | null
+    billing_city: string | null
+    billing_state: string | null
+    billing_country: string | null
+    billing_zip: string | null
+    billing_phone: string | null
+    billing_fax: string | null
+    shipping_name: string | null
+    shipping_company: string | null
+    shipping_address: string | null
+    shipping_city: string | null
+    shipping_state: string | null
+    shipping_country: string | null
+    shipping_zip: string | null
+    shipping_phone: string | null
+    shipping_email: string | null
+    shipping_fax: string | null
+    sales_person: number | null
+    project_manager: number | null
+    accept_agreement: number | null
+    date_created: Date | null
+    created_month: string | null
+    created_year: string | null
+    created_at: Date | null
+    updated_at: Date | null
+    deleted_at: Date | null
+    is_deleted: boolean | null
+  }
+
+  export type QuoteMaxAggregateOutputType = {
+    id: string | null
+    user_id: string | null
+    quote_item_id: number | null
+    status: string | null
+    payment_status: string | null
+    quote_type: $Enums.QuoteType | null
+    tax: string | null
+    deposit_paid: string | null
+    shipping: string | null
+    tax_buy_price: string | null
+    shipping_buy_price: string | null
+    lead_time: string | null
+    payable: string | null
+    freight_condition: string | null
+    freight_condition_dismiss: boolean | null
+    customer_email: string | null
+    emails: string | null
+    invoice_date: Date | null
+    invoice_email: string | null
+    billing_name: string | null
+    billing_company: string | null
+    billing_address: string | null
+    billing_city: string | null
+    billing_state: string | null
+    billing_country: string | null
+    billing_zip: string | null
+    billing_phone: string | null
+    billing_fax: string | null
+    shipping_name: string | null
+    shipping_company: string | null
+    shipping_address: string | null
+    shipping_city: string | null
+    shipping_state: string | null
+    shipping_country: string | null
+    shipping_zip: string | null
+    shipping_phone: string | null
+    shipping_email: string | null
+    shipping_fax: string | null
+    sales_person: number | null
+    project_manager: number | null
+    accept_agreement: number | null
+    date_created: Date | null
+    created_month: string | null
+    created_year: string | null
+    created_at: Date | null
+    updated_at: Date | null
+    deleted_at: Date | null
+    is_deleted: boolean | null
+  }
+
+  export type QuoteCountAggregateOutputType = {
+    id: number
+    user_id: number
+    quote_item_id: number
+    status: number
+    payment_status: number
+    quote_type: number
+    tax: number
+    deposit_paid: number
+    shipping: number
+    tax_buy_price: number
+    shipping_buy_price: number
+    lead_time: number
+    payable: number
+    freight_condition: number
+    freight_condition_dismiss: number
+    customer_email: number
+    emails: number
+    invoice_date: number
+    invoice_email: number
+    billing_name: number
+    billing_company: number
+    billing_address: number
+    billing_city: number
+    billing_state: number
+    billing_country: number
+    billing_zip: number
+    billing_phone: number
+    billing_fax: number
+    shipping_name: number
+    shipping_company: number
+    shipping_address: number
+    shipping_city: number
+    shipping_state: number
+    shipping_country: number
+    shipping_zip: number
+    shipping_phone: number
+    shipping_email: number
+    shipping_fax: number
+    sales_person: number
+    project_manager: number
+    accept_agreement: number
+    date_created: number
+    created_month: number
+    created_year: number
+    created_at: number
+    updated_at: number
+    deleted_at: number
+    is_deleted: number
+    _all: number
+  }
+
+
+  export type QuoteAvgAggregateInputType = {
+    quote_item_id?: true
+    sales_person?: true
+    project_manager?: true
+    accept_agreement?: true
+  }
+
+  export type QuoteSumAggregateInputType = {
+    quote_item_id?: true
+    sales_person?: true
+    project_manager?: true
+    accept_agreement?: true
+  }
+
+  export type QuoteMinAggregateInputType = {
+    id?: true
+    user_id?: true
+    quote_item_id?: true
+    status?: true
+    payment_status?: true
+    quote_type?: true
+    tax?: true
+    deposit_paid?: true
+    shipping?: true
+    tax_buy_price?: true
+    shipping_buy_price?: true
+    lead_time?: true
+    payable?: true
+    freight_condition?: true
+    freight_condition_dismiss?: true
+    customer_email?: true
+    emails?: true
+    invoice_date?: true
+    invoice_email?: true
+    billing_name?: true
+    billing_company?: true
+    billing_address?: true
+    billing_city?: true
+    billing_state?: true
+    billing_country?: true
+    billing_zip?: true
+    billing_phone?: true
+    billing_fax?: true
+    shipping_name?: true
+    shipping_company?: true
+    shipping_address?: true
+    shipping_city?: true
+    shipping_state?: true
+    shipping_country?: true
+    shipping_zip?: true
+    shipping_phone?: true
+    shipping_email?: true
+    shipping_fax?: true
+    sales_person?: true
+    project_manager?: true
+    accept_agreement?: true
+    date_created?: true
+    created_month?: true
+    created_year?: true
+    created_at?: true
+    updated_at?: true
+    deleted_at?: true
+    is_deleted?: true
+  }
+
+  export type QuoteMaxAggregateInputType = {
+    id?: true
+    user_id?: true
+    quote_item_id?: true
+    status?: true
+    payment_status?: true
+    quote_type?: true
+    tax?: true
+    deposit_paid?: true
+    shipping?: true
+    tax_buy_price?: true
+    shipping_buy_price?: true
+    lead_time?: true
+    payable?: true
+    freight_condition?: true
+    freight_condition_dismiss?: true
+    customer_email?: true
+    emails?: true
+    invoice_date?: true
+    invoice_email?: true
+    billing_name?: true
+    billing_company?: true
+    billing_address?: true
+    billing_city?: true
+    billing_state?: true
+    billing_country?: true
+    billing_zip?: true
+    billing_phone?: true
+    billing_fax?: true
+    shipping_name?: true
+    shipping_company?: true
+    shipping_address?: true
+    shipping_city?: true
+    shipping_state?: true
+    shipping_country?: true
+    shipping_zip?: true
+    shipping_phone?: true
+    shipping_email?: true
+    shipping_fax?: true
+    sales_person?: true
+    project_manager?: true
+    accept_agreement?: true
+    date_created?: true
+    created_month?: true
+    created_year?: true
+    created_at?: true
+    updated_at?: true
+    deleted_at?: true
+    is_deleted?: true
+  }
+
+  export type QuoteCountAggregateInputType = {
+    id?: true
+    user_id?: true
+    quote_item_id?: true
+    status?: true
+    payment_status?: true
+    quote_type?: true
+    tax?: true
+    deposit_paid?: true
+    shipping?: true
+    tax_buy_price?: true
+    shipping_buy_price?: true
+    lead_time?: true
+    payable?: true
+    freight_condition?: true
+    freight_condition_dismiss?: true
+    customer_email?: true
+    emails?: true
+    invoice_date?: true
+    invoice_email?: true
+    billing_name?: true
+    billing_company?: true
+    billing_address?: true
+    billing_city?: true
+    billing_state?: true
+    billing_country?: true
+    billing_zip?: true
+    billing_phone?: true
+    billing_fax?: true
+    shipping_name?: true
+    shipping_company?: true
+    shipping_address?: true
+    shipping_city?: true
+    shipping_state?: true
+    shipping_country?: true
+    shipping_zip?: true
+    shipping_phone?: true
+    shipping_email?: true
+    shipping_fax?: true
+    sales_person?: true
+    project_manager?: true
+    accept_agreement?: true
+    date_created?: true
+    created_month?: true
+    created_year?: true
+    created_at?: true
+    updated_at?: true
+    deleted_at?: true
+    is_deleted?: true
+    _all?: true
+  }
+
+  export type QuoteAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Quote to aggregate.
+     */
+    where?: QuoteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Quotes to fetch.
+     */
+    orderBy?: QuoteOrderByWithRelationInput | QuoteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: QuoteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Quotes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Quotes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Quotes
+    **/
+    _count?: true | QuoteCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: QuoteAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: QuoteSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: QuoteMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: QuoteMaxAggregateInputType
+  }
+
+  export type GetQuoteAggregateType<T extends QuoteAggregateArgs> = {
+        [P in keyof T & keyof AggregateQuote]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateQuote[P]>
+      : GetScalarType<T[P], AggregateQuote[P]>
+  }
+
+
+
+
+  export type QuoteGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: QuoteWhereInput
+    orderBy?: QuoteOrderByWithAggregationInput | QuoteOrderByWithAggregationInput[]
+    by: QuoteScalarFieldEnum[] | QuoteScalarFieldEnum
+    having?: QuoteScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: QuoteCountAggregateInputType | true
+    _avg?: QuoteAvgAggregateInputType
+    _sum?: QuoteSumAggregateInputType
+    _min?: QuoteMinAggregateInputType
+    _max?: QuoteMaxAggregateInputType
+  }
+
+  export type QuoteGroupByOutputType = {
+    id: string
+    user_id: string
+    quote_item_id: number
+    status: string | null
+    payment_status: string | null
+    quote_type: $Enums.QuoteType
+    tax: string | null
+    deposit_paid: string | null
+    shipping: string | null
+    tax_buy_price: string | null
+    shipping_buy_price: string | null
+    lead_time: string | null
+    payable: string | null
+    freight_condition: string | null
+    freight_condition_dismiss: boolean | null
+    customer_email: string | null
+    emails: string | null
+    invoice_date: Date | null
+    invoice_email: string | null
+    billing_name: string | null
+    billing_company: string | null
+    billing_address: string | null
+    billing_city: string | null
+    billing_state: string | null
+    billing_country: string | null
+    billing_zip: string | null
+    billing_phone: string | null
+    billing_fax: string | null
+    shipping_name: string | null
+    shipping_company: string | null
+    shipping_address: string | null
+    shipping_city: string | null
+    shipping_state: string | null
+    shipping_country: string | null
+    shipping_zip: string | null
+    shipping_phone: string | null
+    shipping_email: string | null
+    shipping_fax: string | null
+    sales_person: number | null
+    project_manager: number | null
+    accept_agreement: number | null
+    date_created: Date | null
+    created_month: string | null
+    created_year: string | null
+    created_at: Date
+    updated_at: Date
+    deleted_at: Date | null
+    is_deleted: boolean | null
+    _count: QuoteCountAggregateOutputType | null
+    _avg: QuoteAvgAggregateOutputType | null
+    _sum: QuoteSumAggregateOutputType | null
+    _min: QuoteMinAggregateOutputType | null
+    _max: QuoteMaxAggregateOutputType | null
+  }
+
+  type GetQuoteGroupByPayload<T extends QuoteGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<QuoteGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof QuoteGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], QuoteGroupByOutputType[P]>
+            : GetScalarType<T[P], QuoteGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type QuoteSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    user_id?: boolean
+    quote_item_id?: boolean
+    status?: boolean
+    payment_status?: boolean
+    quote_type?: boolean
+    tax?: boolean
+    deposit_paid?: boolean
+    shipping?: boolean
+    tax_buy_price?: boolean
+    shipping_buy_price?: boolean
+    lead_time?: boolean
+    payable?: boolean
+    freight_condition?: boolean
+    freight_condition_dismiss?: boolean
+    customer_email?: boolean
+    emails?: boolean
+    invoice_date?: boolean
+    invoice_email?: boolean
+    billing_name?: boolean
+    billing_company?: boolean
+    billing_address?: boolean
+    billing_city?: boolean
+    billing_state?: boolean
+    billing_country?: boolean
+    billing_zip?: boolean
+    billing_phone?: boolean
+    billing_fax?: boolean
+    shipping_name?: boolean
+    shipping_company?: boolean
+    shipping_address?: boolean
+    shipping_city?: boolean
+    shipping_state?: boolean
+    shipping_country?: boolean
+    shipping_zip?: boolean
+    shipping_phone?: boolean
+    shipping_email?: boolean
+    shipping_fax?: boolean
+    sales_person?: boolean
+    project_manager?: boolean
+    accept_agreement?: boolean
+    date_created?: boolean
+    created_month?: boolean
+    created_year?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    deleted_at?: boolean
+    is_deleted?: boolean
+    User?: boolean | Quote$UserArgs<ExtArgs>
+    QuoteItems?: boolean | Quote$QuoteItemsArgs<ExtArgs>
+    _count?: boolean | QuoteCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["quote"]>
+
+  export type QuoteSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    user_id?: boolean
+    quote_item_id?: boolean
+    status?: boolean
+    payment_status?: boolean
+    quote_type?: boolean
+    tax?: boolean
+    deposit_paid?: boolean
+    shipping?: boolean
+    tax_buy_price?: boolean
+    shipping_buy_price?: boolean
+    lead_time?: boolean
+    payable?: boolean
+    freight_condition?: boolean
+    freight_condition_dismiss?: boolean
+    customer_email?: boolean
+    emails?: boolean
+    invoice_date?: boolean
+    invoice_email?: boolean
+    billing_name?: boolean
+    billing_company?: boolean
+    billing_address?: boolean
+    billing_city?: boolean
+    billing_state?: boolean
+    billing_country?: boolean
+    billing_zip?: boolean
+    billing_phone?: boolean
+    billing_fax?: boolean
+    shipping_name?: boolean
+    shipping_company?: boolean
+    shipping_address?: boolean
+    shipping_city?: boolean
+    shipping_state?: boolean
+    shipping_country?: boolean
+    shipping_zip?: boolean
+    shipping_phone?: boolean
+    shipping_email?: boolean
+    shipping_fax?: boolean
+    sales_person?: boolean
+    project_manager?: boolean
+    accept_agreement?: boolean
+    date_created?: boolean
+    created_month?: boolean
+    created_year?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    deleted_at?: boolean
+    is_deleted?: boolean
+    User?: boolean | Quote$UserArgs<ExtArgs>
+  }, ExtArgs["result"]["quote"]>
+
+  export type QuoteSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    user_id?: boolean
+    quote_item_id?: boolean
+    status?: boolean
+    payment_status?: boolean
+    quote_type?: boolean
+    tax?: boolean
+    deposit_paid?: boolean
+    shipping?: boolean
+    tax_buy_price?: boolean
+    shipping_buy_price?: boolean
+    lead_time?: boolean
+    payable?: boolean
+    freight_condition?: boolean
+    freight_condition_dismiss?: boolean
+    customer_email?: boolean
+    emails?: boolean
+    invoice_date?: boolean
+    invoice_email?: boolean
+    billing_name?: boolean
+    billing_company?: boolean
+    billing_address?: boolean
+    billing_city?: boolean
+    billing_state?: boolean
+    billing_country?: boolean
+    billing_zip?: boolean
+    billing_phone?: boolean
+    billing_fax?: boolean
+    shipping_name?: boolean
+    shipping_company?: boolean
+    shipping_address?: boolean
+    shipping_city?: boolean
+    shipping_state?: boolean
+    shipping_country?: boolean
+    shipping_zip?: boolean
+    shipping_phone?: boolean
+    shipping_email?: boolean
+    shipping_fax?: boolean
+    sales_person?: boolean
+    project_manager?: boolean
+    accept_agreement?: boolean
+    date_created?: boolean
+    created_month?: boolean
+    created_year?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    deleted_at?: boolean
+    is_deleted?: boolean
+    User?: boolean | Quote$UserArgs<ExtArgs>
+  }, ExtArgs["result"]["quote"]>
+
+  export type QuoteSelectScalar = {
+    id?: boolean
+    user_id?: boolean
+    quote_item_id?: boolean
+    status?: boolean
+    payment_status?: boolean
+    quote_type?: boolean
+    tax?: boolean
+    deposit_paid?: boolean
+    shipping?: boolean
+    tax_buy_price?: boolean
+    shipping_buy_price?: boolean
+    lead_time?: boolean
+    payable?: boolean
+    freight_condition?: boolean
+    freight_condition_dismiss?: boolean
+    customer_email?: boolean
+    emails?: boolean
+    invoice_date?: boolean
+    invoice_email?: boolean
+    billing_name?: boolean
+    billing_company?: boolean
+    billing_address?: boolean
+    billing_city?: boolean
+    billing_state?: boolean
+    billing_country?: boolean
+    billing_zip?: boolean
+    billing_phone?: boolean
+    billing_fax?: boolean
+    shipping_name?: boolean
+    shipping_company?: boolean
+    shipping_address?: boolean
+    shipping_city?: boolean
+    shipping_state?: boolean
+    shipping_country?: boolean
+    shipping_zip?: boolean
+    shipping_phone?: boolean
+    shipping_email?: boolean
+    shipping_fax?: boolean
+    sales_person?: boolean
+    project_manager?: boolean
+    accept_agreement?: boolean
+    date_created?: boolean
+    created_month?: boolean
+    created_year?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    deleted_at?: boolean
+    is_deleted?: boolean
+  }
+
+  export type QuoteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "quote_item_id" | "status" | "payment_status" | "quote_type" | "tax" | "deposit_paid" | "shipping" | "tax_buy_price" | "shipping_buy_price" | "lead_time" | "payable" | "freight_condition" | "freight_condition_dismiss" | "customer_email" | "emails" | "invoice_date" | "invoice_email" | "billing_name" | "billing_company" | "billing_address" | "billing_city" | "billing_state" | "billing_country" | "billing_zip" | "billing_phone" | "billing_fax" | "shipping_name" | "shipping_company" | "shipping_address" | "shipping_city" | "shipping_state" | "shipping_country" | "shipping_zip" | "shipping_phone" | "shipping_email" | "shipping_fax" | "sales_person" | "project_manager" | "accept_agreement" | "date_created" | "created_month" | "created_year" | "created_at" | "updated_at" | "deleted_at" | "is_deleted", ExtArgs["result"]["quote"]>
+  export type QuoteInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    User?: boolean | Quote$UserArgs<ExtArgs>
+    QuoteItems?: boolean | Quote$QuoteItemsArgs<ExtArgs>
+    _count?: boolean | QuoteCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type QuoteIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    User?: boolean | Quote$UserArgs<ExtArgs>
+  }
+  export type QuoteIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    User?: boolean | Quote$UserArgs<ExtArgs>
+  }
+
+  export type $QuotePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Quote"
+    objects: {
+      User: Prisma.$UserPayload<ExtArgs> | null
+      QuoteItems: Prisma.$QuoteItemPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      user_id: string
+      quote_item_id: number
+      status: string | null
+      payment_status: string | null
+      quote_type: $Enums.QuoteType
+      tax: string | null
+      deposit_paid: string | null
+      shipping: string | null
+      tax_buy_price: string | null
+      shipping_buy_price: string | null
+      lead_time: string | null
+      payable: string | null
+      freight_condition: string | null
+      freight_condition_dismiss: boolean | null
+      customer_email: string | null
+      emails: string | null
+      invoice_date: Date | null
+      invoice_email: string | null
+      billing_name: string | null
+      billing_company: string | null
+      billing_address: string | null
+      billing_city: string | null
+      billing_state: string | null
+      billing_country: string | null
+      billing_zip: string | null
+      billing_phone: string | null
+      billing_fax: string | null
+      shipping_name: string | null
+      shipping_company: string | null
+      shipping_address: string | null
+      shipping_city: string | null
+      shipping_state: string | null
+      shipping_country: string | null
+      shipping_zip: string | null
+      shipping_phone: string | null
+      shipping_email: string | null
+      shipping_fax: string | null
+      sales_person: number | null
+      project_manager: number | null
+      accept_agreement: number | null
+      date_created: Date | null
+      created_month: string | null
+      created_year: string | null
+      created_at: Date
+      updated_at: Date
+      deleted_at: Date | null
+      is_deleted: boolean | null
+    }, ExtArgs["result"]["quote"]>
+    composites: {}
+  }
+
+  type QuoteGetPayload<S extends boolean | null | undefined | QuoteDefaultArgs> = $Result.GetResult<Prisma.$QuotePayload, S>
+
+  type QuoteCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<QuoteFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: QuoteCountAggregateInputType | true
+    }
+
+  export interface QuoteDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Quote'], meta: { name: 'Quote' } }
+    /**
+     * Find zero or one Quote that matches the filter.
+     * @param {QuoteFindUniqueArgs} args - Arguments to find a Quote
+     * @example
+     * // Get one Quote
+     * const quote = await prisma.quote.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends QuoteFindUniqueArgs>(args: SelectSubset<T, QuoteFindUniqueArgs<ExtArgs>>): Prisma__QuoteClient<$Result.GetResult<Prisma.$QuotePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Quote that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {QuoteFindUniqueOrThrowArgs} args - Arguments to find a Quote
+     * @example
+     * // Get one Quote
+     * const quote = await prisma.quote.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends QuoteFindUniqueOrThrowArgs>(args: SelectSubset<T, QuoteFindUniqueOrThrowArgs<ExtArgs>>): Prisma__QuoteClient<$Result.GetResult<Prisma.$QuotePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Quote that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QuoteFindFirstArgs} args - Arguments to find a Quote
+     * @example
+     * // Get one Quote
+     * const quote = await prisma.quote.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends QuoteFindFirstArgs>(args?: SelectSubset<T, QuoteFindFirstArgs<ExtArgs>>): Prisma__QuoteClient<$Result.GetResult<Prisma.$QuotePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Quote that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QuoteFindFirstOrThrowArgs} args - Arguments to find a Quote
+     * @example
+     * // Get one Quote
+     * const quote = await prisma.quote.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends QuoteFindFirstOrThrowArgs>(args?: SelectSubset<T, QuoteFindFirstOrThrowArgs<ExtArgs>>): Prisma__QuoteClient<$Result.GetResult<Prisma.$QuotePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Quotes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QuoteFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Quotes
+     * const quotes = await prisma.quote.findMany()
+     * 
+     * // Get first 10 Quotes
+     * const quotes = await prisma.quote.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const quoteWithIdOnly = await prisma.quote.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends QuoteFindManyArgs>(args?: SelectSubset<T, QuoteFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QuotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Quote.
+     * @param {QuoteCreateArgs} args - Arguments to create a Quote.
+     * @example
+     * // Create one Quote
+     * const Quote = await prisma.quote.create({
+     *   data: {
+     *     // ... data to create a Quote
+     *   }
+     * })
+     * 
+     */
+    create<T extends QuoteCreateArgs>(args: SelectSubset<T, QuoteCreateArgs<ExtArgs>>): Prisma__QuoteClient<$Result.GetResult<Prisma.$QuotePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Quotes.
+     * @param {QuoteCreateManyArgs} args - Arguments to create many Quotes.
+     * @example
+     * // Create many Quotes
+     * const quote = await prisma.quote.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends QuoteCreateManyArgs>(args?: SelectSubset<T, QuoteCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Quotes and returns the data saved in the database.
+     * @param {QuoteCreateManyAndReturnArgs} args - Arguments to create many Quotes.
+     * @example
+     * // Create many Quotes
+     * const quote = await prisma.quote.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Quotes and only return the `id`
+     * const quoteWithIdOnly = await prisma.quote.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends QuoteCreateManyAndReturnArgs>(args?: SelectSubset<T, QuoteCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QuotePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Quote.
+     * @param {QuoteDeleteArgs} args - Arguments to delete one Quote.
+     * @example
+     * // Delete one Quote
+     * const Quote = await prisma.quote.delete({
+     *   where: {
+     *     // ... filter to delete one Quote
+     *   }
+     * })
+     * 
+     */
+    delete<T extends QuoteDeleteArgs>(args: SelectSubset<T, QuoteDeleteArgs<ExtArgs>>): Prisma__QuoteClient<$Result.GetResult<Prisma.$QuotePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Quote.
+     * @param {QuoteUpdateArgs} args - Arguments to update one Quote.
+     * @example
+     * // Update one Quote
+     * const quote = await prisma.quote.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends QuoteUpdateArgs>(args: SelectSubset<T, QuoteUpdateArgs<ExtArgs>>): Prisma__QuoteClient<$Result.GetResult<Prisma.$QuotePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Quotes.
+     * @param {QuoteDeleteManyArgs} args - Arguments to filter Quotes to delete.
+     * @example
+     * // Delete a few Quotes
+     * const { count } = await prisma.quote.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends QuoteDeleteManyArgs>(args?: SelectSubset<T, QuoteDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Quotes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QuoteUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Quotes
+     * const quote = await prisma.quote.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends QuoteUpdateManyArgs>(args: SelectSubset<T, QuoteUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Quotes and returns the data updated in the database.
+     * @param {QuoteUpdateManyAndReturnArgs} args - Arguments to update many Quotes.
+     * @example
+     * // Update many Quotes
+     * const quote = await prisma.quote.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Quotes and only return the `id`
+     * const quoteWithIdOnly = await prisma.quote.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends QuoteUpdateManyAndReturnArgs>(args: SelectSubset<T, QuoteUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QuotePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Quote.
+     * @param {QuoteUpsertArgs} args - Arguments to update or create a Quote.
+     * @example
+     * // Update or create a Quote
+     * const quote = await prisma.quote.upsert({
+     *   create: {
+     *     // ... data to create a Quote
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Quote we want to update
+     *   }
+     * })
+     */
+    upsert<T extends QuoteUpsertArgs>(args: SelectSubset<T, QuoteUpsertArgs<ExtArgs>>): Prisma__QuoteClient<$Result.GetResult<Prisma.$QuotePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Quotes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QuoteCountArgs} args - Arguments to filter Quotes to count.
+     * @example
+     * // Count the number of Quotes
+     * const count = await prisma.quote.count({
+     *   where: {
+     *     // ... the filter for the Quotes we want to count
+     *   }
+     * })
+    **/
+    count<T extends QuoteCountArgs>(
+      args?: Subset<T, QuoteCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], QuoteCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Quote.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QuoteAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends QuoteAggregateArgs>(args: Subset<T, QuoteAggregateArgs>): Prisma.PrismaPromise<GetQuoteAggregateType<T>>
+
+    /**
+     * Group by Quote.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QuoteGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends QuoteGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: QuoteGroupByArgs['orderBy'] }
+        : { orderBy?: QuoteGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, QuoteGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetQuoteGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Quote model
+   */
+  readonly fields: QuoteFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Quote.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__QuoteClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    User<T extends Quote$UserArgs<ExtArgs> = {}>(args?: Subset<T, Quote$UserArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    QuoteItems<T extends Quote$QuoteItemsArgs<ExtArgs> = {}>(args?: Subset<T, Quote$QuoteItemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QuoteItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Quote model
+   */
+  interface QuoteFieldRefs {
+    readonly id: FieldRef<"Quote", 'String'>
+    readonly user_id: FieldRef<"Quote", 'String'>
+    readonly quote_item_id: FieldRef<"Quote", 'Int'>
+    readonly status: FieldRef<"Quote", 'String'>
+    readonly payment_status: FieldRef<"Quote", 'String'>
+    readonly quote_type: FieldRef<"Quote", 'QuoteType'>
+    readonly tax: FieldRef<"Quote", 'String'>
+    readonly deposit_paid: FieldRef<"Quote", 'String'>
+    readonly shipping: FieldRef<"Quote", 'String'>
+    readonly tax_buy_price: FieldRef<"Quote", 'String'>
+    readonly shipping_buy_price: FieldRef<"Quote", 'String'>
+    readonly lead_time: FieldRef<"Quote", 'String'>
+    readonly payable: FieldRef<"Quote", 'String'>
+    readonly freight_condition: FieldRef<"Quote", 'String'>
+    readonly freight_condition_dismiss: FieldRef<"Quote", 'Boolean'>
+    readonly customer_email: FieldRef<"Quote", 'String'>
+    readonly emails: FieldRef<"Quote", 'String'>
+    readonly invoice_date: FieldRef<"Quote", 'DateTime'>
+    readonly invoice_email: FieldRef<"Quote", 'String'>
+    readonly billing_name: FieldRef<"Quote", 'String'>
+    readonly billing_company: FieldRef<"Quote", 'String'>
+    readonly billing_address: FieldRef<"Quote", 'String'>
+    readonly billing_city: FieldRef<"Quote", 'String'>
+    readonly billing_state: FieldRef<"Quote", 'String'>
+    readonly billing_country: FieldRef<"Quote", 'String'>
+    readonly billing_zip: FieldRef<"Quote", 'String'>
+    readonly billing_phone: FieldRef<"Quote", 'String'>
+    readonly billing_fax: FieldRef<"Quote", 'String'>
+    readonly shipping_name: FieldRef<"Quote", 'String'>
+    readonly shipping_company: FieldRef<"Quote", 'String'>
+    readonly shipping_address: FieldRef<"Quote", 'String'>
+    readonly shipping_city: FieldRef<"Quote", 'String'>
+    readonly shipping_state: FieldRef<"Quote", 'String'>
+    readonly shipping_country: FieldRef<"Quote", 'String'>
+    readonly shipping_zip: FieldRef<"Quote", 'String'>
+    readonly shipping_phone: FieldRef<"Quote", 'String'>
+    readonly shipping_email: FieldRef<"Quote", 'String'>
+    readonly shipping_fax: FieldRef<"Quote", 'String'>
+    readonly sales_person: FieldRef<"Quote", 'Int'>
+    readonly project_manager: FieldRef<"Quote", 'Int'>
+    readonly accept_agreement: FieldRef<"Quote", 'Int'>
+    readonly date_created: FieldRef<"Quote", 'DateTime'>
+    readonly created_month: FieldRef<"Quote", 'String'>
+    readonly created_year: FieldRef<"Quote", 'String'>
+    readonly created_at: FieldRef<"Quote", 'DateTime'>
+    readonly updated_at: FieldRef<"Quote", 'DateTime'>
+    readonly deleted_at: FieldRef<"Quote", 'DateTime'>
+    readonly is_deleted: FieldRef<"Quote", 'Boolean'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Quote findUnique
+   */
+  export type QuoteFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Quote
+     */
+    select?: QuoteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Quote
+     */
+    omit?: QuoteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuoteInclude<ExtArgs> | null
+    /**
+     * Filter, which Quote to fetch.
+     */
+    where: QuoteWhereUniqueInput
+  }
+
+  /**
+   * Quote findUniqueOrThrow
+   */
+  export type QuoteFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Quote
+     */
+    select?: QuoteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Quote
+     */
+    omit?: QuoteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuoteInclude<ExtArgs> | null
+    /**
+     * Filter, which Quote to fetch.
+     */
+    where: QuoteWhereUniqueInput
+  }
+
+  /**
+   * Quote findFirst
+   */
+  export type QuoteFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Quote
+     */
+    select?: QuoteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Quote
+     */
+    omit?: QuoteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuoteInclude<ExtArgs> | null
+    /**
+     * Filter, which Quote to fetch.
+     */
+    where?: QuoteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Quotes to fetch.
+     */
+    orderBy?: QuoteOrderByWithRelationInput | QuoteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Quotes.
+     */
+    cursor?: QuoteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Quotes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Quotes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Quotes.
+     */
+    distinct?: QuoteScalarFieldEnum | QuoteScalarFieldEnum[]
+  }
+
+  /**
+   * Quote findFirstOrThrow
+   */
+  export type QuoteFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Quote
+     */
+    select?: QuoteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Quote
+     */
+    omit?: QuoteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuoteInclude<ExtArgs> | null
+    /**
+     * Filter, which Quote to fetch.
+     */
+    where?: QuoteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Quotes to fetch.
+     */
+    orderBy?: QuoteOrderByWithRelationInput | QuoteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Quotes.
+     */
+    cursor?: QuoteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Quotes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Quotes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Quotes.
+     */
+    distinct?: QuoteScalarFieldEnum | QuoteScalarFieldEnum[]
+  }
+
+  /**
+   * Quote findMany
+   */
+  export type QuoteFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Quote
+     */
+    select?: QuoteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Quote
+     */
+    omit?: QuoteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuoteInclude<ExtArgs> | null
+    /**
+     * Filter, which Quotes to fetch.
+     */
+    where?: QuoteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Quotes to fetch.
+     */
+    orderBy?: QuoteOrderByWithRelationInput | QuoteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Quotes.
+     */
+    cursor?: QuoteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Quotes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Quotes.
+     */
+    skip?: number
+    distinct?: QuoteScalarFieldEnum | QuoteScalarFieldEnum[]
+  }
+
+  /**
+   * Quote create
+   */
+  export type QuoteCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Quote
+     */
+    select?: QuoteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Quote
+     */
+    omit?: QuoteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuoteInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Quote.
+     */
+    data: XOR<QuoteCreateInput, QuoteUncheckedCreateInput>
+  }
+
+  /**
+   * Quote createMany
+   */
+  export type QuoteCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Quotes.
+     */
+    data: QuoteCreateManyInput | QuoteCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Quote createManyAndReturn
+   */
+  export type QuoteCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Quote
+     */
+    select?: QuoteSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Quote
+     */
+    omit?: QuoteOmit<ExtArgs> | null
+    /**
+     * The data used to create many Quotes.
+     */
+    data: QuoteCreateManyInput | QuoteCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuoteIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Quote update
+   */
+  export type QuoteUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Quote
+     */
+    select?: QuoteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Quote
+     */
+    omit?: QuoteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuoteInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Quote.
+     */
+    data: XOR<QuoteUpdateInput, QuoteUncheckedUpdateInput>
+    /**
+     * Choose, which Quote to update.
+     */
+    where: QuoteWhereUniqueInput
+  }
+
+  /**
+   * Quote updateMany
+   */
+  export type QuoteUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Quotes.
+     */
+    data: XOR<QuoteUpdateManyMutationInput, QuoteUncheckedUpdateManyInput>
+    /**
+     * Filter which Quotes to update
+     */
+    where?: QuoteWhereInput
+    /**
+     * Limit how many Quotes to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Quote updateManyAndReturn
+   */
+  export type QuoteUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Quote
+     */
+    select?: QuoteSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Quote
+     */
+    omit?: QuoteOmit<ExtArgs> | null
+    /**
+     * The data used to update Quotes.
+     */
+    data: XOR<QuoteUpdateManyMutationInput, QuoteUncheckedUpdateManyInput>
+    /**
+     * Filter which Quotes to update
+     */
+    where?: QuoteWhereInput
+    /**
+     * Limit how many Quotes to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuoteIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Quote upsert
+   */
+  export type QuoteUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Quote
+     */
+    select?: QuoteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Quote
+     */
+    omit?: QuoteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuoteInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Quote to update in case it exists.
+     */
+    where: QuoteWhereUniqueInput
+    /**
+     * In case the Quote found by the `where` argument doesn't exist, create a new Quote with this data.
+     */
+    create: XOR<QuoteCreateInput, QuoteUncheckedCreateInput>
+    /**
+     * In case the Quote was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<QuoteUpdateInput, QuoteUncheckedUpdateInput>
+  }
+
+  /**
+   * Quote delete
+   */
+  export type QuoteDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Quote
+     */
+    select?: QuoteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Quote
+     */
+    omit?: QuoteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuoteInclude<ExtArgs> | null
+    /**
+     * Filter which Quote to delete.
+     */
+    where: QuoteWhereUniqueInput
+  }
+
+  /**
+   * Quote deleteMany
+   */
+  export type QuoteDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Quotes to delete
+     */
+    where?: QuoteWhereInput
+    /**
+     * Limit how many Quotes to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Quote.User
+   */
+  export type Quote$UserArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
+   * Quote.QuoteItems
+   */
+  export type Quote$QuoteItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QuoteItem
+     */
+    select?: QuoteItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QuoteItem
+     */
+    omit?: QuoteItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuoteItemInclude<ExtArgs> | null
+    where?: QuoteItemWhereInput
+    orderBy?: QuoteItemOrderByWithRelationInput | QuoteItemOrderByWithRelationInput[]
+    cursor?: QuoteItemWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: QuoteItemScalarFieldEnum | QuoteItemScalarFieldEnum[]
+  }
+
+  /**
+   * Quote without action
+   */
+  export type QuoteDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Quote
+     */
+    select?: QuoteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Quote
+     */
+    omit?: QuoteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuoteInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model QuoteItem
+   */
+
+  export type AggregateQuoteItem = {
+    _count: QuoteItemCountAggregateOutputType | null
+    _avg: QuoteItemAvgAggregateOutputType | null
+    _sum: QuoteItemSumAggregateOutputType | null
+    _min: QuoteItemMinAggregateOutputType | null
+    _max: QuoteItemMaxAggregateOutputType | null
+  }
+
+  export type QuoteItemAvgAggregateOutputType = {
+    quantity: number | null
+    non_taxable: number | null
+    non_shipping: number | null
+    last_updated_by: number | null
+  }
+
+  export type QuoteItemSumAggregateOutputType = {
+    quantity: number | null
+    non_taxable: number | null
+    non_shipping: number | null
+    last_updated_by: number | null
+  }
+
+  export type QuoteItemMinAggregateOutputType = {
+    id: string | null
+    quote_id: string | null
+    file_name: string | null
+    file_url: string | null
+    status: boolean | null
+    quantity: number | null
+    service: string | null
+    material: string | null
+    finish: string | null
+    description: string | null
+    process: string | null
+    specification: string | null
+    price: string | null
+    cost: string | null
+    cost_shipping_price: string | null
+    cost_shipping_total: string | null
+    custom_shipping_total: string | null
+    buy_price: string | null
+    buy_shipping_price: string | null
+    buy_shipping_total: string | null
+    quantity_owed: string | null
+    invoiced: boolean | null
+    non_taxable: number | null
+    non_shipping: number | null
+    is_deleted: boolean | null
+    vendor_id: string | null
+    vendor_details: string | null
+    last_updated_by: number | null
+    work_instructions: string | null
+    add_vendor: boolean | null
+    markings: string | null
+    part_item_number: string | null
+    file_year: string | null
+    file_month: string | null
+    tab_open: boolean | null
+    created_at: Date | null
+    updated_at: Date | null
+    deleted_at: Date | null
+  }
+
+  export type QuoteItemMaxAggregateOutputType = {
+    id: string | null
+    quote_id: string | null
+    file_name: string | null
+    file_url: string | null
+    status: boolean | null
+    quantity: number | null
+    service: string | null
+    material: string | null
+    finish: string | null
+    description: string | null
+    process: string | null
+    specification: string | null
+    price: string | null
+    cost: string | null
+    cost_shipping_price: string | null
+    cost_shipping_total: string | null
+    custom_shipping_total: string | null
+    buy_price: string | null
+    buy_shipping_price: string | null
+    buy_shipping_total: string | null
+    quantity_owed: string | null
+    invoiced: boolean | null
+    non_taxable: number | null
+    non_shipping: number | null
+    is_deleted: boolean | null
+    vendor_id: string | null
+    vendor_details: string | null
+    last_updated_by: number | null
+    work_instructions: string | null
+    add_vendor: boolean | null
+    markings: string | null
+    part_item_number: string | null
+    file_year: string | null
+    file_month: string | null
+    tab_open: boolean | null
+    created_at: Date | null
+    updated_at: Date | null
+    deleted_at: Date | null
+  }
+
+  export type QuoteItemCountAggregateOutputType = {
+    id: number
+    quote_id: number
+    file_name: number
+    file_url: number
+    status: number
+    quantity: number
+    service: number
+    material: number
+    finish: number
+    description: number
+    process: number
+    specification: number
+    price: number
+    cost: number
+    cost_shipping_price: number
+    cost_shipping_total: number
+    custom_shipping_total: number
+    buy_price: number
+    buy_shipping_price: number
+    buy_shipping_total: number
+    quantity_owed: number
+    invoiced: number
+    non_taxable: number
+    non_shipping: number
+    is_deleted: number
+    vendor_id: number
+    vendor_details: number
+    last_updated_by: number
+    work_instructions: number
+    add_vendor: number
+    markings: number
+    part_item_number: number
+    file_year: number
+    file_month: number
+    tab_open: number
+    created_at: number
+    updated_at: number
+    deleted_at: number
+    _all: number
+  }
+
+
+  export type QuoteItemAvgAggregateInputType = {
+    quantity?: true
+    non_taxable?: true
+    non_shipping?: true
+    last_updated_by?: true
+  }
+
+  export type QuoteItemSumAggregateInputType = {
+    quantity?: true
+    non_taxable?: true
+    non_shipping?: true
+    last_updated_by?: true
+  }
+
+  export type QuoteItemMinAggregateInputType = {
+    id?: true
+    quote_id?: true
+    file_name?: true
+    file_url?: true
+    status?: true
+    quantity?: true
+    service?: true
+    material?: true
+    finish?: true
+    description?: true
+    process?: true
+    specification?: true
+    price?: true
+    cost?: true
+    cost_shipping_price?: true
+    cost_shipping_total?: true
+    custom_shipping_total?: true
+    buy_price?: true
+    buy_shipping_price?: true
+    buy_shipping_total?: true
+    quantity_owed?: true
+    invoiced?: true
+    non_taxable?: true
+    non_shipping?: true
+    is_deleted?: true
+    vendor_id?: true
+    vendor_details?: true
+    last_updated_by?: true
+    work_instructions?: true
+    add_vendor?: true
+    markings?: true
+    part_item_number?: true
+    file_year?: true
+    file_month?: true
+    tab_open?: true
+    created_at?: true
+    updated_at?: true
+    deleted_at?: true
+  }
+
+  export type QuoteItemMaxAggregateInputType = {
+    id?: true
+    quote_id?: true
+    file_name?: true
+    file_url?: true
+    status?: true
+    quantity?: true
+    service?: true
+    material?: true
+    finish?: true
+    description?: true
+    process?: true
+    specification?: true
+    price?: true
+    cost?: true
+    cost_shipping_price?: true
+    cost_shipping_total?: true
+    custom_shipping_total?: true
+    buy_price?: true
+    buy_shipping_price?: true
+    buy_shipping_total?: true
+    quantity_owed?: true
+    invoiced?: true
+    non_taxable?: true
+    non_shipping?: true
+    is_deleted?: true
+    vendor_id?: true
+    vendor_details?: true
+    last_updated_by?: true
+    work_instructions?: true
+    add_vendor?: true
+    markings?: true
+    part_item_number?: true
+    file_year?: true
+    file_month?: true
+    tab_open?: true
+    created_at?: true
+    updated_at?: true
+    deleted_at?: true
+  }
+
+  export type QuoteItemCountAggregateInputType = {
+    id?: true
+    quote_id?: true
+    file_name?: true
+    file_url?: true
+    status?: true
+    quantity?: true
+    service?: true
+    material?: true
+    finish?: true
+    description?: true
+    process?: true
+    specification?: true
+    price?: true
+    cost?: true
+    cost_shipping_price?: true
+    cost_shipping_total?: true
+    custom_shipping_total?: true
+    buy_price?: true
+    buy_shipping_price?: true
+    buy_shipping_total?: true
+    quantity_owed?: true
+    invoiced?: true
+    non_taxable?: true
+    non_shipping?: true
+    is_deleted?: true
+    vendor_id?: true
+    vendor_details?: true
+    last_updated_by?: true
+    work_instructions?: true
+    add_vendor?: true
+    markings?: true
+    part_item_number?: true
+    file_year?: true
+    file_month?: true
+    tab_open?: true
+    created_at?: true
+    updated_at?: true
+    deleted_at?: true
+    _all?: true
+  }
+
+  export type QuoteItemAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which QuoteItem to aggregate.
+     */
+    where?: QuoteItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of QuoteItems to fetch.
+     */
+    orderBy?: QuoteItemOrderByWithRelationInput | QuoteItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: QuoteItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` QuoteItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` QuoteItems.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned QuoteItems
+    **/
+    _count?: true | QuoteItemCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: QuoteItemAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: QuoteItemSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: QuoteItemMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: QuoteItemMaxAggregateInputType
+  }
+
+  export type GetQuoteItemAggregateType<T extends QuoteItemAggregateArgs> = {
+        [P in keyof T & keyof AggregateQuoteItem]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateQuoteItem[P]>
+      : GetScalarType<T[P], AggregateQuoteItem[P]>
+  }
+
+
+
+
+  export type QuoteItemGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: QuoteItemWhereInput
+    orderBy?: QuoteItemOrderByWithAggregationInput | QuoteItemOrderByWithAggregationInput[]
+    by: QuoteItemScalarFieldEnum[] | QuoteItemScalarFieldEnum
+    having?: QuoteItemScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: QuoteItemCountAggregateInputType | true
+    _avg?: QuoteItemAvgAggregateInputType
+    _sum?: QuoteItemSumAggregateInputType
+    _min?: QuoteItemMinAggregateInputType
+    _max?: QuoteItemMaxAggregateInputType
+  }
+
+  export type QuoteItemGroupByOutputType = {
+    id: string
+    quote_id: string
+    file_name: string | null
+    file_url: string | null
+    status: boolean
+    quantity: number
+    service: string | null
+    material: string | null
+    finish: string | null
+    description: string | null
+    process: string | null
+    specification: string | null
+    price: string | null
+    cost: string | null
+    cost_shipping_price: string | null
+    cost_shipping_total: string | null
+    custom_shipping_total: string | null
+    buy_price: string | null
+    buy_shipping_price: string | null
+    buy_shipping_total: string | null
+    quantity_owed: string | null
+    invoiced: boolean | null
+    non_taxable: number | null
+    non_shipping: number | null
+    is_deleted: boolean | null
+    vendor_id: string | null
+    vendor_details: string | null
+    last_updated_by: number | null
+    work_instructions: string | null
+    add_vendor: boolean | null
+    markings: string | null
+    part_item_number: string | null
+    file_year: string | null
+    file_month: string | null
+    tab_open: boolean | null
+    created_at: Date
+    updated_at: Date
+    deleted_at: Date | null
+    _count: QuoteItemCountAggregateOutputType | null
+    _avg: QuoteItemAvgAggregateOutputType | null
+    _sum: QuoteItemSumAggregateOutputType | null
+    _min: QuoteItemMinAggregateOutputType | null
+    _max: QuoteItemMaxAggregateOutputType | null
+  }
+
+  type GetQuoteItemGroupByPayload<T extends QuoteItemGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<QuoteItemGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof QuoteItemGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], QuoteItemGroupByOutputType[P]>
+            : GetScalarType<T[P], QuoteItemGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type QuoteItemSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    quote_id?: boolean
+    file_name?: boolean
+    file_url?: boolean
+    status?: boolean
+    quantity?: boolean
+    service?: boolean
+    material?: boolean
+    finish?: boolean
+    description?: boolean
+    process?: boolean
+    specification?: boolean
+    price?: boolean
+    cost?: boolean
+    cost_shipping_price?: boolean
+    cost_shipping_total?: boolean
+    custom_shipping_total?: boolean
+    buy_price?: boolean
+    buy_shipping_price?: boolean
+    buy_shipping_total?: boolean
+    quantity_owed?: boolean
+    invoiced?: boolean
+    non_taxable?: boolean
+    non_shipping?: boolean
+    is_deleted?: boolean
+    vendor_id?: boolean
+    vendor_details?: boolean
+    last_updated_by?: boolean
+    work_instructions?: boolean
+    add_vendor?: boolean
+    markings?: boolean
+    part_item_number?: boolean
+    file_year?: boolean
+    file_month?: boolean
+    tab_open?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    deleted_at?: boolean
+    quote?: boolean | QuoteDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["quoteItem"]>
+
+  export type QuoteItemSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    quote_id?: boolean
+    file_name?: boolean
+    file_url?: boolean
+    status?: boolean
+    quantity?: boolean
+    service?: boolean
+    material?: boolean
+    finish?: boolean
+    description?: boolean
+    process?: boolean
+    specification?: boolean
+    price?: boolean
+    cost?: boolean
+    cost_shipping_price?: boolean
+    cost_shipping_total?: boolean
+    custom_shipping_total?: boolean
+    buy_price?: boolean
+    buy_shipping_price?: boolean
+    buy_shipping_total?: boolean
+    quantity_owed?: boolean
+    invoiced?: boolean
+    non_taxable?: boolean
+    non_shipping?: boolean
+    is_deleted?: boolean
+    vendor_id?: boolean
+    vendor_details?: boolean
+    last_updated_by?: boolean
+    work_instructions?: boolean
+    add_vendor?: boolean
+    markings?: boolean
+    part_item_number?: boolean
+    file_year?: boolean
+    file_month?: boolean
+    tab_open?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    deleted_at?: boolean
+    quote?: boolean | QuoteDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["quoteItem"]>
+
+  export type QuoteItemSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    quote_id?: boolean
+    file_name?: boolean
+    file_url?: boolean
+    status?: boolean
+    quantity?: boolean
+    service?: boolean
+    material?: boolean
+    finish?: boolean
+    description?: boolean
+    process?: boolean
+    specification?: boolean
+    price?: boolean
+    cost?: boolean
+    cost_shipping_price?: boolean
+    cost_shipping_total?: boolean
+    custom_shipping_total?: boolean
+    buy_price?: boolean
+    buy_shipping_price?: boolean
+    buy_shipping_total?: boolean
+    quantity_owed?: boolean
+    invoiced?: boolean
+    non_taxable?: boolean
+    non_shipping?: boolean
+    is_deleted?: boolean
+    vendor_id?: boolean
+    vendor_details?: boolean
+    last_updated_by?: boolean
+    work_instructions?: boolean
+    add_vendor?: boolean
+    markings?: boolean
+    part_item_number?: boolean
+    file_year?: boolean
+    file_month?: boolean
+    tab_open?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    deleted_at?: boolean
+    quote?: boolean | QuoteDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["quoteItem"]>
+
+  export type QuoteItemSelectScalar = {
+    id?: boolean
+    quote_id?: boolean
+    file_name?: boolean
+    file_url?: boolean
+    status?: boolean
+    quantity?: boolean
+    service?: boolean
+    material?: boolean
+    finish?: boolean
+    description?: boolean
+    process?: boolean
+    specification?: boolean
+    price?: boolean
+    cost?: boolean
+    cost_shipping_price?: boolean
+    cost_shipping_total?: boolean
+    custom_shipping_total?: boolean
+    buy_price?: boolean
+    buy_shipping_price?: boolean
+    buy_shipping_total?: boolean
+    quantity_owed?: boolean
+    invoiced?: boolean
+    non_taxable?: boolean
+    non_shipping?: boolean
+    is_deleted?: boolean
+    vendor_id?: boolean
+    vendor_details?: boolean
+    last_updated_by?: boolean
+    work_instructions?: boolean
+    add_vendor?: boolean
+    markings?: boolean
+    part_item_number?: boolean
+    file_year?: boolean
+    file_month?: boolean
+    tab_open?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    deleted_at?: boolean
+  }
+
+  export type QuoteItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "quote_id" | "file_name" | "file_url" | "status" | "quantity" | "service" | "material" | "finish" | "description" | "process" | "specification" | "price" | "cost" | "cost_shipping_price" | "cost_shipping_total" | "custom_shipping_total" | "buy_price" | "buy_shipping_price" | "buy_shipping_total" | "quantity_owed" | "invoiced" | "non_taxable" | "non_shipping" | "is_deleted" | "vendor_id" | "vendor_details" | "last_updated_by" | "work_instructions" | "add_vendor" | "markings" | "part_item_number" | "file_year" | "file_month" | "tab_open" | "created_at" | "updated_at" | "deleted_at", ExtArgs["result"]["quoteItem"]>
+  export type QuoteItemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    quote?: boolean | QuoteDefaultArgs<ExtArgs>
+  }
+  export type QuoteItemIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    quote?: boolean | QuoteDefaultArgs<ExtArgs>
+  }
+  export type QuoteItemIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    quote?: boolean | QuoteDefaultArgs<ExtArgs>
+  }
+
+  export type $QuoteItemPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "QuoteItem"
+    objects: {
+      quote: Prisma.$QuotePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      quote_id: string
+      file_name: string | null
+      file_url: string | null
+      status: boolean
+      quantity: number
+      service: string | null
+      material: string | null
+      finish: string | null
+      description: string | null
+      process: string | null
+      specification: string | null
+      price: string | null
+      cost: string | null
+      cost_shipping_price: string | null
+      cost_shipping_total: string | null
+      custom_shipping_total: string | null
+      buy_price: string | null
+      buy_shipping_price: string | null
+      buy_shipping_total: string | null
+      quantity_owed: string | null
+      invoiced: boolean | null
+      non_taxable: number | null
+      non_shipping: number | null
+      is_deleted: boolean | null
+      vendor_id: string | null
+      vendor_details: string | null
+      last_updated_by: number | null
+      work_instructions: string | null
+      add_vendor: boolean | null
+      markings: string | null
+      part_item_number: string | null
+      file_year: string | null
+      file_month: string | null
+      tab_open: boolean | null
+      created_at: Date
+      updated_at: Date
+      deleted_at: Date | null
+    }, ExtArgs["result"]["quoteItem"]>
+    composites: {}
+  }
+
+  type QuoteItemGetPayload<S extends boolean | null | undefined | QuoteItemDefaultArgs> = $Result.GetResult<Prisma.$QuoteItemPayload, S>
+
+  type QuoteItemCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<QuoteItemFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: QuoteItemCountAggregateInputType | true
+    }
+
+  export interface QuoteItemDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['QuoteItem'], meta: { name: 'QuoteItem' } }
+    /**
+     * Find zero or one QuoteItem that matches the filter.
+     * @param {QuoteItemFindUniqueArgs} args - Arguments to find a QuoteItem
+     * @example
+     * // Get one QuoteItem
+     * const quoteItem = await prisma.quoteItem.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends QuoteItemFindUniqueArgs>(args: SelectSubset<T, QuoteItemFindUniqueArgs<ExtArgs>>): Prisma__QuoteItemClient<$Result.GetResult<Prisma.$QuoteItemPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one QuoteItem that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {QuoteItemFindUniqueOrThrowArgs} args - Arguments to find a QuoteItem
+     * @example
+     * // Get one QuoteItem
+     * const quoteItem = await prisma.quoteItem.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends QuoteItemFindUniqueOrThrowArgs>(args: SelectSubset<T, QuoteItemFindUniqueOrThrowArgs<ExtArgs>>): Prisma__QuoteItemClient<$Result.GetResult<Prisma.$QuoteItemPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first QuoteItem that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QuoteItemFindFirstArgs} args - Arguments to find a QuoteItem
+     * @example
+     * // Get one QuoteItem
+     * const quoteItem = await prisma.quoteItem.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends QuoteItemFindFirstArgs>(args?: SelectSubset<T, QuoteItemFindFirstArgs<ExtArgs>>): Prisma__QuoteItemClient<$Result.GetResult<Prisma.$QuoteItemPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first QuoteItem that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QuoteItemFindFirstOrThrowArgs} args - Arguments to find a QuoteItem
+     * @example
+     * // Get one QuoteItem
+     * const quoteItem = await prisma.quoteItem.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends QuoteItemFindFirstOrThrowArgs>(args?: SelectSubset<T, QuoteItemFindFirstOrThrowArgs<ExtArgs>>): Prisma__QuoteItemClient<$Result.GetResult<Prisma.$QuoteItemPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more QuoteItems that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QuoteItemFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all QuoteItems
+     * const quoteItems = await prisma.quoteItem.findMany()
+     * 
+     * // Get first 10 QuoteItems
+     * const quoteItems = await prisma.quoteItem.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const quoteItemWithIdOnly = await prisma.quoteItem.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends QuoteItemFindManyArgs>(args?: SelectSubset<T, QuoteItemFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QuoteItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a QuoteItem.
+     * @param {QuoteItemCreateArgs} args - Arguments to create a QuoteItem.
+     * @example
+     * // Create one QuoteItem
+     * const QuoteItem = await prisma.quoteItem.create({
+     *   data: {
+     *     // ... data to create a QuoteItem
+     *   }
+     * })
+     * 
+     */
+    create<T extends QuoteItemCreateArgs>(args: SelectSubset<T, QuoteItemCreateArgs<ExtArgs>>): Prisma__QuoteItemClient<$Result.GetResult<Prisma.$QuoteItemPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many QuoteItems.
+     * @param {QuoteItemCreateManyArgs} args - Arguments to create many QuoteItems.
+     * @example
+     * // Create many QuoteItems
+     * const quoteItem = await prisma.quoteItem.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends QuoteItemCreateManyArgs>(args?: SelectSubset<T, QuoteItemCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many QuoteItems and returns the data saved in the database.
+     * @param {QuoteItemCreateManyAndReturnArgs} args - Arguments to create many QuoteItems.
+     * @example
+     * // Create many QuoteItems
+     * const quoteItem = await prisma.quoteItem.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many QuoteItems and only return the `id`
+     * const quoteItemWithIdOnly = await prisma.quoteItem.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends QuoteItemCreateManyAndReturnArgs>(args?: SelectSubset<T, QuoteItemCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QuoteItemPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a QuoteItem.
+     * @param {QuoteItemDeleteArgs} args - Arguments to delete one QuoteItem.
+     * @example
+     * // Delete one QuoteItem
+     * const QuoteItem = await prisma.quoteItem.delete({
+     *   where: {
+     *     // ... filter to delete one QuoteItem
+     *   }
+     * })
+     * 
+     */
+    delete<T extends QuoteItemDeleteArgs>(args: SelectSubset<T, QuoteItemDeleteArgs<ExtArgs>>): Prisma__QuoteItemClient<$Result.GetResult<Prisma.$QuoteItemPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one QuoteItem.
+     * @param {QuoteItemUpdateArgs} args - Arguments to update one QuoteItem.
+     * @example
+     * // Update one QuoteItem
+     * const quoteItem = await prisma.quoteItem.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends QuoteItemUpdateArgs>(args: SelectSubset<T, QuoteItemUpdateArgs<ExtArgs>>): Prisma__QuoteItemClient<$Result.GetResult<Prisma.$QuoteItemPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more QuoteItems.
+     * @param {QuoteItemDeleteManyArgs} args - Arguments to filter QuoteItems to delete.
+     * @example
+     * // Delete a few QuoteItems
+     * const { count } = await prisma.quoteItem.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends QuoteItemDeleteManyArgs>(args?: SelectSubset<T, QuoteItemDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more QuoteItems.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QuoteItemUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many QuoteItems
+     * const quoteItem = await prisma.quoteItem.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends QuoteItemUpdateManyArgs>(args: SelectSubset<T, QuoteItemUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more QuoteItems and returns the data updated in the database.
+     * @param {QuoteItemUpdateManyAndReturnArgs} args - Arguments to update many QuoteItems.
+     * @example
+     * // Update many QuoteItems
+     * const quoteItem = await prisma.quoteItem.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more QuoteItems and only return the `id`
+     * const quoteItemWithIdOnly = await prisma.quoteItem.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends QuoteItemUpdateManyAndReturnArgs>(args: SelectSubset<T, QuoteItemUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QuoteItemPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one QuoteItem.
+     * @param {QuoteItemUpsertArgs} args - Arguments to update or create a QuoteItem.
+     * @example
+     * // Update or create a QuoteItem
+     * const quoteItem = await prisma.quoteItem.upsert({
+     *   create: {
+     *     // ... data to create a QuoteItem
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the QuoteItem we want to update
+     *   }
+     * })
+     */
+    upsert<T extends QuoteItemUpsertArgs>(args: SelectSubset<T, QuoteItemUpsertArgs<ExtArgs>>): Prisma__QuoteItemClient<$Result.GetResult<Prisma.$QuoteItemPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of QuoteItems.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QuoteItemCountArgs} args - Arguments to filter QuoteItems to count.
+     * @example
+     * // Count the number of QuoteItems
+     * const count = await prisma.quoteItem.count({
+     *   where: {
+     *     // ... the filter for the QuoteItems we want to count
+     *   }
+     * })
+    **/
+    count<T extends QuoteItemCountArgs>(
+      args?: Subset<T, QuoteItemCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], QuoteItemCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a QuoteItem.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QuoteItemAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends QuoteItemAggregateArgs>(args: Subset<T, QuoteItemAggregateArgs>): Prisma.PrismaPromise<GetQuoteItemAggregateType<T>>
+
+    /**
+     * Group by QuoteItem.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QuoteItemGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends QuoteItemGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: QuoteItemGroupByArgs['orderBy'] }
+        : { orderBy?: QuoteItemGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, QuoteItemGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetQuoteItemGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the QuoteItem model
+   */
+  readonly fields: QuoteItemFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for QuoteItem.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__QuoteItemClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    quote<T extends QuoteDefaultArgs<ExtArgs> = {}>(args?: Subset<T, QuoteDefaultArgs<ExtArgs>>): Prisma__QuoteClient<$Result.GetResult<Prisma.$QuotePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the QuoteItem model
+   */
+  interface QuoteItemFieldRefs {
+    readonly id: FieldRef<"QuoteItem", 'String'>
+    readonly quote_id: FieldRef<"QuoteItem", 'String'>
+    readonly file_name: FieldRef<"QuoteItem", 'String'>
+    readonly file_url: FieldRef<"QuoteItem", 'String'>
+    readonly status: FieldRef<"QuoteItem", 'Boolean'>
+    readonly quantity: FieldRef<"QuoteItem", 'Int'>
+    readonly service: FieldRef<"QuoteItem", 'String'>
+    readonly material: FieldRef<"QuoteItem", 'String'>
+    readonly finish: FieldRef<"QuoteItem", 'String'>
+    readonly description: FieldRef<"QuoteItem", 'String'>
+    readonly process: FieldRef<"QuoteItem", 'String'>
+    readonly specification: FieldRef<"QuoteItem", 'String'>
+    readonly price: FieldRef<"QuoteItem", 'String'>
+    readonly cost: FieldRef<"QuoteItem", 'String'>
+    readonly cost_shipping_price: FieldRef<"QuoteItem", 'String'>
+    readonly cost_shipping_total: FieldRef<"QuoteItem", 'String'>
+    readonly custom_shipping_total: FieldRef<"QuoteItem", 'String'>
+    readonly buy_price: FieldRef<"QuoteItem", 'String'>
+    readonly buy_shipping_price: FieldRef<"QuoteItem", 'String'>
+    readonly buy_shipping_total: FieldRef<"QuoteItem", 'String'>
+    readonly quantity_owed: FieldRef<"QuoteItem", 'String'>
+    readonly invoiced: FieldRef<"QuoteItem", 'Boolean'>
+    readonly non_taxable: FieldRef<"QuoteItem", 'Int'>
+    readonly non_shipping: FieldRef<"QuoteItem", 'Int'>
+    readonly is_deleted: FieldRef<"QuoteItem", 'Boolean'>
+    readonly vendor_id: FieldRef<"QuoteItem", 'String'>
+    readonly vendor_details: FieldRef<"QuoteItem", 'String'>
+    readonly last_updated_by: FieldRef<"QuoteItem", 'Int'>
+    readonly work_instructions: FieldRef<"QuoteItem", 'String'>
+    readonly add_vendor: FieldRef<"QuoteItem", 'Boolean'>
+    readonly markings: FieldRef<"QuoteItem", 'String'>
+    readonly part_item_number: FieldRef<"QuoteItem", 'String'>
+    readonly file_year: FieldRef<"QuoteItem", 'String'>
+    readonly file_month: FieldRef<"QuoteItem", 'String'>
+    readonly tab_open: FieldRef<"QuoteItem", 'Boolean'>
+    readonly created_at: FieldRef<"QuoteItem", 'DateTime'>
+    readonly updated_at: FieldRef<"QuoteItem", 'DateTime'>
+    readonly deleted_at: FieldRef<"QuoteItem", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * QuoteItem findUnique
+   */
+  export type QuoteItemFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QuoteItem
+     */
+    select?: QuoteItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QuoteItem
+     */
+    omit?: QuoteItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuoteItemInclude<ExtArgs> | null
+    /**
+     * Filter, which QuoteItem to fetch.
+     */
+    where: QuoteItemWhereUniqueInput
+  }
+
+  /**
+   * QuoteItem findUniqueOrThrow
+   */
+  export type QuoteItemFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QuoteItem
+     */
+    select?: QuoteItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QuoteItem
+     */
+    omit?: QuoteItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuoteItemInclude<ExtArgs> | null
+    /**
+     * Filter, which QuoteItem to fetch.
+     */
+    where: QuoteItemWhereUniqueInput
+  }
+
+  /**
+   * QuoteItem findFirst
+   */
+  export type QuoteItemFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QuoteItem
+     */
+    select?: QuoteItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QuoteItem
+     */
+    omit?: QuoteItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuoteItemInclude<ExtArgs> | null
+    /**
+     * Filter, which QuoteItem to fetch.
+     */
+    where?: QuoteItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of QuoteItems to fetch.
+     */
+    orderBy?: QuoteItemOrderByWithRelationInput | QuoteItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for QuoteItems.
+     */
+    cursor?: QuoteItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` QuoteItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` QuoteItems.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of QuoteItems.
+     */
+    distinct?: QuoteItemScalarFieldEnum | QuoteItemScalarFieldEnum[]
+  }
+
+  /**
+   * QuoteItem findFirstOrThrow
+   */
+  export type QuoteItemFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QuoteItem
+     */
+    select?: QuoteItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QuoteItem
+     */
+    omit?: QuoteItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuoteItemInclude<ExtArgs> | null
+    /**
+     * Filter, which QuoteItem to fetch.
+     */
+    where?: QuoteItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of QuoteItems to fetch.
+     */
+    orderBy?: QuoteItemOrderByWithRelationInput | QuoteItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for QuoteItems.
+     */
+    cursor?: QuoteItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` QuoteItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` QuoteItems.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of QuoteItems.
+     */
+    distinct?: QuoteItemScalarFieldEnum | QuoteItemScalarFieldEnum[]
+  }
+
+  /**
+   * QuoteItem findMany
+   */
+  export type QuoteItemFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QuoteItem
+     */
+    select?: QuoteItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QuoteItem
+     */
+    omit?: QuoteItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuoteItemInclude<ExtArgs> | null
+    /**
+     * Filter, which QuoteItems to fetch.
+     */
+    where?: QuoteItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of QuoteItems to fetch.
+     */
+    orderBy?: QuoteItemOrderByWithRelationInput | QuoteItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing QuoteItems.
+     */
+    cursor?: QuoteItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` QuoteItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` QuoteItems.
+     */
+    skip?: number
+    distinct?: QuoteItemScalarFieldEnum | QuoteItemScalarFieldEnum[]
+  }
+
+  /**
+   * QuoteItem create
+   */
+  export type QuoteItemCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QuoteItem
+     */
+    select?: QuoteItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QuoteItem
+     */
+    omit?: QuoteItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuoteItemInclude<ExtArgs> | null
+    /**
+     * The data needed to create a QuoteItem.
+     */
+    data: XOR<QuoteItemCreateInput, QuoteItemUncheckedCreateInput>
+  }
+
+  /**
+   * QuoteItem createMany
+   */
+  export type QuoteItemCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many QuoteItems.
+     */
+    data: QuoteItemCreateManyInput | QuoteItemCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * QuoteItem createManyAndReturn
+   */
+  export type QuoteItemCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QuoteItem
+     */
+    select?: QuoteItemSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the QuoteItem
+     */
+    omit?: QuoteItemOmit<ExtArgs> | null
+    /**
+     * The data used to create many QuoteItems.
+     */
+    data: QuoteItemCreateManyInput | QuoteItemCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuoteItemIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * QuoteItem update
+   */
+  export type QuoteItemUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QuoteItem
+     */
+    select?: QuoteItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QuoteItem
+     */
+    omit?: QuoteItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuoteItemInclude<ExtArgs> | null
+    /**
+     * The data needed to update a QuoteItem.
+     */
+    data: XOR<QuoteItemUpdateInput, QuoteItemUncheckedUpdateInput>
+    /**
+     * Choose, which QuoteItem to update.
+     */
+    where: QuoteItemWhereUniqueInput
+  }
+
+  /**
+   * QuoteItem updateMany
+   */
+  export type QuoteItemUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update QuoteItems.
+     */
+    data: XOR<QuoteItemUpdateManyMutationInput, QuoteItemUncheckedUpdateManyInput>
+    /**
+     * Filter which QuoteItems to update
+     */
+    where?: QuoteItemWhereInput
+    /**
+     * Limit how many QuoteItems to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * QuoteItem updateManyAndReturn
+   */
+  export type QuoteItemUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QuoteItem
+     */
+    select?: QuoteItemSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the QuoteItem
+     */
+    omit?: QuoteItemOmit<ExtArgs> | null
+    /**
+     * The data used to update QuoteItems.
+     */
+    data: XOR<QuoteItemUpdateManyMutationInput, QuoteItemUncheckedUpdateManyInput>
+    /**
+     * Filter which QuoteItems to update
+     */
+    where?: QuoteItemWhereInput
+    /**
+     * Limit how many QuoteItems to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuoteItemIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * QuoteItem upsert
+   */
+  export type QuoteItemUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QuoteItem
+     */
+    select?: QuoteItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QuoteItem
+     */
+    omit?: QuoteItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuoteItemInclude<ExtArgs> | null
+    /**
+     * The filter to search for the QuoteItem to update in case it exists.
+     */
+    where: QuoteItemWhereUniqueInput
+    /**
+     * In case the QuoteItem found by the `where` argument doesn't exist, create a new QuoteItem with this data.
+     */
+    create: XOR<QuoteItemCreateInput, QuoteItemUncheckedCreateInput>
+    /**
+     * In case the QuoteItem was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<QuoteItemUpdateInput, QuoteItemUncheckedUpdateInput>
+  }
+
+  /**
+   * QuoteItem delete
+   */
+  export type QuoteItemDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QuoteItem
+     */
+    select?: QuoteItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QuoteItem
+     */
+    omit?: QuoteItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuoteItemInclude<ExtArgs> | null
+    /**
+     * Filter which QuoteItem to delete.
+     */
+    where: QuoteItemWhereUniqueInput
+  }
+
+  /**
+   * QuoteItem deleteMany
+   */
+  export type QuoteItemDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which QuoteItems to delete
+     */
+    where?: QuoteItemWhereInput
+    /**
+     * Limit how many QuoteItems to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * QuoteItem without action
+   */
+  export type QuoteItemDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QuoteItem
+     */
+    select?: QuoteItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QuoteItem
+     */
+    omit?: QuoteItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuoteItemInclude<ExtArgs> | null
   }
 
 
@@ -8369,8 +11872,8 @@ export namespace Prisma {
     name: string
     description: string | null
     due_days: number
-    discount_days: number | null
-    discount_percent: Decimal | null
+    discount_days: number
+    discount_percent: Decimal
     is_active: boolean
     created_at: Date
     updated_at: Date
@@ -8458,8 +11961,8 @@ export namespace Prisma {
       name: string
       description: string | null
       due_days: number
-      discount_days: number | null
-      discount_percent: Prisma.Decimal | null
+      discount_days: number
+      discount_percent: Prisma.Decimal
       is_active: boolean
       created_at: Date
       updated_at: Date
@@ -14549,7 +18052,6 @@ export namespace Prisma {
     contacts?: boolean | Customer$contactsArgs<ExtArgs>
     operational?: boolean | Customer$operationalArgs<ExtArgs>
     attachments?: boolean | Customer$attachmentsArgs<ExtArgs>
-    quotation?: boolean | Customer$quotationArgs<ExtArgs>
     _count?: boolean | CustomerCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["customer"]>
 
@@ -14626,7 +18128,6 @@ export namespace Prisma {
     contacts?: boolean | Customer$contactsArgs<ExtArgs>
     operational?: boolean | Customer$operationalArgs<ExtArgs>
     attachments?: boolean | Customer$attachmentsArgs<ExtArgs>
-    quotation?: boolean | Customer$quotationArgs<ExtArgs>
     _count?: boolean | CustomerCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type CustomerIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -14645,7 +18146,6 @@ export namespace Prisma {
       contacts: Prisma.$CustomerContactPayload<ExtArgs>[]
       operational: Prisma.$CustomerOperationalInfoPayload<ExtArgs> | null
       attachments: Prisma.$CustomerNotesAndAttachmentsPayload<ExtArgs>[]
-      quotation: Prisma.$QuotationAttachmentPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -15066,7 +18566,6 @@ export namespace Prisma {
     contacts<T extends Customer$contactsArgs<ExtArgs> = {}>(args?: Subset<T, Customer$contactsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerContactPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     operational<T extends Customer$operationalArgs<ExtArgs> = {}>(args?: Subset<T, Customer$operationalArgs<ExtArgs>>): Prisma__CustomerOperationalInfoClient<$Result.GetResult<Prisma.$CustomerOperationalInfoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     attachments<T extends Customer$attachmentsArgs<ExtArgs> = {}>(args?: Subset<T, Customer$attachmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerNotesAndAttachmentsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    quotation<T extends Customer$quotationArgs<ExtArgs> = {}>(args?: Subset<T, Customer$quotationArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QuotationAttachmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -15639,30 +19138,6 @@ export namespace Prisma {
   }
 
   /**
-   * Customer.quotation
-   */
-  export type Customer$quotationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the QuotationAttachment
-     */
-    select?: QuotationAttachmentSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the QuotationAttachment
-     */
-    omit?: QuotationAttachmentOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: QuotationAttachmentInclude<ExtArgs> | null
-    where?: QuotationAttachmentWhereInput
-    orderBy?: QuotationAttachmentOrderByWithRelationInput | QuotationAttachmentOrderByWithRelationInput[]
-    cursor?: QuotationAttachmentWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: QuotationAttachmentScalarFieldEnum | QuotationAttachmentScalarFieldEnum[]
-  }
-
-  /**
    * Customer without action
    */
   export type CustomerDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -15678,1096 +19153,6 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: CustomerInclude<ExtArgs> | null
-  }
-
-
-  /**
-   * Model QuotationAttachment
-   */
-
-  export type AggregateQuotationAttachment = {
-    _count: QuotationAttachmentCountAggregateOutputType | null
-    _min: QuotationAttachmentMinAggregateOutputType | null
-    _max: QuotationAttachmentMaxAggregateOutputType | null
-  }
-
-  export type QuotationAttachmentMinAggregateOutputType = {
-    id: string | null
-    customer_id: string | null
-    file_name: string | null
-    file_url: string | null
-    created_at: Date | null
-    updated_at: Date | null
-  }
-
-  export type QuotationAttachmentMaxAggregateOutputType = {
-    id: string | null
-    customer_id: string | null
-    file_name: string | null
-    file_url: string | null
-    created_at: Date | null
-    updated_at: Date | null
-  }
-
-  export type QuotationAttachmentCountAggregateOutputType = {
-    id: number
-    customer_id: number
-    file_name: number
-    file_url: number
-    created_at: number
-    updated_at: number
-    _all: number
-  }
-
-
-  export type QuotationAttachmentMinAggregateInputType = {
-    id?: true
-    customer_id?: true
-    file_name?: true
-    file_url?: true
-    created_at?: true
-    updated_at?: true
-  }
-
-  export type QuotationAttachmentMaxAggregateInputType = {
-    id?: true
-    customer_id?: true
-    file_name?: true
-    file_url?: true
-    created_at?: true
-    updated_at?: true
-  }
-
-  export type QuotationAttachmentCountAggregateInputType = {
-    id?: true
-    customer_id?: true
-    file_name?: true
-    file_url?: true
-    created_at?: true
-    updated_at?: true
-    _all?: true
-  }
-
-  export type QuotationAttachmentAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which QuotationAttachment to aggregate.
-     */
-    where?: QuotationAttachmentWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of QuotationAttachments to fetch.
-     */
-    orderBy?: QuotationAttachmentOrderByWithRelationInput | QuotationAttachmentOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: QuotationAttachmentWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` QuotationAttachments from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` QuotationAttachments.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned QuotationAttachments
-    **/
-    _count?: true | QuotationAttachmentCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: QuotationAttachmentMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: QuotationAttachmentMaxAggregateInputType
-  }
-
-  export type GetQuotationAttachmentAggregateType<T extends QuotationAttachmentAggregateArgs> = {
-        [P in keyof T & keyof AggregateQuotationAttachment]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateQuotationAttachment[P]>
-      : GetScalarType<T[P], AggregateQuotationAttachment[P]>
-  }
-
-
-
-
-  export type QuotationAttachmentGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: QuotationAttachmentWhereInput
-    orderBy?: QuotationAttachmentOrderByWithAggregationInput | QuotationAttachmentOrderByWithAggregationInput[]
-    by: QuotationAttachmentScalarFieldEnum[] | QuotationAttachmentScalarFieldEnum
-    having?: QuotationAttachmentScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: QuotationAttachmentCountAggregateInputType | true
-    _min?: QuotationAttachmentMinAggregateInputType
-    _max?: QuotationAttachmentMaxAggregateInputType
-  }
-
-  export type QuotationAttachmentGroupByOutputType = {
-    id: string
-    customer_id: string
-    file_name: string | null
-    file_url: string | null
-    created_at: Date
-    updated_at: Date
-    _count: QuotationAttachmentCountAggregateOutputType | null
-    _min: QuotationAttachmentMinAggregateOutputType | null
-    _max: QuotationAttachmentMaxAggregateOutputType | null
-  }
-
-  type GetQuotationAttachmentGroupByPayload<T extends QuotationAttachmentGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<QuotationAttachmentGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof QuotationAttachmentGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], QuotationAttachmentGroupByOutputType[P]>
-            : GetScalarType<T[P], QuotationAttachmentGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type QuotationAttachmentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    customer_id?: boolean
-    file_name?: boolean
-    file_url?: boolean
-    created_at?: boolean
-    updated_at?: boolean
-    customer?: boolean | QuotationAttachment$customerArgs<ExtArgs>
-  }, ExtArgs["result"]["quotationAttachment"]>
-
-  export type QuotationAttachmentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    customer_id?: boolean
-    file_name?: boolean
-    file_url?: boolean
-    created_at?: boolean
-    updated_at?: boolean
-    customer?: boolean | QuotationAttachment$customerArgs<ExtArgs>
-  }, ExtArgs["result"]["quotationAttachment"]>
-
-  export type QuotationAttachmentSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    customer_id?: boolean
-    file_name?: boolean
-    file_url?: boolean
-    created_at?: boolean
-    updated_at?: boolean
-    customer?: boolean | QuotationAttachment$customerArgs<ExtArgs>
-  }, ExtArgs["result"]["quotationAttachment"]>
-
-  export type QuotationAttachmentSelectScalar = {
-    id?: boolean
-    customer_id?: boolean
-    file_name?: boolean
-    file_url?: boolean
-    created_at?: boolean
-    updated_at?: boolean
-  }
-
-  export type QuotationAttachmentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "customer_id" | "file_name" | "file_url" | "created_at" | "updated_at", ExtArgs["result"]["quotationAttachment"]>
-  export type QuotationAttachmentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    customer?: boolean | QuotationAttachment$customerArgs<ExtArgs>
-  }
-  export type QuotationAttachmentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    customer?: boolean | QuotationAttachment$customerArgs<ExtArgs>
-  }
-  export type QuotationAttachmentIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    customer?: boolean | QuotationAttachment$customerArgs<ExtArgs>
-  }
-
-  export type $QuotationAttachmentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "QuotationAttachment"
-    objects: {
-      customer: Prisma.$CustomerPayload<ExtArgs> | null
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: string
-      customer_id: string
-      file_name: string | null
-      file_url: string | null
-      created_at: Date
-      updated_at: Date
-    }, ExtArgs["result"]["quotationAttachment"]>
-    composites: {}
-  }
-
-  type QuotationAttachmentGetPayload<S extends boolean | null | undefined | QuotationAttachmentDefaultArgs> = $Result.GetResult<Prisma.$QuotationAttachmentPayload, S>
-
-  type QuotationAttachmentCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<QuotationAttachmentFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: QuotationAttachmentCountAggregateInputType | true
-    }
-
-  export interface QuotationAttachmentDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['QuotationAttachment'], meta: { name: 'QuotationAttachment' } }
-    /**
-     * Find zero or one QuotationAttachment that matches the filter.
-     * @param {QuotationAttachmentFindUniqueArgs} args - Arguments to find a QuotationAttachment
-     * @example
-     * // Get one QuotationAttachment
-     * const quotationAttachment = await prisma.quotationAttachment.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends QuotationAttachmentFindUniqueArgs>(args: SelectSubset<T, QuotationAttachmentFindUniqueArgs<ExtArgs>>): Prisma__QuotationAttachmentClient<$Result.GetResult<Prisma.$QuotationAttachmentPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one QuotationAttachment that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {QuotationAttachmentFindUniqueOrThrowArgs} args - Arguments to find a QuotationAttachment
-     * @example
-     * // Get one QuotationAttachment
-     * const quotationAttachment = await prisma.quotationAttachment.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends QuotationAttachmentFindUniqueOrThrowArgs>(args: SelectSubset<T, QuotationAttachmentFindUniqueOrThrowArgs<ExtArgs>>): Prisma__QuotationAttachmentClient<$Result.GetResult<Prisma.$QuotationAttachmentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first QuotationAttachment that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {QuotationAttachmentFindFirstArgs} args - Arguments to find a QuotationAttachment
-     * @example
-     * // Get one QuotationAttachment
-     * const quotationAttachment = await prisma.quotationAttachment.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends QuotationAttachmentFindFirstArgs>(args?: SelectSubset<T, QuotationAttachmentFindFirstArgs<ExtArgs>>): Prisma__QuotationAttachmentClient<$Result.GetResult<Prisma.$QuotationAttachmentPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first QuotationAttachment that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {QuotationAttachmentFindFirstOrThrowArgs} args - Arguments to find a QuotationAttachment
-     * @example
-     * // Get one QuotationAttachment
-     * const quotationAttachment = await prisma.quotationAttachment.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends QuotationAttachmentFindFirstOrThrowArgs>(args?: SelectSubset<T, QuotationAttachmentFindFirstOrThrowArgs<ExtArgs>>): Prisma__QuotationAttachmentClient<$Result.GetResult<Prisma.$QuotationAttachmentPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more QuotationAttachments that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {QuotationAttachmentFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all QuotationAttachments
-     * const quotationAttachments = await prisma.quotationAttachment.findMany()
-     * 
-     * // Get first 10 QuotationAttachments
-     * const quotationAttachments = await prisma.quotationAttachment.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const quotationAttachmentWithIdOnly = await prisma.quotationAttachment.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends QuotationAttachmentFindManyArgs>(args?: SelectSubset<T, QuotationAttachmentFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QuotationAttachmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a QuotationAttachment.
-     * @param {QuotationAttachmentCreateArgs} args - Arguments to create a QuotationAttachment.
-     * @example
-     * // Create one QuotationAttachment
-     * const QuotationAttachment = await prisma.quotationAttachment.create({
-     *   data: {
-     *     // ... data to create a QuotationAttachment
-     *   }
-     * })
-     * 
-     */
-    create<T extends QuotationAttachmentCreateArgs>(args: SelectSubset<T, QuotationAttachmentCreateArgs<ExtArgs>>): Prisma__QuotationAttachmentClient<$Result.GetResult<Prisma.$QuotationAttachmentPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many QuotationAttachments.
-     * @param {QuotationAttachmentCreateManyArgs} args - Arguments to create many QuotationAttachments.
-     * @example
-     * // Create many QuotationAttachments
-     * const quotationAttachment = await prisma.quotationAttachment.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends QuotationAttachmentCreateManyArgs>(args?: SelectSubset<T, QuotationAttachmentCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many QuotationAttachments and returns the data saved in the database.
-     * @param {QuotationAttachmentCreateManyAndReturnArgs} args - Arguments to create many QuotationAttachments.
-     * @example
-     * // Create many QuotationAttachments
-     * const quotationAttachment = await prisma.quotationAttachment.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many QuotationAttachments and only return the `id`
-     * const quotationAttachmentWithIdOnly = await prisma.quotationAttachment.createManyAndReturn({
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends QuotationAttachmentCreateManyAndReturnArgs>(args?: SelectSubset<T, QuotationAttachmentCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QuotationAttachmentPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Delete a QuotationAttachment.
-     * @param {QuotationAttachmentDeleteArgs} args - Arguments to delete one QuotationAttachment.
-     * @example
-     * // Delete one QuotationAttachment
-     * const QuotationAttachment = await prisma.quotationAttachment.delete({
-     *   where: {
-     *     // ... filter to delete one QuotationAttachment
-     *   }
-     * })
-     * 
-     */
-    delete<T extends QuotationAttachmentDeleteArgs>(args: SelectSubset<T, QuotationAttachmentDeleteArgs<ExtArgs>>): Prisma__QuotationAttachmentClient<$Result.GetResult<Prisma.$QuotationAttachmentPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one QuotationAttachment.
-     * @param {QuotationAttachmentUpdateArgs} args - Arguments to update one QuotationAttachment.
-     * @example
-     * // Update one QuotationAttachment
-     * const quotationAttachment = await prisma.quotationAttachment.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends QuotationAttachmentUpdateArgs>(args: SelectSubset<T, QuotationAttachmentUpdateArgs<ExtArgs>>): Prisma__QuotationAttachmentClient<$Result.GetResult<Prisma.$QuotationAttachmentPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more QuotationAttachments.
-     * @param {QuotationAttachmentDeleteManyArgs} args - Arguments to filter QuotationAttachments to delete.
-     * @example
-     * // Delete a few QuotationAttachments
-     * const { count } = await prisma.quotationAttachment.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends QuotationAttachmentDeleteManyArgs>(args?: SelectSubset<T, QuotationAttachmentDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more QuotationAttachments.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {QuotationAttachmentUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many QuotationAttachments
-     * const quotationAttachment = await prisma.quotationAttachment.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends QuotationAttachmentUpdateManyArgs>(args: SelectSubset<T, QuotationAttachmentUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more QuotationAttachments and returns the data updated in the database.
-     * @param {QuotationAttachmentUpdateManyAndReturnArgs} args - Arguments to update many QuotationAttachments.
-     * @example
-     * // Update many QuotationAttachments
-     * const quotationAttachment = await prisma.quotationAttachment.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more QuotationAttachments and only return the `id`
-     * const quotationAttachmentWithIdOnly = await prisma.quotationAttachment.updateManyAndReturn({
-     *   select: { id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends QuotationAttachmentUpdateManyAndReturnArgs>(args: SelectSubset<T, QuotationAttachmentUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QuotationAttachmentPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Create or update one QuotationAttachment.
-     * @param {QuotationAttachmentUpsertArgs} args - Arguments to update or create a QuotationAttachment.
-     * @example
-     * // Update or create a QuotationAttachment
-     * const quotationAttachment = await prisma.quotationAttachment.upsert({
-     *   create: {
-     *     // ... data to create a QuotationAttachment
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the QuotationAttachment we want to update
-     *   }
-     * })
-     */
-    upsert<T extends QuotationAttachmentUpsertArgs>(args: SelectSubset<T, QuotationAttachmentUpsertArgs<ExtArgs>>): Prisma__QuotationAttachmentClient<$Result.GetResult<Prisma.$QuotationAttachmentPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of QuotationAttachments.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {QuotationAttachmentCountArgs} args - Arguments to filter QuotationAttachments to count.
-     * @example
-     * // Count the number of QuotationAttachments
-     * const count = await prisma.quotationAttachment.count({
-     *   where: {
-     *     // ... the filter for the QuotationAttachments we want to count
-     *   }
-     * })
-    **/
-    count<T extends QuotationAttachmentCountArgs>(
-      args?: Subset<T, QuotationAttachmentCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], QuotationAttachmentCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a QuotationAttachment.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {QuotationAttachmentAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends QuotationAttachmentAggregateArgs>(args: Subset<T, QuotationAttachmentAggregateArgs>): Prisma.PrismaPromise<GetQuotationAttachmentAggregateType<T>>
-
-    /**
-     * Group by QuotationAttachment.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {QuotationAttachmentGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends QuotationAttachmentGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: QuotationAttachmentGroupByArgs['orderBy'] }
-        : { orderBy?: QuotationAttachmentGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, QuotationAttachmentGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetQuotationAttachmentGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the QuotationAttachment model
-   */
-  readonly fields: QuotationAttachmentFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for QuotationAttachment.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__QuotationAttachmentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    customer<T extends QuotationAttachment$customerArgs<ExtArgs> = {}>(args?: Subset<T, QuotationAttachment$customerArgs<ExtArgs>>): Prisma__CustomerClient<$Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the QuotationAttachment model
-   */
-  interface QuotationAttachmentFieldRefs {
-    readonly id: FieldRef<"QuotationAttachment", 'String'>
-    readonly customer_id: FieldRef<"QuotationAttachment", 'String'>
-    readonly file_name: FieldRef<"QuotationAttachment", 'String'>
-    readonly file_url: FieldRef<"QuotationAttachment", 'String'>
-    readonly created_at: FieldRef<"QuotationAttachment", 'DateTime'>
-    readonly updated_at: FieldRef<"QuotationAttachment", 'DateTime'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * QuotationAttachment findUnique
-   */
-  export type QuotationAttachmentFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the QuotationAttachment
-     */
-    select?: QuotationAttachmentSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the QuotationAttachment
-     */
-    omit?: QuotationAttachmentOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: QuotationAttachmentInclude<ExtArgs> | null
-    /**
-     * Filter, which QuotationAttachment to fetch.
-     */
-    where: QuotationAttachmentWhereUniqueInput
-  }
-
-  /**
-   * QuotationAttachment findUniqueOrThrow
-   */
-  export type QuotationAttachmentFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the QuotationAttachment
-     */
-    select?: QuotationAttachmentSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the QuotationAttachment
-     */
-    omit?: QuotationAttachmentOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: QuotationAttachmentInclude<ExtArgs> | null
-    /**
-     * Filter, which QuotationAttachment to fetch.
-     */
-    where: QuotationAttachmentWhereUniqueInput
-  }
-
-  /**
-   * QuotationAttachment findFirst
-   */
-  export type QuotationAttachmentFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the QuotationAttachment
-     */
-    select?: QuotationAttachmentSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the QuotationAttachment
-     */
-    omit?: QuotationAttachmentOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: QuotationAttachmentInclude<ExtArgs> | null
-    /**
-     * Filter, which QuotationAttachment to fetch.
-     */
-    where?: QuotationAttachmentWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of QuotationAttachments to fetch.
-     */
-    orderBy?: QuotationAttachmentOrderByWithRelationInput | QuotationAttachmentOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for QuotationAttachments.
-     */
-    cursor?: QuotationAttachmentWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` QuotationAttachments from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` QuotationAttachments.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of QuotationAttachments.
-     */
-    distinct?: QuotationAttachmentScalarFieldEnum | QuotationAttachmentScalarFieldEnum[]
-  }
-
-  /**
-   * QuotationAttachment findFirstOrThrow
-   */
-  export type QuotationAttachmentFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the QuotationAttachment
-     */
-    select?: QuotationAttachmentSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the QuotationAttachment
-     */
-    omit?: QuotationAttachmentOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: QuotationAttachmentInclude<ExtArgs> | null
-    /**
-     * Filter, which QuotationAttachment to fetch.
-     */
-    where?: QuotationAttachmentWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of QuotationAttachments to fetch.
-     */
-    orderBy?: QuotationAttachmentOrderByWithRelationInput | QuotationAttachmentOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for QuotationAttachments.
-     */
-    cursor?: QuotationAttachmentWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` QuotationAttachments from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` QuotationAttachments.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of QuotationAttachments.
-     */
-    distinct?: QuotationAttachmentScalarFieldEnum | QuotationAttachmentScalarFieldEnum[]
-  }
-
-  /**
-   * QuotationAttachment findMany
-   */
-  export type QuotationAttachmentFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the QuotationAttachment
-     */
-    select?: QuotationAttachmentSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the QuotationAttachment
-     */
-    omit?: QuotationAttachmentOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: QuotationAttachmentInclude<ExtArgs> | null
-    /**
-     * Filter, which QuotationAttachments to fetch.
-     */
-    where?: QuotationAttachmentWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of QuotationAttachments to fetch.
-     */
-    orderBy?: QuotationAttachmentOrderByWithRelationInput | QuotationAttachmentOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing QuotationAttachments.
-     */
-    cursor?: QuotationAttachmentWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` QuotationAttachments from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` QuotationAttachments.
-     */
-    skip?: number
-    distinct?: QuotationAttachmentScalarFieldEnum | QuotationAttachmentScalarFieldEnum[]
-  }
-
-  /**
-   * QuotationAttachment create
-   */
-  export type QuotationAttachmentCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the QuotationAttachment
-     */
-    select?: QuotationAttachmentSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the QuotationAttachment
-     */
-    omit?: QuotationAttachmentOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: QuotationAttachmentInclude<ExtArgs> | null
-    /**
-     * The data needed to create a QuotationAttachment.
-     */
-    data: XOR<QuotationAttachmentCreateInput, QuotationAttachmentUncheckedCreateInput>
-  }
-
-  /**
-   * QuotationAttachment createMany
-   */
-  export type QuotationAttachmentCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many QuotationAttachments.
-     */
-    data: QuotationAttachmentCreateManyInput | QuotationAttachmentCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * QuotationAttachment createManyAndReturn
-   */
-  export type QuotationAttachmentCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the QuotationAttachment
-     */
-    select?: QuotationAttachmentSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the QuotationAttachment
-     */
-    omit?: QuotationAttachmentOmit<ExtArgs> | null
-    /**
-     * The data used to create many QuotationAttachments.
-     */
-    data: QuotationAttachmentCreateManyInput | QuotationAttachmentCreateManyInput[]
-    skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: QuotationAttachmentIncludeCreateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * QuotationAttachment update
-   */
-  export type QuotationAttachmentUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the QuotationAttachment
-     */
-    select?: QuotationAttachmentSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the QuotationAttachment
-     */
-    omit?: QuotationAttachmentOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: QuotationAttachmentInclude<ExtArgs> | null
-    /**
-     * The data needed to update a QuotationAttachment.
-     */
-    data: XOR<QuotationAttachmentUpdateInput, QuotationAttachmentUncheckedUpdateInput>
-    /**
-     * Choose, which QuotationAttachment to update.
-     */
-    where: QuotationAttachmentWhereUniqueInput
-  }
-
-  /**
-   * QuotationAttachment updateMany
-   */
-  export type QuotationAttachmentUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update QuotationAttachments.
-     */
-    data: XOR<QuotationAttachmentUpdateManyMutationInput, QuotationAttachmentUncheckedUpdateManyInput>
-    /**
-     * Filter which QuotationAttachments to update
-     */
-    where?: QuotationAttachmentWhereInput
-    /**
-     * Limit how many QuotationAttachments to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * QuotationAttachment updateManyAndReturn
-   */
-  export type QuotationAttachmentUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the QuotationAttachment
-     */
-    select?: QuotationAttachmentSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the QuotationAttachment
-     */
-    omit?: QuotationAttachmentOmit<ExtArgs> | null
-    /**
-     * The data used to update QuotationAttachments.
-     */
-    data: XOR<QuotationAttachmentUpdateManyMutationInput, QuotationAttachmentUncheckedUpdateManyInput>
-    /**
-     * Filter which QuotationAttachments to update
-     */
-    where?: QuotationAttachmentWhereInput
-    /**
-     * Limit how many QuotationAttachments to update.
-     */
-    limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: QuotationAttachmentIncludeUpdateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * QuotationAttachment upsert
-   */
-  export type QuotationAttachmentUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the QuotationAttachment
-     */
-    select?: QuotationAttachmentSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the QuotationAttachment
-     */
-    omit?: QuotationAttachmentOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: QuotationAttachmentInclude<ExtArgs> | null
-    /**
-     * The filter to search for the QuotationAttachment to update in case it exists.
-     */
-    where: QuotationAttachmentWhereUniqueInput
-    /**
-     * In case the QuotationAttachment found by the `where` argument doesn't exist, create a new QuotationAttachment with this data.
-     */
-    create: XOR<QuotationAttachmentCreateInput, QuotationAttachmentUncheckedCreateInput>
-    /**
-     * In case the QuotationAttachment was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<QuotationAttachmentUpdateInput, QuotationAttachmentUncheckedUpdateInput>
-  }
-
-  /**
-   * QuotationAttachment delete
-   */
-  export type QuotationAttachmentDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the QuotationAttachment
-     */
-    select?: QuotationAttachmentSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the QuotationAttachment
-     */
-    omit?: QuotationAttachmentOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: QuotationAttachmentInclude<ExtArgs> | null
-    /**
-     * Filter which QuotationAttachment to delete.
-     */
-    where: QuotationAttachmentWhereUniqueInput
-  }
-
-  /**
-   * QuotationAttachment deleteMany
-   */
-  export type QuotationAttachmentDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which QuotationAttachments to delete
-     */
-    where?: QuotationAttachmentWhereInput
-    /**
-     * Limit how many QuotationAttachments to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * QuotationAttachment.customer
-   */
-  export type QuotationAttachment$customerArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Customer
-     */
-    select?: CustomerSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Customer
-     */
-    omit?: CustomerOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CustomerInclude<ExtArgs> | null
-    where?: CustomerWhereInput
-  }
-
-  /**
-   * QuotationAttachment without action
-   */
-  export type QuotationAttachmentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the QuotationAttachment
-     */
-    select?: QuotationAttachmentSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the QuotationAttachment
-     */
-    omit?: QuotationAttachmentOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: QuotationAttachmentInclude<ExtArgs> | null
   }
 
 
@@ -37981,6 +40366,988 @@ export namespace Prisma {
 
 
   /**
+   * Model company_school
+   */
+
+  export type AggregateCompany_school = {
+    _count: Company_schoolCountAggregateOutputType | null
+    _min: Company_schoolMinAggregateOutputType | null
+    _max: Company_schoolMaxAggregateOutputType | null
+  }
+
+  export type Company_schoolMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    class: string | null
+    roll_no: string | null
+  }
+
+  export type Company_schoolMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    class: string | null
+    roll_no: string | null
+  }
+
+  export type Company_schoolCountAggregateOutputType = {
+    id: number
+    name: number
+    class: number
+    roll_no: number
+    _all: number
+  }
+
+
+  export type Company_schoolMinAggregateInputType = {
+    id?: true
+    name?: true
+    class?: true
+    roll_no?: true
+  }
+
+  export type Company_schoolMaxAggregateInputType = {
+    id?: true
+    name?: true
+    class?: true
+    roll_no?: true
+  }
+
+  export type Company_schoolCountAggregateInputType = {
+    id?: true
+    name?: true
+    class?: true
+    roll_no?: true
+    _all?: true
+  }
+
+  export type Company_schoolAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which company_school to aggregate.
+     */
+    where?: company_schoolWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of company_schools to fetch.
+     */
+    orderBy?: company_schoolOrderByWithRelationInput | company_schoolOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: company_schoolWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` company_schools from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` company_schools.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned company_schools
+    **/
+    _count?: true | Company_schoolCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Company_schoolMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Company_schoolMaxAggregateInputType
+  }
+
+  export type GetCompany_schoolAggregateType<T extends Company_schoolAggregateArgs> = {
+        [P in keyof T & keyof AggregateCompany_school]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCompany_school[P]>
+      : GetScalarType<T[P], AggregateCompany_school[P]>
+  }
+
+
+
+
+  export type company_schoolGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: company_schoolWhereInput
+    orderBy?: company_schoolOrderByWithAggregationInput | company_schoolOrderByWithAggregationInput[]
+    by: Company_schoolScalarFieldEnum[] | Company_schoolScalarFieldEnum
+    having?: company_schoolScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Company_schoolCountAggregateInputType | true
+    _min?: Company_schoolMinAggregateInputType
+    _max?: Company_schoolMaxAggregateInputType
+  }
+
+  export type Company_schoolGroupByOutputType = {
+    id: string
+    name: string
+    class: string
+    roll_no: string
+    _count: Company_schoolCountAggregateOutputType | null
+    _min: Company_schoolMinAggregateOutputType | null
+    _max: Company_schoolMaxAggregateOutputType | null
+  }
+
+  type GetCompany_schoolGroupByPayload<T extends company_schoolGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Company_schoolGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Company_schoolGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Company_schoolGroupByOutputType[P]>
+            : GetScalarType<T[P], Company_schoolGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type company_schoolSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    class?: boolean
+    roll_no?: boolean
+  }, ExtArgs["result"]["company_school"]>
+
+  export type company_schoolSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    class?: boolean
+    roll_no?: boolean
+  }, ExtArgs["result"]["company_school"]>
+
+  export type company_schoolSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    class?: boolean
+    roll_no?: boolean
+  }, ExtArgs["result"]["company_school"]>
+
+  export type company_schoolSelectScalar = {
+    id?: boolean
+    name?: boolean
+    class?: boolean
+    roll_no?: boolean
+  }
+
+  export type company_schoolOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "class" | "roll_no", ExtArgs["result"]["company_school"]>
+
+  export type $company_schoolPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "company_school"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      class: string
+      roll_no: string
+    }, ExtArgs["result"]["company_school"]>
+    composites: {}
+  }
+
+  type company_schoolGetPayload<S extends boolean | null | undefined | company_schoolDefaultArgs> = $Result.GetResult<Prisma.$company_schoolPayload, S>
+
+  type company_schoolCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<company_schoolFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Company_schoolCountAggregateInputType | true
+    }
+
+  export interface company_schoolDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['company_school'], meta: { name: 'company_school' } }
+    /**
+     * Find zero or one Company_school that matches the filter.
+     * @param {company_schoolFindUniqueArgs} args - Arguments to find a Company_school
+     * @example
+     * // Get one Company_school
+     * const company_school = await prisma.company_school.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends company_schoolFindUniqueArgs>(args: SelectSubset<T, company_schoolFindUniqueArgs<ExtArgs>>): Prisma__company_schoolClient<$Result.GetResult<Prisma.$company_schoolPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Company_school that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {company_schoolFindUniqueOrThrowArgs} args - Arguments to find a Company_school
+     * @example
+     * // Get one Company_school
+     * const company_school = await prisma.company_school.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends company_schoolFindUniqueOrThrowArgs>(args: SelectSubset<T, company_schoolFindUniqueOrThrowArgs<ExtArgs>>): Prisma__company_schoolClient<$Result.GetResult<Prisma.$company_schoolPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Company_school that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {company_schoolFindFirstArgs} args - Arguments to find a Company_school
+     * @example
+     * // Get one Company_school
+     * const company_school = await prisma.company_school.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends company_schoolFindFirstArgs>(args?: SelectSubset<T, company_schoolFindFirstArgs<ExtArgs>>): Prisma__company_schoolClient<$Result.GetResult<Prisma.$company_schoolPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Company_school that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {company_schoolFindFirstOrThrowArgs} args - Arguments to find a Company_school
+     * @example
+     * // Get one Company_school
+     * const company_school = await prisma.company_school.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends company_schoolFindFirstOrThrowArgs>(args?: SelectSubset<T, company_schoolFindFirstOrThrowArgs<ExtArgs>>): Prisma__company_schoolClient<$Result.GetResult<Prisma.$company_schoolPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Company_schools that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {company_schoolFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Company_schools
+     * const company_schools = await prisma.company_school.findMany()
+     * 
+     * // Get first 10 Company_schools
+     * const company_schools = await prisma.company_school.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const company_schoolWithIdOnly = await prisma.company_school.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends company_schoolFindManyArgs>(args?: SelectSubset<T, company_schoolFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$company_schoolPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Company_school.
+     * @param {company_schoolCreateArgs} args - Arguments to create a Company_school.
+     * @example
+     * // Create one Company_school
+     * const Company_school = await prisma.company_school.create({
+     *   data: {
+     *     // ... data to create a Company_school
+     *   }
+     * })
+     * 
+     */
+    create<T extends company_schoolCreateArgs>(args: SelectSubset<T, company_schoolCreateArgs<ExtArgs>>): Prisma__company_schoolClient<$Result.GetResult<Prisma.$company_schoolPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Company_schools.
+     * @param {company_schoolCreateManyArgs} args - Arguments to create many Company_schools.
+     * @example
+     * // Create many Company_schools
+     * const company_school = await prisma.company_school.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends company_schoolCreateManyArgs>(args?: SelectSubset<T, company_schoolCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Company_schools and returns the data saved in the database.
+     * @param {company_schoolCreateManyAndReturnArgs} args - Arguments to create many Company_schools.
+     * @example
+     * // Create many Company_schools
+     * const company_school = await prisma.company_school.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Company_schools and only return the `id`
+     * const company_schoolWithIdOnly = await prisma.company_school.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends company_schoolCreateManyAndReturnArgs>(args?: SelectSubset<T, company_schoolCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$company_schoolPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Company_school.
+     * @param {company_schoolDeleteArgs} args - Arguments to delete one Company_school.
+     * @example
+     * // Delete one Company_school
+     * const Company_school = await prisma.company_school.delete({
+     *   where: {
+     *     // ... filter to delete one Company_school
+     *   }
+     * })
+     * 
+     */
+    delete<T extends company_schoolDeleteArgs>(args: SelectSubset<T, company_schoolDeleteArgs<ExtArgs>>): Prisma__company_schoolClient<$Result.GetResult<Prisma.$company_schoolPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Company_school.
+     * @param {company_schoolUpdateArgs} args - Arguments to update one Company_school.
+     * @example
+     * // Update one Company_school
+     * const company_school = await prisma.company_school.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends company_schoolUpdateArgs>(args: SelectSubset<T, company_schoolUpdateArgs<ExtArgs>>): Prisma__company_schoolClient<$Result.GetResult<Prisma.$company_schoolPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Company_schools.
+     * @param {company_schoolDeleteManyArgs} args - Arguments to filter Company_schools to delete.
+     * @example
+     * // Delete a few Company_schools
+     * const { count } = await prisma.company_school.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends company_schoolDeleteManyArgs>(args?: SelectSubset<T, company_schoolDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Company_schools.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {company_schoolUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Company_schools
+     * const company_school = await prisma.company_school.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends company_schoolUpdateManyArgs>(args: SelectSubset<T, company_schoolUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Company_schools and returns the data updated in the database.
+     * @param {company_schoolUpdateManyAndReturnArgs} args - Arguments to update many Company_schools.
+     * @example
+     * // Update many Company_schools
+     * const company_school = await prisma.company_school.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Company_schools and only return the `id`
+     * const company_schoolWithIdOnly = await prisma.company_school.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends company_schoolUpdateManyAndReturnArgs>(args: SelectSubset<T, company_schoolUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$company_schoolPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Company_school.
+     * @param {company_schoolUpsertArgs} args - Arguments to update or create a Company_school.
+     * @example
+     * // Update or create a Company_school
+     * const company_school = await prisma.company_school.upsert({
+     *   create: {
+     *     // ... data to create a Company_school
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Company_school we want to update
+     *   }
+     * })
+     */
+    upsert<T extends company_schoolUpsertArgs>(args: SelectSubset<T, company_schoolUpsertArgs<ExtArgs>>): Prisma__company_schoolClient<$Result.GetResult<Prisma.$company_schoolPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Company_schools.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {company_schoolCountArgs} args - Arguments to filter Company_schools to count.
+     * @example
+     * // Count the number of Company_schools
+     * const count = await prisma.company_school.count({
+     *   where: {
+     *     // ... the filter for the Company_schools we want to count
+     *   }
+     * })
+    **/
+    count<T extends company_schoolCountArgs>(
+      args?: Subset<T, company_schoolCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Company_schoolCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Company_school.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Company_schoolAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Company_schoolAggregateArgs>(args: Subset<T, Company_schoolAggregateArgs>): Prisma.PrismaPromise<GetCompany_schoolAggregateType<T>>
+
+    /**
+     * Group by Company_school.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {company_schoolGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends company_schoolGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: company_schoolGroupByArgs['orderBy'] }
+        : { orderBy?: company_schoolGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, company_schoolGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCompany_schoolGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the company_school model
+   */
+  readonly fields: company_schoolFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for company_school.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__company_schoolClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the company_school model
+   */
+  interface company_schoolFieldRefs {
+    readonly id: FieldRef<"company_school", 'String'>
+    readonly name: FieldRef<"company_school", 'String'>
+    readonly class: FieldRef<"company_school", 'String'>
+    readonly roll_no: FieldRef<"company_school", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * company_school findUnique
+   */
+  export type company_schoolFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the company_school
+     */
+    select?: company_schoolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the company_school
+     */
+    omit?: company_schoolOmit<ExtArgs> | null
+    /**
+     * Filter, which company_school to fetch.
+     */
+    where: company_schoolWhereUniqueInput
+  }
+
+  /**
+   * company_school findUniqueOrThrow
+   */
+  export type company_schoolFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the company_school
+     */
+    select?: company_schoolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the company_school
+     */
+    omit?: company_schoolOmit<ExtArgs> | null
+    /**
+     * Filter, which company_school to fetch.
+     */
+    where: company_schoolWhereUniqueInput
+  }
+
+  /**
+   * company_school findFirst
+   */
+  export type company_schoolFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the company_school
+     */
+    select?: company_schoolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the company_school
+     */
+    omit?: company_schoolOmit<ExtArgs> | null
+    /**
+     * Filter, which company_school to fetch.
+     */
+    where?: company_schoolWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of company_schools to fetch.
+     */
+    orderBy?: company_schoolOrderByWithRelationInput | company_schoolOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for company_schools.
+     */
+    cursor?: company_schoolWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` company_schools from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` company_schools.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of company_schools.
+     */
+    distinct?: Company_schoolScalarFieldEnum | Company_schoolScalarFieldEnum[]
+  }
+
+  /**
+   * company_school findFirstOrThrow
+   */
+  export type company_schoolFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the company_school
+     */
+    select?: company_schoolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the company_school
+     */
+    omit?: company_schoolOmit<ExtArgs> | null
+    /**
+     * Filter, which company_school to fetch.
+     */
+    where?: company_schoolWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of company_schools to fetch.
+     */
+    orderBy?: company_schoolOrderByWithRelationInput | company_schoolOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for company_schools.
+     */
+    cursor?: company_schoolWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` company_schools from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` company_schools.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of company_schools.
+     */
+    distinct?: Company_schoolScalarFieldEnum | Company_schoolScalarFieldEnum[]
+  }
+
+  /**
+   * company_school findMany
+   */
+  export type company_schoolFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the company_school
+     */
+    select?: company_schoolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the company_school
+     */
+    omit?: company_schoolOmit<ExtArgs> | null
+    /**
+     * Filter, which company_schools to fetch.
+     */
+    where?: company_schoolWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of company_schools to fetch.
+     */
+    orderBy?: company_schoolOrderByWithRelationInput | company_schoolOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing company_schools.
+     */
+    cursor?: company_schoolWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` company_schools from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` company_schools.
+     */
+    skip?: number
+    distinct?: Company_schoolScalarFieldEnum | Company_schoolScalarFieldEnum[]
+  }
+
+  /**
+   * company_school create
+   */
+  export type company_schoolCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the company_school
+     */
+    select?: company_schoolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the company_school
+     */
+    omit?: company_schoolOmit<ExtArgs> | null
+    /**
+     * The data needed to create a company_school.
+     */
+    data: XOR<company_schoolCreateInput, company_schoolUncheckedCreateInput>
+  }
+
+  /**
+   * company_school createMany
+   */
+  export type company_schoolCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many company_schools.
+     */
+    data: company_schoolCreateManyInput | company_schoolCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * company_school createManyAndReturn
+   */
+  export type company_schoolCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the company_school
+     */
+    select?: company_schoolSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the company_school
+     */
+    omit?: company_schoolOmit<ExtArgs> | null
+    /**
+     * The data used to create many company_schools.
+     */
+    data: company_schoolCreateManyInput | company_schoolCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * company_school update
+   */
+  export type company_schoolUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the company_school
+     */
+    select?: company_schoolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the company_school
+     */
+    omit?: company_schoolOmit<ExtArgs> | null
+    /**
+     * The data needed to update a company_school.
+     */
+    data: XOR<company_schoolUpdateInput, company_schoolUncheckedUpdateInput>
+    /**
+     * Choose, which company_school to update.
+     */
+    where: company_schoolWhereUniqueInput
+  }
+
+  /**
+   * company_school updateMany
+   */
+  export type company_schoolUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update company_schools.
+     */
+    data: XOR<company_schoolUpdateManyMutationInput, company_schoolUncheckedUpdateManyInput>
+    /**
+     * Filter which company_schools to update
+     */
+    where?: company_schoolWhereInput
+    /**
+     * Limit how many company_schools to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * company_school updateManyAndReturn
+   */
+  export type company_schoolUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the company_school
+     */
+    select?: company_schoolSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the company_school
+     */
+    omit?: company_schoolOmit<ExtArgs> | null
+    /**
+     * The data used to update company_schools.
+     */
+    data: XOR<company_schoolUpdateManyMutationInput, company_schoolUncheckedUpdateManyInput>
+    /**
+     * Filter which company_schools to update
+     */
+    where?: company_schoolWhereInput
+    /**
+     * Limit how many company_schools to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * company_school upsert
+   */
+  export type company_schoolUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the company_school
+     */
+    select?: company_schoolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the company_school
+     */
+    omit?: company_schoolOmit<ExtArgs> | null
+    /**
+     * The filter to search for the company_school to update in case it exists.
+     */
+    where: company_schoolWhereUniqueInput
+    /**
+     * In case the company_school found by the `where` argument doesn't exist, create a new company_school with this data.
+     */
+    create: XOR<company_schoolCreateInput, company_schoolUncheckedCreateInput>
+    /**
+     * In case the company_school was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<company_schoolUpdateInput, company_schoolUncheckedUpdateInput>
+  }
+
+  /**
+   * company_school delete
+   */
+  export type company_schoolDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the company_school
+     */
+    select?: company_schoolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the company_school
+     */
+    omit?: company_schoolOmit<ExtArgs> | null
+    /**
+     * Filter which company_school to delete.
+     */
+    where: company_schoolWhereUniqueInput
+  }
+
+  /**
+   * company_school deleteMany
+   */
+  export type company_schoolDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which company_schools to delete
+     */
+    where?: company_schoolWhereInput
+    /**
+     * Limit how many company_schools to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * company_school without action
+   */
+  export type company_schoolDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the company_school
+     */
+    select?: company_schoolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the company_school
+     */
+    omit?: company_schoolOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -38007,6 +41374,104 @@ export namespace Prisma {
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+  export const QuoteScalarFieldEnum: {
+    id: 'id',
+    user_id: 'user_id',
+    quote_item_id: 'quote_item_id',
+    status: 'status',
+    payment_status: 'payment_status',
+    quote_type: 'quote_type',
+    tax: 'tax',
+    deposit_paid: 'deposit_paid',
+    shipping: 'shipping',
+    tax_buy_price: 'tax_buy_price',
+    shipping_buy_price: 'shipping_buy_price',
+    lead_time: 'lead_time',
+    payable: 'payable',
+    freight_condition: 'freight_condition',
+    freight_condition_dismiss: 'freight_condition_dismiss',
+    customer_email: 'customer_email',
+    emails: 'emails',
+    invoice_date: 'invoice_date',
+    invoice_email: 'invoice_email',
+    billing_name: 'billing_name',
+    billing_company: 'billing_company',
+    billing_address: 'billing_address',
+    billing_city: 'billing_city',
+    billing_state: 'billing_state',
+    billing_country: 'billing_country',
+    billing_zip: 'billing_zip',
+    billing_phone: 'billing_phone',
+    billing_fax: 'billing_fax',
+    shipping_name: 'shipping_name',
+    shipping_company: 'shipping_company',
+    shipping_address: 'shipping_address',
+    shipping_city: 'shipping_city',
+    shipping_state: 'shipping_state',
+    shipping_country: 'shipping_country',
+    shipping_zip: 'shipping_zip',
+    shipping_phone: 'shipping_phone',
+    shipping_email: 'shipping_email',
+    shipping_fax: 'shipping_fax',
+    sales_person: 'sales_person',
+    project_manager: 'project_manager',
+    accept_agreement: 'accept_agreement',
+    date_created: 'date_created',
+    created_month: 'created_month',
+    created_year: 'created_year',
+    created_at: 'created_at',
+    updated_at: 'updated_at',
+    deleted_at: 'deleted_at',
+    is_deleted: 'is_deleted'
+  };
+
+  export type QuoteScalarFieldEnum = (typeof QuoteScalarFieldEnum)[keyof typeof QuoteScalarFieldEnum]
+
+
+  export const QuoteItemScalarFieldEnum: {
+    id: 'id',
+    quote_id: 'quote_id',
+    file_name: 'file_name',
+    file_url: 'file_url',
+    status: 'status',
+    quantity: 'quantity',
+    service: 'service',
+    material: 'material',
+    finish: 'finish',
+    description: 'description',
+    process: 'process',
+    specification: 'specification',
+    price: 'price',
+    cost: 'cost',
+    cost_shipping_price: 'cost_shipping_price',
+    cost_shipping_total: 'cost_shipping_total',
+    custom_shipping_total: 'custom_shipping_total',
+    buy_price: 'buy_price',
+    buy_shipping_price: 'buy_shipping_price',
+    buy_shipping_total: 'buy_shipping_total',
+    quantity_owed: 'quantity_owed',
+    invoiced: 'invoiced',
+    non_taxable: 'non_taxable',
+    non_shipping: 'non_shipping',
+    is_deleted: 'is_deleted',
+    vendor_id: 'vendor_id',
+    vendor_details: 'vendor_details',
+    last_updated_by: 'last_updated_by',
+    work_instructions: 'work_instructions',
+    add_vendor: 'add_vendor',
+    markings: 'markings',
+    part_item_number: 'part_item_number',
+    file_year: 'file_year',
+    file_month: 'file_month',
+    tab_open: 'tab_open',
+    created_at: 'created_at',
+    updated_at: 'updated_at',
+    deleted_at: 'deleted_at'
+  };
+
+  export type QuoteItemScalarFieldEnum = (typeof QuoteItemScalarFieldEnum)[keyof typeof QuoteItemScalarFieldEnum]
 
 
   export const PasswordResetOTPScalarFieldEnum: {
@@ -38140,18 +41605,6 @@ export namespace Prisma {
   };
 
   export type CustomerScalarFieldEnum = (typeof CustomerScalarFieldEnum)[keyof typeof CustomerScalarFieldEnum]
-
-
-  export const QuotationAttachmentScalarFieldEnum: {
-    id: 'id',
-    customer_id: 'customer_id',
-    file_name: 'file_name',
-    file_url: 'file_url',
-    created_at: 'created_at',
-    updated_at: 'updated_at'
-  };
-
-  export type QuotationAttachmentScalarFieldEnum = (typeof QuotationAttachmentScalarFieldEnum)[keyof typeof QuotationAttachmentScalarFieldEnum]
 
 
   export const CompanyServiceScalarFieldEnum: {
@@ -38429,6 +41882,16 @@ export namespace Prisma {
   export type Company_vendor_flagsScalarFieldEnum = (typeof Company_vendor_flagsScalarFieldEnum)[keyof typeof Company_vendor_flagsScalarFieldEnum]
 
 
+  export const Company_schoolScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    class: 'class',
+    roll_no: 'roll_no'
+  };
+
+  export type Company_schoolScalarFieldEnum = (typeof Company_schoolScalarFieldEnum)[keyof typeof Company_schoolScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -38531,6 +41994,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'QuoteType'
+   */
+  export type EnumQuoteTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QuoteType'>
+    
+
+
+  /**
+   * Reference to a field of type 'QuoteType[]'
+   */
+  export type ListEnumQuoteTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QuoteType[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Boolean'
    */
   export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
@@ -38574,7 +42051,7 @@ export namespace Prisma {
     NOT?: UserWhereInput | UserWhereInput[]
     id?: StringFilter<"User"> | string
     first_name?: StringFilter<"User"> | string
-    last_name?: StringNullableFilter<"User"> | string | null
+    last_name?: StringFilter<"User"> | string
     email?: StringFilter<"User"> | string
     password?: StringFilter<"User"> | string
     phone?: StringNullableFilter<"User"> | string | null
@@ -38585,12 +42062,13 @@ export namespace Prisma {
     vendor?: XOR<VendorNullableScalarRelationFilter, VendorWhereInput> | null
     otps?: PasswordResetOTPListRelationFilter
     resetTokens?: PasswordResetTokenListRelationFilter
+    quotes?: QuoteListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
     id?: SortOrder
     first_name?: SortOrder
-    last_name?: SortOrderInput | SortOrder
+    last_name?: SortOrder
     email?: SortOrder
     password?: SortOrder
     phone?: SortOrderInput | SortOrder
@@ -38601,6 +42079,7 @@ export namespace Prisma {
     vendor?: VendorOrderByWithRelationInput
     otps?: PasswordResetOTPOrderByRelationAggregateInput
     resetTokens?: PasswordResetTokenOrderByRelationAggregateInput
+    quotes?: QuoteOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -38610,7 +42089,7 @@ export namespace Prisma {
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
     first_name?: StringFilter<"User"> | string
-    last_name?: StringNullableFilter<"User"> | string | null
+    last_name?: StringFilter<"User"> | string
     password?: StringFilter<"User"> | string
     phone?: StringNullableFilter<"User"> | string | null
     roles?: JsonFilter<"User">
@@ -38620,12 +42099,13 @@ export namespace Prisma {
     vendor?: XOR<VendorNullableScalarRelationFilter, VendorWhereInput> | null
     otps?: PasswordResetOTPListRelationFilter
     resetTokens?: PasswordResetTokenListRelationFilter
+    quotes?: QuoteListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
     first_name?: SortOrder
-    last_name?: SortOrderInput | SortOrder
+    last_name?: SortOrder
     email?: SortOrder
     password?: SortOrder
     phone?: SortOrderInput | SortOrder
@@ -38643,13 +42123,510 @@ export namespace Prisma {
     NOT?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"User"> | string
     first_name?: StringWithAggregatesFilter<"User"> | string
-    last_name?: StringNullableWithAggregatesFilter<"User"> | string | null
+    last_name?: StringWithAggregatesFilter<"User"> | string
     email?: StringWithAggregatesFilter<"User"> | string
     password?: StringWithAggregatesFilter<"User"> | string
     phone?: StringNullableWithAggregatesFilter<"User"> | string | null
     roles?: JsonWithAggregatesFilter<"User">
     created_at?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"User"> | Date | string
+  }
+
+  export type QuoteWhereInput = {
+    AND?: QuoteWhereInput | QuoteWhereInput[]
+    OR?: QuoteWhereInput[]
+    NOT?: QuoteWhereInput | QuoteWhereInput[]
+    id?: StringFilter<"Quote"> | string
+    user_id?: StringFilter<"Quote"> | string
+    quote_item_id?: IntFilter<"Quote"> | number
+    status?: StringNullableFilter<"Quote"> | string | null
+    payment_status?: StringNullableFilter<"Quote"> | string | null
+    quote_type?: EnumQuoteTypeFilter<"Quote"> | $Enums.QuoteType
+    tax?: StringNullableFilter<"Quote"> | string | null
+    deposit_paid?: StringNullableFilter<"Quote"> | string | null
+    shipping?: StringNullableFilter<"Quote"> | string | null
+    tax_buy_price?: StringNullableFilter<"Quote"> | string | null
+    shipping_buy_price?: StringNullableFilter<"Quote"> | string | null
+    lead_time?: StringNullableFilter<"Quote"> | string | null
+    payable?: StringNullableFilter<"Quote"> | string | null
+    freight_condition?: StringNullableFilter<"Quote"> | string | null
+    freight_condition_dismiss?: BoolNullableFilter<"Quote"> | boolean | null
+    customer_email?: StringNullableFilter<"Quote"> | string | null
+    emails?: StringNullableFilter<"Quote"> | string | null
+    invoice_date?: DateTimeNullableFilter<"Quote"> | Date | string | null
+    invoice_email?: StringNullableFilter<"Quote"> | string | null
+    billing_name?: StringNullableFilter<"Quote"> | string | null
+    billing_company?: StringNullableFilter<"Quote"> | string | null
+    billing_address?: StringNullableFilter<"Quote"> | string | null
+    billing_city?: StringNullableFilter<"Quote"> | string | null
+    billing_state?: StringNullableFilter<"Quote"> | string | null
+    billing_country?: StringNullableFilter<"Quote"> | string | null
+    billing_zip?: StringNullableFilter<"Quote"> | string | null
+    billing_phone?: StringNullableFilter<"Quote"> | string | null
+    billing_fax?: StringNullableFilter<"Quote"> | string | null
+    shipping_name?: StringNullableFilter<"Quote"> | string | null
+    shipping_company?: StringNullableFilter<"Quote"> | string | null
+    shipping_address?: StringNullableFilter<"Quote"> | string | null
+    shipping_city?: StringNullableFilter<"Quote"> | string | null
+    shipping_state?: StringNullableFilter<"Quote"> | string | null
+    shipping_country?: StringNullableFilter<"Quote"> | string | null
+    shipping_zip?: StringNullableFilter<"Quote"> | string | null
+    shipping_phone?: StringNullableFilter<"Quote"> | string | null
+    shipping_email?: StringNullableFilter<"Quote"> | string | null
+    shipping_fax?: StringNullableFilter<"Quote"> | string | null
+    sales_person?: IntNullableFilter<"Quote"> | number | null
+    project_manager?: IntNullableFilter<"Quote"> | number | null
+    accept_agreement?: IntNullableFilter<"Quote"> | number | null
+    date_created?: DateTimeNullableFilter<"Quote"> | Date | string | null
+    created_month?: StringNullableFilter<"Quote"> | string | null
+    created_year?: StringNullableFilter<"Quote"> | string | null
+    created_at?: DateTimeFilter<"Quote"> | Date | string
+    updated_at?: DateTimeFilter<"Quote"> | Date | string
+    deleted_at?: DateTimeNullableFilter<"Quote"> | Date | string | null
+    is_deleted?: BoolNullableFilter<"Quote"> | boolean | null
+    User?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    QuoteItems?: QuoteItemListRelationFilter
+  }
+
+  export type QuoteOrderByWithRelationInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    quote_item_id?: SortOrder
+    status?: SortOrderInput | SortOrder
+    payment_status?: SortOrderInput | SortOrder
+    quote_type?: SortOrder
+    tax?: SortOrderInput | SortOrder
+    deposit_paid?: SortOrderInput | SortOrder
+    shipping?: SortOrderInput | SortOrder
+    tax_buy_price?: SortOrderInput | SortOrder
+    shipping_buy_price?: SortOrderInput | SortOrder
+    lead_time?: SortOrderInput | SortOrder
+    payable?: SortOrderInput | SortOrder
+    freight_condition?: SortOrderInput | SortOrder
+    freight_condition_dismiss?: SortOrderInput | SortOrder
+    customer_email?: SortOrderInput | SortOrder
+    emails?: SortOrderInput | SortOrder
+    invoice_date?: SortOrderInput | SortOrder
+    invoice_email?: SortOrderInput | SortOrder
+    billing_name?: SortOrderInput | SortOrder
+    billing_company?: SortOrderInput | SortOrder
+    billing_address?: SortOrderInput | SortOrder
+    billing_city?: SortOrderInput | SortOrder
+    billing_state?: SortOrderInput | SortOrder
+    billing_country?: SortOrderInput | SortOrder
+    billing_zip?: SortOrderInput | SortOrder
+    billing_phone?: SortOrderInput | SortOrder
+    billing_fax?: SortOrderInput | SortOrder
+    shipping_name?: SortOrderInput | SortOrder
+    shipping_company?: SortOrderInput | SortOrder
+    shipping_address?: SortOrderInput | SortOrder
+    shipping_city?: SortOrderInput | SortOrder
+    shipping_state?: SortOrderInput | SortOrder
+    shipping_country?: SortOrderInput | SortOrder
+    shipping_zip?: SortOrderInput | SortOrder
+    shipping_phone?: SortOrderInput | SortOrder
+    shipping_email?: SortOrderInput | SortOrder
+    shipping_fax?: SortOrderInput | SortOrder
+    sales_person?: SortOrderInput | SortOrder
+    project_manager?: SortOrderInput | SortOrder
+    accept_agreement?: SortOrderInput | SortOrder
+    date_created?: SortOrderInput | SortOrder
+    created_month?: SortOrderInput | SortOrder
+    created_year?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    deleted_at?: SortOrderInput | SortOrder
+    is_deleted?: SortOrderInput | SortOrder
+    User?: UserOrderByWithRelationInput
+    QuoteItems?: QuoteItemOrderByRelationAggregateInput
+  }
+
+  export type QuoteWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    quote_item_id?: number
+    AND?: QuoteWhereInput | QuoteWhereInput[]
+    OR?: QuoteWhereInput[]
+    NOT?: QuoteWhereInput | QuoteWhereInput[]
+    user_id?: StringFilter<"Quote"> | string
+    status?: StringNullableFilter<"Quote"> | string | null
+    payment_status?: StringNullableFilter<"Quote"> | string | null
+    quote_type?: EnumQuoteTypeFilter<"Quote"> | $Enums.QuoteType
+    tax?: StringNullableFilter<"Quote"> | string | null
+    deposit_paid?: StringNullableFilter<"Quote"> | string | null
+    shipping?: StringNullableFilter<"Quote"> | string | null
+    tax_buy_price?: StringNullableFilter<"Quote"> | string | null
+    shipping_buy_price?: StringNullableFilter<"Quote"> | string | null
+    lead_time?: StringNullableFilter<"Quote"> | string | null
+    payable?: StringNullableFilter<"Quote"> | string | null
+    freight_condition?: StringNullableFilter<"Quote"> | string | null
+    freight_condition_dismiss?: BoolNullableFilter<"Quote"> | boolean | null
+    customer_email?: StringNullableFilter<"Quote"> | string | null
+    emails?: StringNullableFilter<"Quote"> | string | null
+    invoice_date?: DateTimeNullableFilter<"Quote"> | Date | string | null
+    invoice_email?: StringNullableFilter<"Quote"> | string | null
+    billing_name?: StringNullableFilter<"Quote"> | string | null
+    billing_company?: StringNullableFilter<"Quote"> | string | null
+    billing_address?: StringNullableFilter<"Quote"> | string | null
+    billing_city?: StringNullableFilter<"Quote"> | string | null
+    billing_state?: StringNullableFilter<"Quote"> | string | null
+    billing_country?: StringNullableFilter<"Quote"> | string | null
+    billing_zip?: StringNullableFilter<"Quote"> | string | null
+    billing_phone?: StringNullableFilter<"Quote"> | string | null
+    billing_fax?: StringNullableFilter<"Quote"> | string | null
+    shipping_name?: StringNullableFilter<"Quote"> | string | null
+    shipping_company?: StringNullableFilter<"Quote"> | string | null
+    shipping_address?: StringNullableFilter<"Quote"> | string | null
+    shipping_city?: StringNullableFilter<"Quote"> | string | null
+    shipping_state?: StringNullableFilter<"Quote"> | string | null
+    shipping_country?: StringNullableFilter<"Quote"> | string | null
+    shipping_zip?: StringNullableFilter<"Quote"> | string | null
+    shipping_phone?: StringNullableFilter<"Quote"> | string | null
+    shipping_email?: StringNullableFilter<"Quote"> | string | null
+    shipping_fax?: StringNullableFilter<"Quote"> | string | null
+    sales_person?: IntNullableFilter<"Quote"> | number | null
+    project_manager?: IntNullableFilter<"Quote"> | number | null
+    accept_agreement?: IntNullableFilter<"Quote"> | number | null
+    date_created?: DateTimeNullableFilter<"Quote"> | Date | string | null
+    created_month?: StringNullableFilter<"Quote"> | string | null
+    created_year?: StringNullableFilter<"Quote"> | string | null
+    created_at?: DateTimeFilter<"Quote"> | Date | string
+    updated_at?: DateTimeFilter<"Quote"> | Date | string
+    deleted_at?: DateTimeNullableFilter<"Quote"> | Date | string | null
+    is_deleted?: BoolNullableFilter<"Quote"> | boolean | null
+    User?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    QuoteItems?: QuoteItemListRelationFilter
+  }, "id" | "quote_item_id">
+
+  export type QuoteOrderByWithAggregationInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    quote_item_id?: SortOrder
+    status?: SortOrderInput | SortOrder
+    payment_status?: SortOrderInput | SortOrder
+    quote_type?: SortOrder
+    tax?: SortOrderInput | SortOrder
+    deposit_paid?: SortOrderInput | SortOrder
+    shipping?: SortOrderInput | SortOrder
+    tax_buy_price?: SortOrderInput | SortOrder
+    shipping_buy_price?: SortOrderInput | SortOrder
+    lead_time?: SortOrderInput | SortOrder
+    payable?: SortOrderInput | SortOrder
+    freight_condition?: SortOrderInput | SortOrder
+    freight_condition_dismiss?: SortOrderInput | SortOrder
+    customer_email?: SortOrderInput | SortOrder
+    emails?: SortOrderInput | SortOrder
+    invoice_date?: SortOrderInput | SortOrder
+    invoice_email?: SortOrderInput | SortOrder
+    billing_name?: SortOrderInput | SortOrder
+    billing_company?: SortOrderInput | SortOrder
+    billing_address?: SortOrderInput | SortOrder
+    billing_city?: SortOrderInput | SortOrder
+    billing_state?: SortOrderInput | SortOrder
+    billing_country?: SortOrderInput | SortOrder
+    billing_zip?: SortOrderInput | SortOrder
+    billing_phone?: SortOrderInput | SortOrder
+    billing_fax?: SortOrderInput | SortOrder
+    shipping_name?: SortOrderInput | SortOrder
+    shipping_company?: SortOrderInput | SortOrder
+    shipping_address?: SortOrderInput | SortOrder
+    shipping_city?: SortOrderInput | SortOrder
+    shipping_state?: SortOrderInput | SortOrder
+    shipping_country?: SortOrderInput | SortOrder
+    shipping_zip?: SortOrderInput | SortOrder
+    shipping_phone?: SortOrderInput | SortOrder
+    shipping_email?: SortOrderInput | SortOrder
+    shipping_fax?: SortOrderInput | SortOrder
+    sales_person?: SortOrderInput | SortOrder
+    project_manager?: SortOrderInput | SortOrder
+    accept_agreement?: SortOrderInput | SortOrder
+    date_created?: SortOrderInput | SortOrder
+    created_month?: SortOrderInput | SortOrder
+    created_year?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    deleted_at?: SortOrderInput | SortOrder
+    is_deleted?: SortOrderInput | SortOrder
+    _count?: QuoteCountOrderByAggregateInput
+    _avg?: QuoteAvgOrderByAggregateInput
+    _max?: QuoteMaxOrderByAggregateInput
+    _min?: QuoteMinOrderByAggregateInput
+    _sum?: QuoteSumOrderByAggregateInput
+  }
+
+  export type QuoteScalarWhereWithAggregatesInput = {
+    AND?: QuoteScalarWhereWithAggregatesInput | QuoteScalarWhereWithAggregatesInput[]
+    OR?: QuoteScalarWhereWithAggregatesInput[]
+    NOT?: QuoteScalarWhereWithAggregatesInput | QuoteScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Quote"> | string
+    user_id?: StringWithAggregatesFilter<"Quote"> | string
+    quote_item_id?: IntWithAggregatesFilter<"Quote"> | number
+    status?: StringNullableWithAggregatesFilter<"Quote"> | string | null
+    payment_status?: StringNullableWithAggregatesFilter<"Quote"> | string | null
+    quote_type?: EnumQuoteTypeWithAggregatesFilter<"Quote"> | $Enums.QuoteType
+    tax?: StringNullableWithAggregatesFilter<"Quote"> | string | null
+    deposit_paid?: StringNullableWithAggregatesFilter<"Quote"> | string | null
+    shipping?: StringNullableWithAggregatesFilter<"Quote"> | string | null
+    tax_buy_price?: StringNullableWithAggregatesFilter<"Quote"> | string | null
+    shipping_buy_price?: StringNullableWithAggregatesFilter<"Quote"> | string | null
+    lead_time?: StringNullableWithAggregatesFilter<"Quote"> | string | null
+    payable?: StringNullableWithAggregatesFilter<"Quote"> | string | null
+    freight_condition?: StringNullableWithAggregatesFilter<"Quote"> | string | null
+    freight_condition_dismiss?: BoolNullableWithAggregatesFilter<"Quote"> | boolean | null
+    customer_email?: StringNullableWithAggregatesFilter<"Quote"> | string | null
+    emails?: StringNullableWithAggregatesFilter<"Quote"> | string | null
+    invoice_date?: DateTimeNullableWithAggregatesFilter<"Quote"> | Date | string | null
+    invoice_email?: StringNullableWithAggregatesFilter<"Quote"> | string | null
+    billing_name?: StringNullableWithAggregatesFilter<"Quote"> | string | null
+    billing_company?: StringNullableWithAggregatesFilter<"Quote"> | string | null
+    billing_address?: StringNullableWithAggregatesFilter<"Quote"> | string | null
+    billing_city?: StringNullableWithAggregatesFilter<"Quote"> | string | null
+    billing_state?: StringNullableWithAggregatesFilter<"Quote"> | string | null
+    billing_country?: StringNullableWithAggregatesFilter<"Quote"> | string | null
+    billing_zip?: StringNullableWithAggregatesFilter<"Quote"> | string | null
+    billing_phone?: StringNullableWithAggregatesFilter<"Quote"> | string | null
+    billing_fax?: StringNullableWithAggregatesFilter<"Quote"> | string | null
+    shipping_name?: StringNullableWithAggregatesFilter<"Quote"> | string | null
+    shipping_company?: StringNullableWithAggregatesFilter<"Quote"> | string | null
+    shipping_address?: StringNullableWithAggregatesFilter<"Quote"> | string | null
+    shipping_city?: StringNullableWithAggregatesFilter<"Quote"> | string | null
+    shipping_state?: StringNullableWithAggregatesFilter<"Quote"> | string | null
+    shipping_country?: StringNullableWithAggregatesFilter<"Quote"> | string | null
+    shipping_zip?: StringNullableWithAggregatesFilter<"Quote"> | string | null
+    shipping_phone?: StringNullableWithAggregatesFilter<"Quote"> | string | null
+    shipping_email?: StringNullableWithAggregatesFilter<"Quote"> | string | null
+    shipping_fax?: StringNullableWithAggregatesFilter<"Quote"> | string | null
+    sales_person?: IntNullableWithAggregatesFilter<"Quote"> | number | null
+    project_manager?: IntNullableWithAggregatesFilter<"Quote"> | number | null
+    accept_agreement?: IntNullableWithAggregatesFilter<"Quote"> | number | null
+    date_created?: DateTimeNullableWithAggregatesFilter<"Quote"> | Date | string | null
+    created_month?: StringNullableWithAggregatesFilter<"Quote"> | string | null
+    created_year?: StringNullableWithAggregatesFilter<"Quote"> | string | null
+    created_at?: DateTimeWithAggregatesFilter<"Quote"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"Quote"> | Date | string
+    deleted_at?: DateTimeNullableWithAggregatesFilter<"Quote"> | Date | string | null
+    is_deleted?: BoolNullableWithAggregatesFilter<"Quote"> | boolean | null
+  }
+
+  export type QuoteItemWhereInput = {
+    AND?: QuoteItemWhereInput | QuoteItemWhereInput[]
+    OR?: QuoteItemWhereInput[]
+    NOT?: QuoteItemWhereInput | QuoteItemWhereInput[]
+    id?: StringFilter<"QuoteItem"> | string
+    quote_id?: StringFilter<"QuoteItem"> | string
+    file_name?: StringNullableFilter<"QuoteItem"> | string | null
+    file_url?: StringNullableFilter<"QuoteItem"> | string | null
+    status?: BoolFilter<"QuoteItem"> | boolean
+    quantity?: IntFilter<"QuoteItem"> | number
+    service?: StringNullableFilter<"QuoteItem"> | string | null
+    material?: StringNullableFilter<"QuoteItem"> | string | null
+    finish?: StringNullableFilter<"QuoteItem"> | string | null
+    description?: StringNullableFilter<"QuoteItem"> | string | null
+    process?: StringNullableFilter<"QuoteItem"> | string | null
+    specification?: StringNullableFilter<"QuoteItem"> | string | null
+    price?: StringNullableFilter<"QuoteItem"> | string | null
+    cost?: StringNullableFilter<"QuoteItem"> | string | null
+    cost_shipping_price?: StringNullableFilter<"QuoteItem"> | string | null
+    cost_shipping_total?: StringNullableFilter<"QuoteItem"> | string | null
+    custom_shipping_total?: StringNullableFilter<"QuoteItem"> | string | null
+    buy_price?: StringNullableFilter<"QuoteItem"> | string | null
+    buy_shipping_price?: StringNullableFilter<"QuoteItem"> | string | null
+    buy_shipping_total?: StringNullableFilter<"QuoteItem"> | string | null
+    quantity_owed?: StringNullableFilter<"QuoteItem"> | string | null
+    invoiced?: BoolNullableFilter<"QuoteItem"> | boolean | null
+    non_taxable?: IntNullableFilter<"QuoteItem"> | number | null
+    non_shipping?: IntNullableFilter<"QuoteItem"> | number | null
+    is_deleted?: BoolNullableFilter<"QuoteItem"> | boolean | null
+    vendor_id?: StringNullableFilter<"QuoteItem"> | string | null
+    vendor_details?: StringNullableFilter<"QuoteItem"> | string | null
+    last_updated_by?: IntNullableFilter<"QuoteItem"> | number | null
+    work_instructions?: StringNullableFilter<"QuoteItem"> | string | null
+    add_vendor?: BoolNullableFilter<"QuoteItem"> | boolean | null
+    markings?: StringNullableFilter<"QuoteItem"> | string | null
+    part_item_number?: StringNullableFilter<"QuoteItem"> | string | null
+    file_year?: StringNullableFilter<"QuoteItem"> | string | null
+    file_month?: StringNullableFilter<"QuoteItem"> | string | null
+    tab_open?: BoolNullableFilter<"QuoteItem"> | boolean | null
+    created_at?: DateTimeFilter<"QuoteItem"> | Date | string
+    updated_at?: DateTimeFilter<"QuoteItem"> | Date | string
+    deleted_at?: DateTimeNullableFilter<"QuoteItem"> | Date | string | null
+    quote?: XOR<QuoteScalarRelationFilter, QuoteWhereInput>
+  }
+
+  export type QuoteItemOrderByWithRelationInput = {
+    id?: SortOrder
+    quote_id?: SortOrder
+    file_name?: SortOrderInput | SortOrder
+    file_url?: SortOrderInput | SortOrder
+    status?: SortOrder
+    quantity?: SortOrder
+    service?: SortOrderInput | SortOrder
+    material?: SortOrderInput | SortOrder
+    finish?: SortOrderInput | SortOrder
+    description?: SortOrderInput | SortOrder
+    process?: SortOrderInput | SortOrder
+    specification?: SortOrderInput | SortOrder
+    price?: SortOrderInput | SortOrder
+    cost?: SortOrderInput | SortOrder
+    cost_shipping_price?: SortOrderInput | SortOrder
+    cost_shipping_total?: SortOrderInput | SortOrder
+    custom_shipping_total?: SortOrderInput | SortOrder
+    buy_price?: SortOrderInput | SortOrder
+    buy_shipping_price?: SortOrderInput | SortOrder
+    buy_shipping_total?: SortOrderInput | SortOrder
+    quantity_owed?: SortOrderInput | SortOrder
+    invoiced?: SortOrderInput | SortOrder
+    non_taxable?: SortOrderInput | SortOrder
+    non_shipping?: SortOrderInput | SortOrder
+    is_deleted?: SortOrderInput | SortOrder
+    vendor_id?: SortOrderInput | SortOrder
+    vendor_details?: SortOrderInput | SortOrder
+    last_updated_by?: SortOrderInput | SortOrder
+    work_instructions?: SortOrderInput | SortOrder
+    add_vendor?: SortOrderInput | SortOrder
+    markings?: SortOrderInput | SortOrder
+    part_item_number?: SortOrderInput | SortOrder
+    file_year?: SortOrderInput | SortOrder
+    file_month?: SortOrderInput | SortOrder
+    tab_open?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    deleted_at?: SortOrderInput | SortOrder
+    quote?: QuoteOrderByWithRelationInput
+  }
+
+  export type QuoteItemWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: QuoteItemWhereInput | QuoteItemWhereInput[]
+    OR?: QuoteItemWhereInput[]
+    NOT?: QuoteItemWhereInput | QuoteItemWhereInput[]
+    quote_id?: StringFilter<"QuoteItem"> | string
+    file_name?: StringNullableFilter<"QuoteItem"> | string | null
+    file_url?: StringNullableFilter<"QuoteItem"> | string | null
+    status?: BoolFilter<"QuoteItem"> | boolean
+    quantity?: IntFilter<"QuoteItem"> | number
+    service?: StringNullableFilter<"QuoteItem"> | string | null
+    material?: StringNullableFilter<"QuoteItem"> | string | null
+    finish?: StringNullableFilter<"QuoteItem"> | string | null
+    description?: StringNullableFilter<"QuoteItem"> | string | null
+    process?: StringNullableFilter<"QuoteItem"> | string | null
+    specification?: StringNullableFilter<"QuoteItem"> | string | null
+    price?: StringNullableFilter<"QuoteItem"> | string | null
+    cost?: StringNullableFilter<"QuoteItem"> | string | null
+    cost_shipping_price?: StringNullableFilter<"QuoteItem"> | string | null
+    cost_shipping_total?: StringNullableFilter<"QuoteItem"> | string | null
+    custom_shipping_total?: StringNullableFilter<"QuoteItem"> | string | null
+    buy_price?: StringNullableFilter<"QuoteItem"> | string | null
+    buy_shipping_price?: StringNullableFilter<"QuoteItem"> | string | null
+    buy_shipping_total?: StringNullableFilter<"QuoteItem"> | string | null
+    quantity_owed?: StringNullableFilter<"QuoteItem"> | string | null
+    invoiced?: BoolNullableFilter<"QuoteItem"> | boolean | null
+    non_taxable?: IntNullableFilter<"QuoteItem"> | number | null
+    non_shipping?: IntNullableFilter<"QuoteItem"> | number | null
+    is_deleted?: BoolNullableFilter<"QuoteItem"> | boolean | null
+    vendor_id?: StringNullableFilter<"QuoteItem"> | string | null
+    vendor_details?: StringNullableFilter<"QuoteItem"> | string | null
+    last_updated_by?: IntNullableFilter<"QuoteItem"> | number | null
+    work_instructions?: StringNullableFilter<"QuoteItem"> | string | null
+    add_vendor?: BoolNullableFilter<"QuoteItem"> | boolean | null
+    markings?: StringNullableFilter<"QuoteItem"> | string | null
+    part_item_number?: StringNullableFilter<"QuoteItem"> | string | null
+    file_year?: StringNullableFilter<"QuoteItem"> | string | null
+    file_month?: StringNullableFilter<"QuoteItem"> | string | null
+    tab_open?: BoolNullableFilter<"QuoteItem"> | boolean | null
+    created_at?: DateTimeFilter<"QuoteItem"> | Date | string
+    updated_at?: DateTimeFilter<"QuoteItem"> | Date | string
+    deleted_at?: DateTimeNullableFilter<"QuoteItem"> | Date | string | null
+    quote?: XOR<QuoteScalarRelationFilter, QuoteWhereInput>
+  }, "id">
+
+  export type QuoteItemOrderByWithAggregationInput = {
+    id?: SortOrder
+    quote_id?: SortOrder
+    file_name?: SortOrderInput | SortOrder
+    file_url?: SortOrderInput | SortOrder
+    status?: SortOrder
+    quantity?: SortOrder
+    service?: SortOrderInput | SortOrder
+    material?: SortOrderInput | SortOrder
+    finish?: SortOrderInput | SortOrder
+    description?: SortOrderInput | SortOrder
+    process?: SortOrderInput | SortOrder
+    specification?: SortOrderInput | SortOrder
+    price?: SortOrderInput | SortOrder
+    cost?: SortOrderInput | SortOrder
+    cost_shipping_price?: SortOrderInput | SortOrder
+    cost_shipping_total?: SortOrderInput | SortOrder
+    custom_shipping_total?: SortOrderInput | SortOrder
+    buy_price?: SortOrderInput | SortOrder
+    buy_shipping_price?: SortOrderInput | SortOrder
+    buy_shipping_total?: SortOrderInput | SortOrder
+    quantity_owed?: SortOrderInput | SortOrder
+    invoiced?: SortOrderInput | SortOrder
+    non_taxable?: SortOrderInput | SortOrder
+    non_shipping?: SortOrderInput | SortOrder
+    is_deleted?: SortOrderInput | SortOrder
+    vendor_id?: SortOrderInput | SortOrder
+    vendor_details?: SortOrderInput | SortOrder
+    last_updated_by?: SortOrderInput | SortOrder
+    work_instructions?: SortOrderInput | SortOrder
+    add_vendor?: SortOrderInput | SortOrder
+    markings?: SortOrderInput | SortOrder
+    part_item_number?: SortOrderInput | SortOrder
+    file_year?: SortOrderInput | SortOrder
+    file_month?: SortOrderInput | SortOrder
+    tab_open?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    deleted_at?: SortOrderInput | SortOrder
+    _count?: QuoteItemCountOrderByAggregateInput
+    _avg?: QuoteItemAvgOrderByAggregateInput
+    _max?: QuoteItemMaxOrderByAggregateInput
+    _min?: QuoteItemMinOrderByAggregateInput
+    _sum?: QuoteItemSumOrderByAggregateInput
+  }
+
+  export type QuoteItemScalarWhereWithAggregatesInput = {
+    AND?: QuoteItemScalarWhereWithAggregatesInput | QuoteItemScalarWhereWithAggregatesInput[]
+    OR?: QuoteItemScalarWhereWithAggregatesInput[]
+    NOT?: QuoteItemScalarWhereWithAggregatesInput | QuoteItemScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"QuoteItem"> | string
+    quote_id?: StringWithAggregatesFilter<"QuoteItem"> | string
+    file_name?: StringNullableWithAggregatesFilter<"QuoteItem"> | string | null
+    file_url?: StringNullableWithAggregatesFilter<"QuoteItem"> | string | null
+    status?: BoolWithAggregatesFilter<"QuoteItem"> | boolean
+    quantity?: IntWithAggregatesFilter<"QuoteItem"> | number
+    service?: StringNullableWithAggregatesFilter<"QuoteItem"> | string | null
+    material?: StringNullableWithAggregatesFilter<"QuoteItem"> | string | null
+    finish?: StringNullableWithAggregatesFilter<"QuoteItem"> | string | null
+    description?: StringNullableWithAggregatesFilter<"QuoteItem"> | string | null
+    process?: StringNullableWithAggregatesFilter<"QuoteItem"> | string | null
+    specification?: StringNullableWithAggregatesFilter<"QuoteItem"> | string | null
+    price?: StringNullableWithAggregatesFilter<"QuoteItem"> | string | null
+    cost?: StringNullableWithAggregatesFilter<"QuoteItem"> | string | null
+    cost_shipping_price?: StringNullableWithAggregatesFilter<"QuoteItem"> | string | null
+    cost_shipping_total?: StringNullableWithAggregatesFilter<"QuoteItem"> | string | null
+    custom_shipping_total?: StringNullableWithAggregatesFilter<"QuoteItem"> | string | null
+    buy_price?: StringNullableWithAggregatesFilter<"QuoteItem"> | string | null
+    buy_shipping_price?: StringNullableWithAggregatesFilter<"QuoteItem"> | string | null
+    buy_shipping_total?: StringNullableWithAggregatesFilter<"QuoteItem"> | string | null
+    quantity_owed?: StringNullableWithAggregatesFilter<"QuoteItem"> | string | null
+    invoiced?: BoolNullableWithAggregatesFilter<"QuoteItem"> | boolean | null
+    non_taxable?: IntNullableWithAggregatesFilter<"QuoteItem"> | number | null
+    non_shipping?: IntNullableWithAggregatesFilter<"QuoteItem"> | number | null
+    is_deleted?: BoolNullableWithAggregatesFilter<"QuoteItem"> | boolean | null
+    vendor_id?: StringNullableWithAggregatesFilter<"QuoteItem"> | string | null
+    vendor_details?: StringNullableWithAggregatesFilter<"QuoteItem"> | string | null
+    last_updated_by?: IntNullableWithAggregatesFilter<"QuoteItem"> | number | null
+    work_instructions?: StringNullableWithAggregatesFilter<"QuoteItem"> | string | null
+    add_vendor?: BoolNullableWithAggregatesFilter<"QuoteItem"> | boolean | null
+    markings?: StringNullableWithAggregatesFilter<"QuoteItem"> | string | null
+    part_item_number?: StringNullableWithAggregatesFilter<"QuoteItem"> | string | null
+    file_year?: StringNullableWithAggregatesFilter<"QuoteItem"> | string | null
+    file_month?: StringNullableWithAggregatesFilter<"QuoteItem"> | string | null
+    tab_open?: BoolNullableWithAggregatesFilter<"QuoteItem"> | boolean | null
+    created_at?: DateTimeWithAggregatesFilter<"QuoteItem"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"QuoteItem"> | Date | string
+    deleted_at?: DateTimeNullableWithAggregatesFilter<"QuoteItem"> | Date | string | null
   }
 
   export type PasswordResetOTPWhereInput = {
@@ -38799,17 +42776,17 @@ export namespace Prisma {
 
   export type tenantCurrencyWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    code?: string
     AND?: tenantCurrencyWhereInput | tenantCurrencyWhereInput[]
     OR?: tenantCurrencyWhereInput[]
     NOT?: tenantCurrencyWhereInput | tenantCurrencyWhereInput[]
     currency_id?: IntFilter<"tenantCurrency"> | number
+    code?: StringFilter<"tenantCurrency"> | string
     name?: StringFilter<"tenantCurrency"> | string
     symbol?: StringFilter<"tenantCurrency"> | string
     is_active?: BoolFilter<"tenantCurrency"> | boolean
     created_at?: DateTimeFilter<"tenantCurrency"> | Date | string
     updated_at?: DateTimeFilter<"tenantCurrency"> | Date | string
-  }, "id" | "code">
+  }, "id">
 
   export type tenantCurrencyOrderByWithAggregationInput = {
     id?: SortOrder
@@ -38850,8 +42827,8 @@ export namespace Prisma {
     name?: StringFilter<"tenantPaymentTerms"> | string
     description?: StringNullableFilter<"tenantPaymentTerms"> | string | null
     due_days?: IntFilter<"tenantPaymentTerms"> | number
-    discount_days?: IntNullableFilter<"tenantPaymentTerms"> | number | null
-    discount_percent?: DecimalNullableFilter<"tenantPaymentTerms"> | Decimal | DecimalJsLike | number | string | null
+    discount_days?: IntFilter<"tenantPaymentTerms"> | number
+    discount_percent?: DecimalFilter<"tenantPaymentTerms"> | Decimal | DecimalJsLike | number | string
     is_active?: BoolFilter<"tenantPaymentTerms"> | boolean
     created_at?: DateTimeFilter<"tenantPaymentTerms"> | Date | string
     updated_at?: DateTimeFilter<"tenantPaymentTerms"> | Date | string
@@ -38863,8 +42840,8 @@ export namespace Prisma {
     name?: SortOrder
     description?: SortOrderInput | SortOrder
     due_days?: SortOrder
-    discount_days?: SortOrderInput | SortOrder
-    discount_percent?: SortOrderInput | SortOrder
+    discount_days?: SortOrder
+    discount_percent?: SortOrder
     is_active?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
@@ -38879,8 +42856,8 @@ export namespace Prisma {
     name?: StringFilter<"tenantPaymentTerms"> | string
     description?: StringNullableFilter<"tenantPaymentTerms"> | string | null
     due_days?: IntFilter<"tenantPaymentTerms"> | number
-    discount_days?: IntNullableFilter<"tenantPaymentTerms"> | number | null
-    discount_percent?: DecimalNullableFilter<"tenantPaymentTerms"> | Decimal | DecimalJsLike | number | string | null
+    discount_days?: IntFilter<"tenantPaymentTerms"> | number
+    discount_percent?: DecimalFilter<"tenantPaymentTerms"> | Decimal | DecimalJsLike | number | string
     is_active?: BoolFilter<"tenantPaymentTerms"> | boolean
     created_at?: DateTimeFilter<"tenantPaymentTerms"> | Date | string
     updated_at?: DateTimeFilter<"tenantPaymentTerms"> | Date | string
@@ -38892,8 +42869,8 @@ export namespace Prisma {
     name?: SortOrder
     description?: SortOrderInput | SortOrder
     due_days?: SortOrder
-    discount_days?: SortOrderInput | SortOrder
-    discount_percent?: SortOrderInput | SortOrder
+    discount_days?: SortOrder
+    discount_percent?: SortOrder
     is_active?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
@@ -38913,8 +42890,8 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"tenantPaymentTerms"> | string
     description?: StringNullableWithAggregatesFilter<"tenantPaymentTerms"> | string | null
     due_days?: IntWithAggregatesFilter<"tenantPaymentTerms"> | number
-    discount_days?: IntNullableWithAggregatesFilter<"tenantPaymentTerms"> | number | null
-    discount_percent?: DecimalNullableWithAggregatesFilter<"tenantPaymentTerms"> | Decimal | DecimalJsLike | number | string | null
+    discount_days?: IntWithAggregatesFilter<"tenantPaymentTerms"> | number
+    discount_percent?: DecimalWithAggregatesFilter<"tenantPaymentTerms"> | Decimal | DecimalJsLike | number | string
     is_active?: BoolWithAggregatesFilter<"tenantPaymentTerms"> | boolean
     created_at?: DateTimeWithAggregatesFilter<"tenantPaymentTerms"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"tenantPaymentTerms"> | Date | string
@@ -39208,7 +43185,6 @@ export namespace Prisma {
     contacts?: CustomerContactListRelationFilter
     operational?: XOR<CustomerOperationalInfoNullableScalarRelationFilter, CustomerOperationalInfoWhereInput> | null
     attachments?: CustomerNotesAndAttachmentsListRelationFilter
-    quotation?: QuotationAttachmentListRelationFilter
   }
 
   export type CustomerOrderByWithRelationInput = {
@@ -39236,7 +43212,6 @@ export namespace Prisma {
     contacts?: CustomerContactOrderByRelationAggregateInput
     operational?: CustomerOperationalInfoOrderByWithRelationInput
     attachments?: CustomerNotesAndAttachmentsOrderByRelationAggregateInput
-    quotation?: QuotationAttachmentOrderByRelationAggregateInput
   }
 
   export type CustomerWhereUniqueInput = Prisma.AtLeast<{
@@ -39267,7 +43242,6 @@ export namespace Prisma {
     contacts?: CustomerContactListRelationFilter
     operational?: XOR<CustomerOperationalInfoNullableScalarRelationFilter, CustomerOperationalInfoWhereInput> | null
     attachments?: CustomerNotesAndAttachmentsListRelationFilter
-    quotation?: QuotationAttachmentListRelationFilter
   }, "id" | "email" | "user_id">
 
   export type CustomerOrderByWithAggregationInput = {
@@ -39318,66 +43292,6 @@ export namespace Prisma {
     updated_at?: DateTimeWithAggregatesFilter<"Customer"> | Date | string
     deleted_at?: DateTimeNullableWithAggregatesFilter<"Customer"> | Date | string | null
     user_id?: StringNullableWithAggregatesFilter<"Customer"> | string | null
-  }
-
-  export type QuotationAttachmentWhereInput = {
-    AND?: QuotationAttachmentWhereInput | QuotationAttachmentWhereInput[]
-    OR?: QuotationAttachmentWhereInput[]
-    NOT?: QuotationAttachmentWhereInput | QuotationAttachmentWhereInput[]
-    id?: StringFilter<"QuotationAttachment"> | string
-    customer_id?: StringFilter<"QuotationAttachment"> | string
-    file_name?: StringNullableFilter<"QuotationAttachment"> | string | null
-    file_url?: StringNullableFilter<"QuotationAttachment"> | string | null
-    created_at?: DateTimeFilter<"QuotationAttachment"> | Date | string
-    updated_at?: DateTimeFilter<"QuotationAttachment"> | Date | string
-    customer?: XOR<CustomerNullableScalarRelationFilter, CustomerWhereInput> | null
-  }
-
-  export type QuotationAttachmentOrderByWithRelationInput = {
-    id?: SortOrder
-    customer_id?: SortOrder
-    file_name?: SortOrderInput | SortOrder
-    file_url?: SortOrderInput | SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
-    customer?: CustomerOrderByWithRelationInput
-  }
-
-  export type QuotationAttachmentWhereUniqueInput = Prisma.AtLeast<{
-    id?: string
-    AND?: QuotationAttachmentWhereInput | QuotationAttachmentWhereInput[]
-    OR?: QuotationAttachmentWhereInput[]
-    NOT?: QuotationAttachmentWhereInput | QuotationAttachmentWhereInput[]
-    customer_id?: StringFilter<"QuotationAttachment"> | string
-    file_name?: StringNullableFilter<"QuotationAttachment"> | string | null
-    file_url?: StringNullableFilter<"QuotationAttachment"> | string | null
-    created_at?: DateTimeFilter<"QuotationAttachment"> | Date | string
-    updated_at?: DateTimeFilter<"QuotationAttachment"> | Date | string
-    customer?: XOR<CustomerNullableScalarRelationFilter, CustomerWhereInput> | null
-  }, "id">
-
-  export type QuotationAttachmentOrderByWithAggregationInput = {
-    id?: SortOrder
-    customer_id?: SortOrder
-    file_name?: SortOrderInput | SortOrder
-    file_url?: SortOrderInput | SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
-    _count?: QuotationAttachmentCountOrderByAggregateInput
-    _max?: QuotationAttachmentMaxOrderByAggregateInput
-    _min?: QuotationAttachmentMinOrderByAggregateInput
-  }
-
-  export type QuotationAttachmentScalarWhereWithAggregatesInput = {
-    AND?: QuotationAttachmentScalarWhereWithAggregatesInput | QuotationAttachmentScalarWhereWithAggregatesInput[]
-    OR?: QuotationAttachmentScalarWhereWithAggregatesInput[]
-    NOT?: QuotationAttachmentScalarWhereWithAggregatesInput | QuotationAttachmentScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"QuotationAttachment"> | string
-    customer_id?: StringWithAggregatesFilter<"QuotationAttachment"> | string
-    file_name?: StringNullableWithAggregatesFilter<"QuotationAttachment"> | string | null
-    file_url?: StringNullableWithAggregatesFilter<"QuotationAttachment"> | string | null
-    created_at?: DateTimeWithAggregatesFilter<"QuotationAttachment"> | Date | string
-    updated_at?: DateTimeWithAggregatesFilter<"QuotationAttachment"> | Date | string
   }
 
   export type companyServiceWhereInput = {
@@ -40780,10 +44694,57 @@ export namespace Prisma {
     updated_at?: DateTimeWithAggregatesFilter<"company_vendor_flags"> | Date | string
   }
 
+  export type company_schoolWhereInput = {
+    AND?: company_schoolWhereInput | company_schoolWhereInput[]
+    OR?: company_schoolWhereInput[]
+    NOT?: company_schoolWhereInput | company_schoolWhereInput[]
+    id?: StringFilter<"company_school"> | string
+    name?: StringFilter<"company_school"> | string
+    class?: StringFilter<"company_school"> | string
+    roll_no?: StringFilter<"company_school"> | string
+  }
+
+  export type company_schoolOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    class?: SortOrder
+    roll_no?: SortOrder
+  }
+
+  export type company_schoolWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: company_schoolWhereInput | company_schoolWhereInput[]
+    OR?: company_schoolWhereInput[]
+    NOT?: company_schoolWhereInput | company_schoolWhereInput[]
+    name?: StringFilter<"company_school"> | string
+    class?: StringFilter<"company_school"> | string
+    roll_no?: StringFilter<"company_school"> | string
+  }, "id">
+
+  export type company_schoolOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    class?: SortOrder
+    roll_no?: SortOrder
+    _count?: company_schoolCountOrderByAggregateInput
+    _max?: company_schoolMaxOrderByAggregateInput
+    _min?: company_schoolMinOrderByAggregateInput
+  }
+
+  export type company_schoolScalarWhereWithAggregatesInput = {
+    AND?: company_schoolScalarWhereWithAggregatesInput | company_schoolScalarWhereWithAggregatesInput[]
+    OR?: company_schoolScalarWhereWithAggregatesInput[]
+    NOT?: company_schoolScalarWhereWithAggregatesInput | company_schoolScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"company_school"> | string
+    name?: StringWithAggregatesFilter<"company_school"> | string
+    class?: StringWithAggregatesFilter<"company_school"> | string
+    roll_no?: StringWithAggregatesFilter<"company_school"> | string
+  }
+
   export type UserCreateInput = {
     id?: string
     first_name: string
-    last_name?: string | null
+    last_name: string
     email: string
     password: string
     phone?: string | null
@@ -40794,12 +44755,13 @@ export namespace Prisma {
     vendor?: VendorCreateNestedOneWithoutUserInput
     otps?: PasswordResetOTPCreateNestedManyWithoutUserInput
     resetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    quotes?: QuoteCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
     id?: string
     first_name: string
-    last_name?: string | null
+    last_name: string
     email: string
     password: string
     phone?: string | null
@@ -40810,12 +44772,13 @@ export namespace Prisma {
     vendor?: VendorUncheckedCreateNestedOneWithoutUserInput
     otps?: PasswordResetOTPUncheckedCreateNestedManyWithoutUserInput
     resetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    quotes?: QuoteUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     first_name?: StringFieldUpdateOperationsInput | string
-    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
@@ -40826,12 +44789,13 @@ export namespace Prisma {
     vendor?: VendorUpdateOneWithoutUserNestedInput
     otps?: PasswordResetOTPUpdateManyWithoutUserNestedInput
     resetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    quotes?: QuoteUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     first_name?: StringFieldUpdateOperationsInput | string
-    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
@@ -40842,12 +44806,13 @@ export namespace Prisma {
     vendor?: VendorUncheckedUpdateOneWithoutUserNestedInput
     otps?: PasswordResetOTPUncheckedUpdateManyWithoutUserNestedInput
     resetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    quotes?: QuoteUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
     id?: string
     first_name: string
-    last_name?: string | null
+    last_name: string
     email: string
     password: string
     phone?: string | null
@@ -40859,7 +44824,7 @@ export namespace Prisma {
   export type UserUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     first_name?: StringFieldUpdateOperationsInput | string
-    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
@@ -40871,13 +44836,657 @@ export namespace Prisma {
   export type UserUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     first_name?: StringFieldUpdateOperationsInput | string
-    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     roles?: JsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type QuoteCreateInput = {
+    id?: string
+    quote_item_id?: number
+    status?: string | null
+    payment_status?: string | null
+    quote_type?: $Enums.QuoteType
+    tax?: string | null
+    deposit_paid?: string | null
+    shipping?: string | null
+    tax_buy_price?: string | null
+    shipping_buy_price?: string | null
+    lead_time?: string | null
+    payable?: string | null
+    freight_condition?: string | null
+    freight_condition_dismiss?: boolean | null
+    customer_email?: string | null
+    emails?: string | null
+    invoice_date?: Date | string | null
+    invoice_email?: string | null
+    billing_name?: string | null
+    billing_company?: string | null
+    billing_address?: string | null
+    billing_city?: string | null
+    billing_state?: string | null
+    billing_country?: string | null
+    billing_zip?: string | null
+    billing_phone?: string | null
+    billing_fax?: string | null
+    shipping_name?: string | null
+    shipping_company?: string | null
+    shipping_address?: string | null
+    shipping_city?: string | null
+    shipping_state?: string | null
+    shipping_country?: string | null
+    shipping_zip?: string | null
+    shipping_phone?: string | null
+    shipping_email?: string | null
+    shipping_fax?: string | null
+    sales_person?: number | null
+    project_manager?: number | null
+    accept_agreement?: number | null
+    date_created?: Date | string | null
+    created_month?: string | null
+    created_year?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    deleted_at?: Date | string | null
+    is_deleted?: boolean | null
+    User?: UserCreateNestedOneWithoutQuotesInput
+    QuoteItems?: QuoteItemCreateNestedManyWithoutQuoteInput
+  }
+
+  export type QuoteUncheckedCreateInput = {
+    id?: string
+    user_id: string
+    quote_item_id?: number
+    status?: string | null
+    payment_status?: string | null
+    quote_type?: $Enums.QuoteType
+    tax?: string | null
+    deposit_paid?: string | null
+    shipping?: string | null
+    tax_buy_price?: string | null
+    shipping_buy_price?: string | null
+    lead_time?: string | null
+    payable?: string | null
+    freight_condition?: string | null
+    freight_condition_dismiss?: boolean | null
+    customer_email?: string | null
+    emails?: string | null
+    invoice_date?: Date | string | null
+    invoice_email?: string | null
+    billing_name?: string | null
+    billing_company?: string | null
+    billing_address?: string | null
+    billing_city?: string | null
+    billing_state?: string | null
+    billing_country?: string | null
+    billing_zip?: string | null
+    billing_phone?: string | null
+    billing_fax?: string | null
+    shipping_name?: string | null
+    shipping_company?: string | null
+    shipping_address?: string | null
+    shipping_city?: string | null
+    shipping_state?: string | null
+    shipping_country?: string | null
+    shipping_zip?: string | null
+    shipping_phone?: string | null
+    shipping_email?: string | null
+    shipping_fax?: string | null
+    sales_person?: number | null
+    project_manager?: number | null
+    accept_agreement?: number | null
+    date_created?: Date | string | null
+    created_month?: string | null
+    created_year?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    deleted_at?: Date | string | null
+    is_deleted?: boolean | null
+    QuoteItems?: QuoteItemUncheckedCreateNestedManyWithoutQuoteInput
+  }
+
+  export type QuoteUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    payment_status?: NullableStringFieldUpdateOperationsInput | string | null
+    quote_type?: EnumQuoteTypeFieldUpdateOperationsInput | $Enums.QuoteType
+    tax?: NullableStringFieldUpdateOperationsInput | string | null
+    deposit_paid?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping?: NullableStringFieldUpdateOperationsInput | string | null
+    tax_buy_price?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_buy_price?: NullableStringFieldUpdateOperationsInput | string | null
+    lead_time?: NullableStringFieldUpdateOperationsInput | string | null
+    payable?: NullableStringFieldUpdateOperationsInput | string | null
+    freight_condition?: NullableStringFieldUpdateOperationsInput | string | null
+    freight_condition_dismiss?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    customer_email?: NullableStringFieldUpdateOperationsInput | string | null
+    emails?: NullableStringFieldUpdateOperationsInput | string | null
+    invoice_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    invoice_email?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_name?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_company?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_address?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_city?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_state?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_country?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_zip?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_fax?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_name?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_company?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_address?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_city?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_state?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_country?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_zip?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_email?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_fax?: NullableStringFieldUpdateOperationsInput | string | null
+    sales_person?: NullableIntFieldUpdateOperationsInput | number | null
+    project_manager?: NullableIntFieldUpdateOperationsInput | number | null
+    accept_agreement?: NullableIntFieldUpdateOperationsInput | number | null
+    date_created?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_month?: NullableStringFieldUpdateOperationsInput | string | null
+    created_year?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    is_deleted?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    User?: UserUpdateOneWithoutQuotesNestedInput
+    QuoteItems?: QuoteItemUpdateManyWithoutQuoteNestedInput
+  }
+
+  export type QuoteUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    quote_item_id?: IntFieldUpdateOperationsInput | number
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    payment_status?: NullableStringFieldUpdateOperationsInput | string | null
+    quote_type?: EnumQuoteTypeFieldUpdateOperationsInput | $Enums.QuoteType
+    tax?: NullableStringFieldUpdateOperationsInput | string | null
+    deposit_paid?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping?: NullableStringFieldUpdateOperationsInput | string | null
+    tax_buy_price?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_buy_price?: NullableStringFieldUpdateOperationsInput | string | null
+    lead_time?: NullableStringFieldUpdateOperationsInput | string | null
+    payable?: NullableStringFieldUpdateOperationsInput | string | null
+    freight_condition?: NullableStringFieldUpdateOperationsInput | string | null
+    freight_condition_dismiss?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    customer_email?: NullableStringFieldUpdateOperationsInput | string | null
+    emails?: NullableStringFieldUpdateOperationsInput | string | null
+    invoice_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    invoice_email?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_name?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_company?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_address?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_city?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_state?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_country?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_zip?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_fax?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_name?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_company?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_address?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_city?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_state?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_country?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_zip?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_email?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_fax?: NullableStringFieldUpdateOperationsInput | string | null
+    sales_person?: NullableIntFieldUpdateOperationsInput | number | null
+    project_manager?: NullableIntFieldUpdateOperationsInput | number | null
+    accept_agreement?: NullableIntFieldUpdateOperationsInput | number | null
+    date_created?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_month?: NullableStringFieldUpdateOperationsInput | string | null
+    created_year?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    is_deleted?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    QuoteItems?: QuoteItemUncheckedUpdateManyWithoutQuoteNestedInput
+  }
+
+  export type QuoteCreateManyInput = {
+    id?: string
+    user_id: string
+    quote_item_id?: number
+    status?: string | null
+    payment_status?: string | null
+    quote_type?: $Enums.QuoteType
+    tax?: string | null
+    deposit_paid?: string | null
+    shipping?: string | null
+    tax_buy_price?: string | null
+    shipping_buy_price?: string | null
+    lead_time?: string | null
+    payable?: string | null
+    freight_condition?: string | null
+    freight_condition_dismiss?: boolean | null
+    customer_email?: string | null
+    emails?: string | null
+    invoice_date?: Date | string | null
+    invoice_email?: string | null
+    billing_name?: string | null
+    billing_company?: string | null
+    billing_address?: string | null
+    billing_city?: string | null
+    billing_state?: string | null
+    billing_country?: string | null
+    billing_zip?: string | null
+    billing_phone?: string | null
+    billing_fax?: string | null
+    shipping_name?: string | null
+    shipping_company?: string | null
+    shipping_address?: string | null
+    shipping_city?: string | null
+    shipping_state?: string | null
+    shipping_country?: string | null
+    shipping_zip?: string | null
+    shipping_phone?: string | null
+    shipping_email?: string | null
+    shipping_fax?: string | null
+    sales_person?: number | null
+    project_manager?: number | null
+    accept_agreement?: number | null
+    date_created?: Date | string | null
+    created_month?: string | null
+    created_year?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    deleted_at?: Date | string | null
+    is_deleted?: boolean | null
+  }
+
+  export type QuoteUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    payment_status?: NullableStringFieldUpdateOperationsInput | string | null
+    quote_type?: EnumQuoteTypeFieldUpdateOperationsInput | $Enums.QuoteType
+    tax?: NullableStringFieldUpdateOperationsInput | string | null
+    deposit_paid?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping?: NullableStringFieldUpdateOperationsInput | string | null
+    tax_buy_price?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_buy_price?: NullableStringFieldUpdateOperationsInput | string | null
+    lead_time?: NullableStringFieldUpdateOperationsInput | string | null
+    payable?: NullableStringFieldUpdateOperationsInput | string | null
+    freight_condition?: NullableStringFieldUpdateOperationsInput | string | null
+    freight_condition_dismiss?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    customer_email?: NullableStringFieldUpdateOperationsInput | string | null
+    emails?: NullableStringFieldUpdateOperationsInput | string | null
+    invoice_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    invoice_email?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_name?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_company?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_address?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_city?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_state?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_country?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_zip?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_fax?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_name?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_company?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_address?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_city?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_state?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_country?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_zip?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_email?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_fax?: NullableStringFieldUpdateOperationsInput | string | null
+    sales_person?: NullableIntFieldUpdateOperationsInput | number | null
+    project_manager?: NullableIntFieldUpdateOperationsInput | number | null
+    accept_agreement?: NullableIntFieldUpdateOperationsInput | number | null
+    date_created?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_month?: NullableStringFieldUpdateOperationsInput | string | null
+    created_year?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    is_deleted?: NullableBoolFieldUpdateOperationsInput | boolean | null
+  }
+
+  export type QuoteUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    quote_item_id?: IntFieldUpdateOperationsInput | number
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    payment_status?: NullableStringFieldUpdateOperationsInput | string | null
+    quote_type?: EnumQuoteTypeFieldUpdateOperationsInput | $Enums.QuoteType
+    tax?: NullableStringFieldUpdateOperationsInput | string | null
+    deposit_paid?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping?: NullableStringFieldUpdateOperationsInput | string | null
+    tax_buy_price?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_buy_price?: NullableStringFieldUpdateOperationsInput | string | null
+    lead_time?: NullableStringFieldUpdateOperationsInput | string | null
+    payable?: NullableStringFieldUpdateOperationsInput | string | null
+    freight_condition?: NullableStringFieldUpdateOperationsInput | string | null
+    freight_condition_dismiss?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    customer_email?: NullableStringFieldUpdateOperationsInput | string | null
+    emails?: NullableStringFieldUpdateOperationsInput | string | null
+    invoice_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    invoice_email?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_name?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_company?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_address?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_city?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_state?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_country?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_zip?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_fax?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_name?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_company?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_address?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_city?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_state?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_country?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_zip?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_email?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_fax?: NullableStringFieldUpdateOperationsInput | string | null
+    sales_person?: NullableIntFieldUpdateOperationsInput | number | null
+    project_manager?: NullableIntFieldUpdateOperationsInput | number | null
+    accept_agreement?: NullableIntFieldUpdateOperationsInput | number | null
+    date_created?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_month?: NullableStringFieldUpdateOperationsInput | string | null
+    created_year?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    is_deleted?: NullableBoolFieldUpdateOperationsInput | boolean | null
+  }
+
+  export type QuoteItemCreateInput = {
+    id?: string
+    file_name?: string | null
+    file_url?: string | null
+    status?: boolean
+    quantity?: number
+    service?: string | null
+    material?: string | null
+    finish?: string | null
+    description?: string | null
+    process?: string | null
+    specification?: string | null
+    price?: string | null
+    cost?: string | null
+    cost_shipping_price?: string | null
+    cost_shipping_total?: string | null
+    custom_shipping_total?: string | null
+    buy_price?: string | null
+    buy_shipping_price?: string | null
+    buy_shipping_total?: string | null
+    quantity_owed?: string | null
+    invoiced?: boolean | null
+    non_taxable?: number | null
+    non_shipping?: number | null
+    is_deleted?: boolean | null
+    vendor_id?: string | null
+    vendor_details?: string | null
+    last_updated_by?: number | null
+    work_instructions?: string | null
+    add_vendor?: boolean | null
+    markings?: string | null
+    part_item_number?: string | null
+    file_year?: string | null
+    file_month?: string | null
+    tab_open?: boolean | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    deleted_at?: Date | string | null
+    quote: QuoteCreateNestedOneWithoutQuoteItemsInput
+  }
+
+  export type QuoteItemUncheckedCreateInput = {
+    id?: string
+    quote_id: string
+    file_name?: string | null
+    file_url?: string | null
+    status?: boolean
+    quantity?: number
+    service?: string | null
+    material?: string | null
+    finish?: string | null
+    description?: string | null
+    process?: string | null
+    specification?: string | null
+    price?: string | null
+    cost?: string | null
+    cost_shipping_price?: string | null
+    cost_shipping_total?: string | null
+    custom_shipping_total?: string | null
+    buy_price?: string | null
+    buy_shipping_price?: string | null
+    buy_shipping_total?: string | null
+    quantity_owed?: string | null
+    invoiced?: boolean | null
+    non_taxable?: number | null
+    non_shipping?: number | null
+    is_deleted?: boolean | null
+    vendor_id?: string | null
+    vendor_details?: string | null
+    last_updated_by?: number | null
+    work_instructions?: string | null
+    add_vendor?: boolean | null
+    markings?: string | null
+    part_item_number?: string | null
+    file_year?: string | null
+    file_month?: string | null
+    tab_open?: boolean | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    deleted_at?: Date | string | null
+  }
+
+  export type QuoteItemUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    file_name?: NullableStringFieldUpdateOperationsInput | string | null
+    file_url?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: BoolFieldUpdateOperationsInput | boolean
+    quantity?: IntFieldUpdateOperationsInput | number
+    service?: NullableStringFieldUpdateOperationsInput | string | null
+    material?: NullableStringFieldUpdateOperationsInput | string | null
+    finish?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    process?: NullableStringFieldUpdateOperationsInput | string | null
+    specification?: NullableStringFieldUpdateOperationsInput | string | null
+    price?: NullableStringFieldUpdateOperationsInput | string | null
+    cost?: NullableStringFieldUpdateOperationsInput | string | null
+    cost_shipping_price?: NullableStringFieldUpdateOperationsInput | string | null
+    cost_shipping_total?: NullableStringFieldUpdateOperationsInput | string | null
+    custom_shipping_total?: NullableStringFieldUpdateOperationsInput | string | null
+    buy_price?: NullableStringFieldUpdateOperationsInput | string | null
+    buy_shipping_price?: NullableStringFieldUpdateOperationsInput | string | null
+    buy_shipping_total?: NullableStringFieldUpdateOperationsInput | string | null
+    quantity_owed?: NullableStringFieldUpdateOperationsInput | string | null
+    invoiced?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    non_taxable?: NullableIntFieldUpdateOperationsInput | number | null
+    non_shipping?: NullableIntFieldUpdateOperationsInput | number | null
+    is_deleted?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    vendor_id?: NullableStringFieldUpdateOperationsInput | string | null
+    vendor_details?: NullableStringFieldUpdateOperationsInput | string | null
+    last_updated_by?: NullableIntFieldUpdateOperationsInput | number | null
+    work_instructions?: NullableStringFieldUpdateOperationsInput | string | null
+    add_vendor?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    markings?: NullableStringFieldUpdateOperationsInput | string | null
+    part_item_number?: NullableStringFieldUpdateOperationsInput | string | null
+    file_year?: NullableStringFieldUpdateOperationsInput | string | null
+    file_month?: NullableStringFieldUpdateOperationsInput | string | null
+    tab_open?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    quote?: QuoteUpdateOneRequiredWithoutQuoteItemsNestedInput
+  }
+
+  export type QuoteItemUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    quote_id?: StringFieldUpdateOperationsInput | string
+    file_name?: NullableStringFieldUpdateOperationsInput | string | null
+    file_url?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: BoolFieldUpdateOperationsInput | boolean
+    quantity?: IntFieldUpdateOperationsInput | number
+    service?: NullableStringFieldUpdateOperationsInput | string | null
+    material?: NullableStringFieldUpdateOperationsInput | string | null
+    finish?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    process?: NullableStringFieldUpdateOperationsInput | string | null
+    specification?: NullableStringFieldUpdateOperationsInput | string | null
+    price?: NullableStringFieldUpdateOperationsInput | string | null
+    cost?: NullableStringFieldUpdateOperationsInput | string | null
+    cost_shipping_price?: NullableStringFieldUpdateOperationsInput | string | null
+    cost_shipping_total?: NullableStringFieldUpdateOperationsInput | string | null
+    custom_shipping_total?: NullableStringFieldUpdateOperationsInput | string | null
+    buy_price?: NullableStringFieldUpdateOperationsInput | string | null
+    buy_shipping_price?: NullableStringFieldUpdateOperationsInput | string | null
+    buy_shipping_total?: NullableStringFieldUpdateOperationsInput | string | null
+    quantity_owed?: NullableStringFieldUpdateOperationsInput | string | null
+    invoiced?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    non_taxable?: NullableIntFieldUpdateOperationsInput | number | null
+    non_shipping?: NullableIntFieldUpdateOperationsInput | number | null
+    is_deleted?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    vendor_id?: NullableStringFieldUpdateOperationsInput | string | null
+    vendor_details?: NullableStringFieldUpdateOperationsInput | string | null
+    last_updated_by?: NullableIntFieldUpdateOperationsInput | number | null
+    work_instructions?: NullableStringFieldUpdateOperationsInput | string | null
+    add_vendor?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    markings?: NullableStringFieldUpdateOperationsInput | string | null
+    part_item_number?: NullableStringFieldUpdateOperationsInput | string | null
+    file_year?: NullableStringFieldUpdateOperationsInput | string | null
+    file_month?: NullableStringFieldUpdateOperationsInput | string | null
+    tab_open?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type QuoteItemCreateManyInput = {
+    id?: string
+    quote_id: string
+    file_name?: string | null
+    file_url?: string | null
+    status?: boolean
+    quantity?: number
+    service?: string | null
+    material?: string | null
+    finish?: string | null
+    description?: string | null
+    process?: string | null
+    specification?: string | null
+    price?: string | null
+    cost?: string | null
+    cost_shipping_price?: string | null
+    cost_shipping_total?: string | null
+    custom_shipping_total?: string | null
+    buy_price?: string | null
+    buy_shipping_price?: string | null
+    buy_shipping_total?: string | null
+    quantity_owed?: string | null
+    invoiced?: boolean | null
+    non_taxable?: number | null
+    non_shipping?: number | null
+    is_deleted?: boolean | null
+    vendor_id?: string | null
+    vendor_details?: string | null
+    last_updated_by?: number | null
+    work_instructions?: string | null
+    add_vendor?: boolean | null
+    markings?: string | null
+    part_item_number?: string | null
+    file_year?: string | null
+    file_month?: string | null
+    tab_open?: boolean | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    deleted_at?: Date | string | null
+  }
+
+  export type QuoteItemUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    file_name?: NullableStringFieldUpdateOperationsInput | string | null
+    file_url?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: BoolFieldUpdateOperationsInput | boolean
+    quantity?: IntFieldUpdateOperationsInput | number
+    service?: NullableStringFieldUpdateOperationsInput | string | null
+    material?: NullableStringFieldUpdateOperationsInput | string | null
+    finish?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    process?: NullableStringFieldUpdateOperationsInput | string | null
+    specification?: NullableStringFieldUpdateOperationsInput | string | null
+    price?: NullableStringFieldUpdateOperationsInput | string | null
+    cost?: NullableStringFieldUpdateOperationsInput | string | null
+    cost_shipping_price?: NullableStringFieldUpdateOperationsInput | string | null
+    cost_shipping_total?: NullableStringFieldUpdateOperationsInput | string | null
+    custom_shipping_total?: NullableStringFieldUpdateOperationsInput | string | null
+    buy_price?: NullableStringFieldUpdateOperationsInput | string | null
+    buy_shipping_price?: NullableStringFieldUpdateOperationsInput | string | null
+    buy_shipping_total?: NullableStringFieldUpdateOperationsInput | string | null
+    quantity_owed?: NullableStringFieldUpdateOperationsInput | string | null
+    invoiced?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    non_taxable?: NullableIntFieldUpdateOperationsInput | number | null
+    non_shipping?: NullableIntFieldUpdateOperationsInput | number | null
+    is_deleted?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    vendor_id?: NullableStringFieldUpdateOperationsInput | string | null
+    vendor_details?: NullableStringFieldUpdateOperationsInput | string | null
+    last_updated_by?: NullableIntFieldUpdateOperationsInput | number | null
+    work_instructions?: NullableStringFieldUpdateOperationsInput | string | null
+    add_vendor?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    markings?: NullableStringFieldUpdateOperationsInput | string | null
+    part_item_number?: NullableStringFieldUpdateOperationsInput | string | null
+    file_year?: NullableStringFieldUpdateOperationsInput | string | null
+    file_month?: NullableStringFieldUpdateOperationsInput | string | null
+    tab_open?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type QuoteItemUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    quote_id?: StringFieldUpdateOperationsInput | string
+    file_name?: NullableStringFieldUpdateOperationsInput | string | null
+    file_url?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: BoolFieldUpdateOperationsInput | boolean
+    quantity?: IntFieldUpdateOperationsInput | number
+    service?: NullableStringFieldUpdateOperationsInput | string | null
+    material?: NullableStringFieldUpdateOperationsInput | string | null
+    finish?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    process?: NullableStringFieldUpdateOperationsInput | string | null
+    specification?: NullableStringFieldUpdateOperationsInput | string | null
+    price?: NullableStringFieldUpdateOperationsInput | string | null
+    cost?: NullableStringFieldUpdateOperationsInput | string | null
+    cost_shipping_price?: NullableStringFieldUpdateOperationsInput | string | null
+    cost_shipping_total?: NullableStringFieldUpdateOperationsInput | string | null
+    custom_shipping_total?: NullableStringFieldUpdateOperationsInput | string | null
+    buy_price?: NullableStringFieldUpdateOperationsInput | string | null
+    buy_shipping_price?: NullableStringFieldUpdateOperationsInput | string | null
+    buy_shipping_total?: NullableStringFieldUpdateOperationsInput | string | null
+    quantity_owed?: NullableStringFieldUpdateOperationsInput | string | null
+    invoiced?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    non_taxable?: NullableIntFieldUpdateOperationsInput | number | null
+    non_shipping?: NullableIntFieldUpdateOperationsInput | number | null
+    is_deleted?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    vendor_id?: NullableStringFieldUpdateOperationsInput | string | null
+    vendor_details?: NullableStringFieldUpdateOperationsInput | string | null
+    last_updated_by?: NullableIntFieldUpdateOperationsInput | number | null
+    work_instructions?: NullableStringFieldUpdateOperationsInput | string | null
+    add_vendor?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    markings?: NullableStringFieldUpdateOperationsInput | string | null
+    part_item_number?: NullableStringFieldUpdateOperationsInput | string | null
+    file_year?: NullableStringFieldUpdateOperationsInput | string | null
+    file_month?: NullableStringFieldUpdateOperationsInput | string | null
+    tab_open?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type PasswordResetOTPCreateInput = {
@@ -41087,8 +45696,8 @@ export namespace Prisma {
     name: string
     description?: string | null
     due_days?: number
-    discount_days?: number | null
-    discount_percent?: Decimal | DecimalJsLike | number | string | null
+    discount_days?: number
+    discount_percent?: Decimal | DecimalJsLike | number | string
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
@@ -41100,8 +45709,8 @@ export namespace Prisma {
     name: string
     description?: string | null
     due_days?: number
-    discount_days?: number | null
-    discount_percent?: Decimal | DecimalJsLike | number | string | null
+    discount_days?: number
+    discount_percent?: Decimal | DecimalJsLike | number | string
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
@@ -41113,8 +45722,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     due_days?: IntFieldUpdateOperationsInput | number
-    discount_days?: NullableIntFieldUpdateOperationsInput | number | null
-    discount_percent?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    discount_days?: IntFieldUpdateOperationsInput | number
+    discount_percent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -41126,8 +45735,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     due_days?: IntFieldUpdateOperationsInput | number
-    discount_days?: NullableIntFieldUpdateOperationsInput | number | null
-    discount_percent?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    discount_days?: IntFieldUpdateOperationsInput | number
+    discount_percent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -41139,8 +45748,8 @@ export namespace Prisma {
     name: string
     description?: string | null
     due_days?: number
-    discount_days?: number | null
-    discount_percent?: Decimal | DecimalJsLike | number | string | null
+    discount_days?: number
+    discount_percent?: Decimal | DecimalJsLike | number | string
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
@@ -41152,8 +45761,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     due_days?: IntFieldUpdateOperationsInput | number
-    discount_days?: NullableIntFieldUpdateOperationsInput | number | null
-    discount_percent?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    discount_days?: IntFieldUpdateOperationsInput | number
+    discount_percent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -41165,8 +45774,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     due_days?: IntFieldUpdateOperationsInput | number
-    discount_days?: NullableIntFieldUpdateOperationsInput | number | null
-    discount_percent?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    discount_days?: IntFieldUpdateOperationsInput | number
+    discount_percent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -41476,7 +46085,6 @@ export namespace Prisma {
     contacts?: CustomerContactCreateNestedManyWithoutCustomerInput
     operational?: CustomerOperationalInfoCreateNestedOneWithoutCustomerInput
     attachments?: CustomerNotesAndAttachmentsCreateNestedManyWithoutCustomerInput
-    quotation?: QuotationAttachmentCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateInput = {
@@ -41503,7 +46111,6 @@ export namespace Prisma {
     contacts?: CustomerContactUncheckedCreateNestedManyWithoutCustomerInput
     operational?: CustomerOperationalInfoUncheckedCreateNestedOneWithoutCustomerInput
     attachments?: CustomerNotesAndAttachmentsUncheckedCreateNestedManyWithoutCustomerInput
-    quotation?: QuotationAttachmentUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUpdateInput = {
@@ -41530,7 +46137,6 @@ export namespace Prisma {
     contacts?: CustomerContactUpdateManyWithoutCustomerNestedInput
     operational?: CustomerOperationalInfoUpdateOneWithoutCustomerNestedInput
     attachments?: CustomerNotesAndAttachmentsUpdateManyWithoutCustomerNestedInput
-    quotation?: QuotationAttachmentUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateInput = {
@@ -41557,7 +46163,6 @@ export namespace Prisma {
     contacts?: CustomerContactUncheckedUpdateManyWithoutCustomerNestedInput
     operational?: CustomerOperationalInfoUncheckedUpdateOneWithoutCustomerNestedInput
     attachments?: CustomerNotesAndAttachmentsUncheckedUpdateManyWithoutCustomerNestedInput
-    quotation?: QuotationAttachmentUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerCreateManyInput = {
@@ -41620,68 +46225,6 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     user_id?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type QuotationAttachmentCreateInput = {
-    id?: string
-    file_name?: string | null
-    file_url?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    customer?: CustomerCreateNestedOneWithoutQuotationInput
-  }
-
-  export type QuotationAttachmentUncheckedCreateInput = {
-    id?: string
-    customer_id: string
-    file_name?: string | null
-    file_url?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-  }
-
-  export type QuotationAttachmentUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    file_name?: NullableStringFieldUpdateOperationsInput | string | null
-    file_url?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    customer?: CustomerUpdateOneWithoutQuotationNestedInput
-  }
-
-  export type QuotationAttachmentUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    customer_id?: StringFieldUpdateOperationsInput | string
-    file_name?: NullableStringFieldUpdateOperationsInput | string | null
-    file_url?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type QuotationAttachmentCreateManyInput = {
-    id?: string
-    customer_id: string
-    file_name?: string | null
-    file_url?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-  }
-
-  export type QuotationAttachmentUpdateManyMutationInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    file_name?: NullableStringFieldUpdateOperationsInput | string | null
-    file_url?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type QuotationAttachmentUncheckedUpdateManyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    customer_id?: StringFieldUpdateOperationsInput | string
-    file_name?: NullableStringFieldUpdateOperationsInput | string | null
-    file_url?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type companyServiceCreateInput = {
@@ -43229,6 +47772,55 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type company_schoolCreateInput = {
+    id?: string
+    name: string
+    class: string
+    roll_no: string
+  }
+
+  export type company_schoolUncheckedCreateInput = {
+    id?: string
+    name: string
+    class: string
+    roll_no: string
+  }
+
+  export type company_schoolUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    class?: StringFieldUpdateOperationsInput | string
+    roll_no?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type company_schoolUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    class?: StringFieldUpdateOperationsInput | string
+    roll_no?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type company_schoolCreateManyInput = {
+    id?: string
+    name: string
+    class: string
+    roll_no: string
+  }
+
+  export type company_schoolUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    class?: StringFieldUpdateOperationsInput | string
+    roll_no?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type company_schoolUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    class?: StringFieldUpdateOperationsInput | string
+    roll_no?: StringFieldUpdateOperationsInput | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -43315,6 +47907,12 @@ export namespace Prisma {
     none?: PasswordResetTokenWhereInput
   }
 
+  export type QuoteListRelationFilter = {
+    every?: QuoteWhereInput
+    some?: QuoteWhereInput
+    none?: QuoteWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -43325,6 +47923,10 @@ export namespace Prisma {
   }
 
   export type PasswordResetTokenOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type QuoteOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -43438,6 +48040,452 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type EnumQuoteTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.QuoteType | EnumQuoteTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.QuoteType[] | ListEnumQuoteTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.QuoteType[] | ListEnumQuoteTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumQuoteTypeFilter<$PrismaModel> | $Enums.QuoteType
+  }
+
+  export type BoolNullableFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
+  }
+
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type UserNullableScalarRelationFilter = {
+    is?: UserWhereInput | null
+    isNot?: UserWhereInput | null
+  }
+
+  export type QuoteItemListRelationFilter = {
+    every?: QuoteItemWhereInput
+    some?: QuoteItemWhereInput
+    none?: QuoteItemWhereInput
+  }
+
+  export type QuoteItemOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type QuoteCountOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    quote_item_id?: SortOrder
+    status?: SortOrder
+    payment_status?: SortOrder
+    quote_type?: SortOrder
+    tax?: SortOrder
+    deposit_paid?: SortOrder
+    shipping?: SortOrder
+    tax_buy_price?: SortOrder
+    shipping_buy_price?: SortOrder
+    lead_time?: SortOrder
+    payable?: SortOrder
+    freight_condition?: SortOrder
+    freight_condition_dismiss?: SortOrder
+    customer_email?: SortOrder
+    emails?: SortOrder
+    invoice_date?: SortOrder
+    invoice_email?: SortOrder
+    billing_name?: SortOrder
+    billing_company?: SortOrder
+    billing_address?: SortOrder
+    billing_city?: SortOrder
+    billing_state?: SortOrder
+    billing_country?: SortOrder
+    billing_zip?: SortOrder
+    billing_phone?: SortOrder
+    billing_fax?: SortOrder
+    shipping_name?: SortOrder
+    shipping_company?: SortOrder
+    shipping_address?: SortOrder
+    shipping_city?: SortOrder
+    shipping_state?: SortOrder
+    shipping_country?: SortOrder
+    shipping_zip?: SortOrder
+    shipping_phone?: SortOrder
+    shipping_email?: SortOrder
+    shipping_fax?: SortOrder
+    sales_person?: SortOrder
+    project_manager?: SortOrder
+    accept_agreement?: SortOrder
+    date_created?: SortOrder
+    created_month?: SortOrder
+    created_year?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    deleted_at?: SortOrder
+    is_deleted?: SortOrder
+  }
+
+  export type QuoteAvgOrderByAggregateInput = {
+    quote_item_id?: SortOrder
+    sales_person?: SortOrder
+    project_manager?: SortOrder
+    accept_agreement?: SortOrder
+  }
+
+  export type QuoteMaxOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    quote_item_id?: SortOrder
+    status?: SortOrder
+    payment_status?: SortOrder
+    quote_type?: SortOrder
+    tax?: SortOrder
+    deposit_paid?: SortOrder
+    shipping?: SortOrder
+    tax_buy_price?: SortOrder
+    shipping_buy_price?: SortOrder
+    lead_time?: SortOrder
+    payable?: SortOrder
+    freight_condition?: SortOrder
+    freight_condition_dismiss?: SortOrder
+    customer_email?: SortOrder
+    emails?: SortOrder
+    invoice_date?: SortOrder
+    invoice_email?: SortOrder
+    billing_name?: SortOrder
+    billing_company?: SortOrder
+    billing_address?: SortOrder
+    billing_city?: SortOrder
+    billing_state?: SortOrder
+    billing_country?: SortOrder
+    billing_zip?: SortOrder
+    billing_phone?: SortOrder
+    billing_fax?: SortOrder
+    shipping_name?: SortOrder
+    shipping_company?: SortOrder
+    shipping_address?: SortOrder
+    shipping_city?: SortOrder
+    shipping_state?: SortOrder
+    shipping_country?: SortOrder
+    shipping_zip?: SortOrder
+    shipping_phone?: SortOrder
+    shipping_email?: SortOrder
+    shipping_fax?: SortOrder
+    sales_person?: SortOrder
+    project_manager?: SortOrder
+    accept_agreement?: SortOrder
+    date_created?: SortOrder
+    created_month?: SortOrder
+    created_year?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    deleted_at?: SortOrder
+    is_deleted?: SortOrder
+  }
+
+  export type QuoteMinOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    quote_item_id?: SortOrder
+    status?: SortOrder
+    payment_status?: SortOrder
+    quote_type?: SortOrder
+    tax?: SortOrder
+    deposit_paid?: SortOrder
+    shipping?: SortOrder
+    tax_buy_price?: SortOrder
+    shipping_buy_price?: SortOrder
+    lead_time?: SortOrder
+    payable?: SortOrder
+    freight_condition?: SortOrder
+    freight_condition_dismiss?: SortOrder
+    customer_email?: SortOrder
+    emails?: SortOrder
+    invoice_date?: SortOrder
+    invoice_email?: SortOrder
+    billing_name?: SortOrder
+    billing_company?: SortOrder
+    billing_address?: SortOrder
+    billing_city?: SortOrder
+    billing_state?: SortOrder
+    billing_country?: SortOrder
+    billing_zip?: SortOrder
+    billing_phone?: SortOrder
+    billing_fax?: SortOrder
+    shipping_name?: SortOrder
+    shipping_company?: SortOrder
+    shipping_address?: SortOrder
+    shipping_city?: SortOrder
+    shipping_state?: SortOrder
+    shipping_country?: SortOrder
+    shipping_zip?: SortOrder
+    shipping_phone?: SortOrder
+    shipping_email?: SortOrder
+    shipping_fax?: SortOrder
+    sales_person?: SortOrder
+    project_manager?: SortOrder
+    accept_agreement?: SortOrder
+    date_created?: SortOrder
+    created_month?: SortOrder
+    created_year?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    deleted_at?: SortOrder
+    is_deleted?: SortOrder
+  }
+
+  export type QuoteSumOrderByAggregateInput = {
+    quote_item_id?: SortOrder
+    sales_person?: SortOrder
+    project_manager?: SortOrder
+    accept_agreement?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type EnumQuoteTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.QuoteType | EnumQuoteTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.QuoteType[] | ListEnumQuoteTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.QuoteType[] | ListEnumQuoteTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumQuoteTypeWithAggregatesFilter<$PrismaModel> | $Enums.QuoteType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumQuoteTypeFilter<$PrismaModel>
+    _max?: NestedEnumQuoteTypeFilter<$PrismaModel>
+  }
+
+  export type BoolNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedBoolNullableFilter<$PrismaModel>
+    _max?: NestedBoolNullableFilter<$PrismaModel>
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type QuoteScalarRelationFilter = {
+    is?: QuoteWhereInput
+    isNot?: QuoteWhereInput
+  }
+
+  export type QuoteItemCountOrderByAggregateInput = {
+    id?: SortOrder
+    quote_id?: SortOrder
+    file_name?: SortOrder
+    file_url?: SortOrder
+    status?: SortOrder
+    quantity?: SortOrder
+    service?: SortOrder
+    material?: SortOrder
+    finish?: SortOrder
+    description?: SortOrder
+    process?: SortOrder
+    specification?: SortOrder
+    price?: SortOrder
+    cost?: SortOrder
+    cost_shipping_price?: SortOrder
+    cost_shipping_total?: SortOrder
+    custom_shipping_total?: SortOrder
+    buy_price?: SortOrder
+    buy_shipping_price?: SortOrder
+    buy_shipping_total?: SortOrder
+    quantity_owed?: SortOrder
+    invoiced?: SortOrder
+    non_taxable?: SortOrder
+    non_shipping?: SortOrder
+    is_deleted?: SortOrder
+    vendor_id?: SortOrder
+    vendor_details?: SortOrder
+    last_updated_by?: SortOrder
+    work_instructions?: SortOrder
+    add_vendor?: SortOrder
+    markings?: SortOrder
+    part_item_number?: SortOrder
+    file_year?: SortOrder
+    file_month?: SortOrder
+    tab_open?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    deleted_at?: SortOrder
+  }
+
+  export type QuoteItemAvgOrderByAggregateInput = {
+    quantity?: SortOrder
+    non_taxable?: SortOrder
+    non_shipping?: SortOrder
+    last_updated_by?: SortOrder
+  }
+
+  export type QuoteItemMaxOrderByAggregateInput = {
+    id?: SortOrder
+    quote_id?: SortOrder
+    file_name?: SortOrder
+    file_url?: SortOrder
+    status?: SortOrder
+    quantity?: SortOrder
+    service?: SortOrder
+    material?: SortOrder
+    finish?: SortOrder
+    description?: SortOrder
+    process?: SortOrder
+    specification?: SortOrder
+    price?: SortOrder
+    cost?: SortOrder
+    cost_shipping_price?: SortOrder
+    cost_shipping_total?: SortOrder
+    custom_shipping_total?: SortOrder
+    buy_price?: SortOrder
+    buy_shipping_price?: SortOrder
+    buy_shipping_total?: SortOrder
+    quantity_owed?: SortOrder
+    invoiced?: SortOrder
+    non_taxable?: SortOrder
+    non_shipping?: SortOrder
+    is_deleted?: SortOrder
+    vendor_id?: SortOrder
+    vendor_details?: SortOrder
+    last_updated_by?: SortOrder
+    work_instructions?: SortOrder
+    add_vendor?: SortOrder
+    markings?: SortOrder
+    part_item_number?: SortOrder
+    file_year?: SortOrder
+    file_month?: SortOrder
+    tab_open?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    deleted_at?: SortOrder
+  }
+
+  export type QuoteItemMinOrderByAggregateInput = {
+    id?: SortOrder
+    quote_id?: SortOrder
+    file_name?: SortOrder
+    file_url?: SortOrder
+    status?: SortOrder
+    quantity?: SortOrder
+    service?: SortOrder
+    material?: SortOrder
+    finish?: SortOrder
+    description?: SortOrder
+    process?: SortOrder
+    specification?: SortOrder
+    price?: SortOrder
+    cost?: SortOrder
+    cost_shipping_price?: SortOrder
+    cost_shipping_total?: SortOrder
+    custom_shipping_total?: SortOrder
+    buy_price?: SortOrder
+    buy_shipping_price?: SortOrder
+    buy_shipping_total?: SortOrder
+    quantity_owed?: SortOrder
+    invoiced?: SortOrder
+    non_taxable?: SortOrder
+    non_shipping?: SortOrder
+    is_deleted?: SortOrder
+    vendor_id?: SortOrder
+    vendor_details?: SortOrder
+    last_updated_by?: SortOrder
+    work_instructions?: SortOrder
+    add_vendor?: SortOrder
+    markings?: SortOrder
+    part_item_number?: SortOrder
+    file_year?: SortOrder
+    file_month?: SortOrder
+    tab_open?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    deleted_at?: SortOrder
+  }
+
+  export type QuoteItemSumOrderByAggregateInput = {
+    quantity?: SortOrder
+    non_taxable?: SortOrder
+    non_shipping?: SortOrder
+    last_updated_by?: SortOrder
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
   export type UserScalarRelationFilter = {
     is?: UserWhereInput
     isNot?: UserWhereInput
@@ -43497,22 +48545,6 @@ export namespace Prisma {
     created_at?: SortOrder
   }
 
-  export type IntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
-  }
-
-  export type BoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
   export type tenantCurrencyCountOrderByAggregateInput = {
     id?: SortOrder
     currency_id?: SortOrder
@@ -43554,50 +48586,15 @@ export namespace Prisma {
     currency_id?: SortOrder
   }
 
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
-  }
-
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
-  }
-
-  export type IntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
-  }
-
-  export type DecimalNullableFilter<$PrismaModel = never> = {
-    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
-    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
-    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+  export type DecimalFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
     lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
   }
 
   export type tenantPaymentTermsCountOrderByAggregateInput = {
@@ -43653,36 +48650,20 @@ export namespace Prisma {
     discount_percent?: SortOrder
   }
 
-  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
-  }
-
-  export type DecimalNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
-    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
-    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+  export type DecimalWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
     lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    not?: NestedDecimalNullableWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedDecimalNullableFilter<$PrismaModel>
-    _sum?: NestedDecimalNullableFilter<$PrismaModel>
-    _min?: NestedDecimalNullableFilter<$PrismaModel>
-    _max?: NestedDecimalNullableFilter<$PrismaModel>
+    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedDecimalFilter<$PrismaModel>
+    _sum?: NestedDecimalFilter<$PrismaModel>
+    _min?: NestedDecimalFilter<$PrismaModel>
+    _max?: NestedDecimalFilter<$PrismaModel>
   }
 
   export type tenantPaymentStatusCountOrderByAggregateInput = {
@@ -43805,22 +48786,6 @@ export namespace Prisma {
     updated_at?: SortOrder
   }
 
-  export type DateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-  }
-
-  export type UserNullableScalarRelationFilter = {
-    is?: UserWhereInput | null
-    isNot?: UserWhereInput | null
-  }
-
   export type CustomerAddressListRelationFilter = {
     every?: CustomerAddressWhereInput
     some?: CustomerAddressWhereInput
@@ -43849,12 +48814,6 @@ export namespace Prisma {
     none?: CustomerNotesAndAttachmentsWhereInput
   }
 
-  export type QuotationAttachmentListRelationFilter = {
-    every?: QuotationAttachmentWhereInput
-    some?: QuotationAttachmentWhereInput
-    none?: QuotationAttachmentWhereInput
-  }
-
   export type CustomerAddressOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -43864,10 +48823,6 @@ export namespace Prisma {
   }
 
   export type CustomerNotesAndAttachmentsOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type QuotationAttachmentOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -43942,47 +48897,6 @@ export namespace Prisma {
   export type CustomerSumOrderByAggregateInput = {
     customer_id?: SortOrder
     sorting?: SortOrder
-  }
-
-  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
-  }
-
-  export type QuotationAttachmentCountOrderByAggregateInput = {
-    id?: SortOrder
-    customer_id?: SortOrder
-    file_name?: SortOrder
-    file_url?: SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
-  }
-
-  export type QuotationAttachmentMaxOrderByAggregateInput = {
-    id?: SortOrder
-    customer_id?: SortOrder
-    file_name?: SortOrder
-    file_url?: SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
-  }
-
-  export type QuotationAttachmentMinOrderByAggregateInput = {
-    id?: SortOrder
-    customer_id?: SortOrder
-    file_name?: SortOrder
-    file_url?: SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
   }
 
   export type CompanyMaterialListRelationFilter = {
@@ -44792,6 +49706,27 @@ export namespace Prisma {
     updated_at?: SortOrder
   }
 
+  export type company_schoolCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    class?: SortOrder
+    roll_no?: SortOrder
+  }
+
+  export type company_schoolMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    class?: SortOrder
+    roll_no?: SortOrder
+  }
+
+  export type company_schoolMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    class?: SortOrder
+    roll_no?: SortOrder
+  }
+
   export type CustomerCreateNestedOneWithoutUserInput = {
     create?: XOR<CustomerCreateWithoutUserInput, CustomerUncheckedCreateWithoutUserInput>
     connectOrCreate?: CustomerCreateOrConnectWithoutUserInput
@@ -44818,6 +49753,13 @@ export namespace Prisma {
     connect?: PasswordResetTokenWhereUniqueInput | PasswordResetTokenWhereUniqueInput[]
   }
 
+  export type QuoteCreateNestedManyWithoutUserInput = {
+    create?: XOR<QuoteCreateWithoutUserInput, QuoteUncheckedCreateWithoutUserInput> | QuoteCreateWithoutUserInput[] | QuoteUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: QuoteCreateOrConnectWithoutUserInput | QuoteCreateOrConnectWithoutUserInput[]
+    createMany?: QuoteCreateManyUserInputEnvelope
+    connect?: QuoteWhereUniqueInput | QuoteWhereUniqueInput[]
+  }
+
   export type CustomerUncheckedCreateNestedOneWithoutUserInput = {
     create?: XOR<CustomerCreateWithoutUserInput, CustomerUncheckedCreateWithoutUserInput>
     connectOrCreate?: CustomerCreateOrConnectWithoutUserInput
@@ -44842,6 +49784,13 @@ export namespace Prisma {
     connectOrCreate?: PasswordResetTokenCreateOrConnectWithoutUserInput | PasswordResetTokenCreateOrConnectWithoutUserInput[]
     createMany?: PasswordResetTokenCreateManyUserInputEnvelope
     connect?: PasswordResetTokenWhereUniqueInput | PasswordResetTokenWhereUniqueInput[]
+  }
+
+  export type QuoteUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<QuoteCreateWithoutUserInput, QuoteUncheckedCreateWithoutUserInput> | QuoteCreateWithoutUserInput[] | QuoteUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: QuoteCreateOrConnectWithoutUserInput | QuoteCreateOrConnectWithoutUserInput[]
+    createMany?: QuoteCreateManyUserInputEnvelope
+    connect?: QuoteWhereUniqueInput | QuoteWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -44904,6 +49853,20 @@ export namespace Prisma {
     deleteMany?: PasswordResetTokenScalarWhereInput | PasswordResetTokenScalarWhereInput[]
   }
 
+  export type QuoteUpdateManyWithoutUserNestedInput = {
+    create?: XOR<QuoteCreateWithoutUserInput, QuoteUncheckedCreateWithoutUserInput> | QuoteCreateWithoutUserInput[] | QuoteUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: QuoteCreateOrConnectWithoutUserInput | QuoteCreateOrConnectWithoutUserInput[]
+    upsert?: QuoteUpsertWithWhereUniqueWithoutUserInput | QuoteUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: QuoteCreateManyUserInputEnvelope
+    set?: QuoteWhereUniqueInput | QuoteWhereUniqueInput[]
+    disconnect?: QuoteWhereUniqueInput | QuoteWhereUniqueInput[]
+    delete?: QuoteWhereUniqueInput | QuoteWhereUniqueInput[]
+    connect?: QuoteWhereUniqueInput | QuoteWhereUniqueInput[]
+    update?: QuoteUpdateWithWhereUniqueWithoutUserInput | QuoteUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: QuoteUpdateManyWithWhereWithoutUserInput | QuoteUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: QuoteScalarWhereInput | QuoteScalarWhereInput[]
+  }
+
   export type CustomerUncheckedUpdateOneWithoutUserNestedInput = {
     create?: XOR<CustomerCreateWithoutUserInput, CustomerUncheckedCreateWithoutUserInput>
     connectOrCreate?: CustomerCreateOrConnectWithoutUserInput
@@ -44952,6 +49915,124 @@ export namespace Prisma {
     deleteMany?: PasswordResetTokenScalarWhereInput | PasswordResetTokenScalarWhereInput[]
   }
 
+  export type QuoteUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<QuoteCreateWithoutUserInput, QuoteUncheckedCreateWithoutUserInput> | QuoteCreateWithoutUserInput[] | QuoteUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: QuoteCreateOrConnectWithoutUserInput | QuoteCreateOrConnectWithoutUserInput[]
+    upsert?: QuoteUpsertWithWhereUniqueWithoutUserInput | QuoteUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: QuoteCreateManyUserInputEnvelope
+    set?: QuoteWhereUniqueInput | QuoteWhereUniqueInput[]
+    disconnect?: QuoteWhereUniqueInput | QuoteWhereUniqueInput[]
+    delete?: QuoteWhereUniqueInput | QuoteWhereUniqueInput[]
+    connect?: QuoteWhereUniqueInput | QuoteWhereUniqueInput[]
+    update?: QuoteUpdateWithWhereUniqueWithoutUserInput | QuoteUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: QuoteUpdateManyWithWhereWithoutUserInput | QuoteUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: QuoteScalarWhereInput | QuoteScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutQuotesInput = {
+    create?: XOR<UserCreateWithoutQuotesInput, UserUncheckedCreateWithoutQuotesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutQuotesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type QuoteItemCreateNestedManyWithoutQuoteInput = {
+    create?: XOR<QuoteItemCreateWithoutQuoteInput, QuoteItemUncheckedCreateWithoutQuoteInput> | QuoteItemCreateWithoutQuoteInput[] | QuoteItemUncheckedCreateWithoutQuoteInput[]
+    connectOrCreate?: QuoteItemCreateOrConnectWithoutQuoteInput | QuoteItemCreateOrConnectWithoutQuoteInput[]
+    createMany?: QuoteItemCreateManyQuoteInputEnvelope
+    connect?: QuoteItemWhereUniqueInput | QuoteItemWhereUniqueInput[]
+  }
+
+  export type QuoteItemUncheckedCreateNestedManyWithoutQuoteInput = {
+    create?: XOR<QuoteItemCreateWithoutQuoteInput, QuoteItemUncheckedCreateWithoutQuoteInput> | QuoteItemCreateWithoutQuoteInput[] | QuoteItemUncheckedCreateWithoutQuoteInput[]
+    connectOrCreate?: QuoteItemCreateOrConnectWithoutQuoteInput | QuoteItemCreateOrConnectWithoutQuoteInput[]
+    createMany?: QuoteItemCreateManyQuoteInputEnvelope
+    connect?: QuoteItemWhereUniqueInput | QuoteItemWhereUniqueInput[]
+  }
+
+  export type EnumQuoteTypeFieldUpdateOperationsInput = {
+    set?: $Enums.QuoteType
+  }
+
+  export type NullableBoolFieldUpdateOperationsInput = {
+    set?: boolean | null
+  }
+
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type UserUpdateOneWithoutQuotesNestedInput = {
+    create?: XOR<UserCreateWithoutQuotesInput, UserUncheckedCreateWithoutQuotesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutQuotesInput
+    upsert?: UserUpsertWithoutQuotesInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutQuotesInput, UserUpdateWithoutQuotesInput>, UserUncheckedUpdateWithoutQuotesInput>
+  }
+
+  export type QuoteItemUpdateManyWithoutQuoteNestedInput = {
+    create?: XOR<QuoteItemCreateWithoutQuoteInput, QuoteItemUncheckedCreateWithoutQuoteInput> | QuoteItemCreateWithoutQuoteInput[] | QuoteItemUncheckedCreateWithoutQuoteInput[]
+    connectOrCreate?: QuoteItemCreateOrConnectWithoutQuoteInput | QuoteItemCreateOrConnectWithoutQuoteInput[]
+    upsert?: QuoteItemUpsertWithWhereUniqueWithoutQuoteInput | QuoteItemUpsertWithWhereUniqueWithoutQuoteInput[]
+    createMany?: QuoteItemCreateManyQuoteInputEnvelope
+    set?: QuoteItemWhereUniqueInput | QuoteItemWhereUniqueInput[]
+    disconnect?: QuoteItemWhereUniqueInput | QuoteItemWhereUniqueInput[]
+    delete?: QuoteItemWhereUniqueInput | QuoteItemWhereUniqueInput[]
+    connect?: QuoteItemWhereUniqueInput | QuoteItemWhereUniqueInput[]
+    update?: QuoteItemUpdateWithWhereUniqueWithoutQuoteInput | QuoteItemUpdateWithWhereUniqueWithoutQuoteInput[]
+    updateMany?: QuoteItemUpdateManyWithWhereWithoutQuoteInput | QuoteItemUpdateManyWithWhereWithoutQuoteInput[]
+    deleteMany?: QuoteItemScalarWhereInput | QuoteItemScalarWhereInput[]
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type QuoteItemUncheckedUpdateManyWithoutQuoteNestedInput = {
+    create?: XOR<QuoteItemCreateWithoutQuoteInput, QuoteItemUncheckedCreateWithoutQuoteInput> | QuoteItemCreateWithoutQuoteInput[] | QuoteItemUncheckedCreateWithoutQuoteInput[]
+    connectOrCreate?: QuoteItemCreateOrConnectWithoutQuoteInput | QuoteItemCreateOrConnectWithoutQuoteInput[]
+    upsert?: QuoteItemUpsertWithWhereUniqueWithoutQuoteInput | QuoteItemUpsertWithWhereUniqueWithoutQuoteInput[]
+    createMany?: QuoteItemCreateManyQuoteInputEnvelope
+    set?: QuoteItemWhereUniqueInput | QuoteItemWhereUniqueInput[]
+    disconnect?: QuoteItemWhereUniqueInput | QuoteItemWhereUniqueInput[]
+    delete?: QuoteItemWhereUniqueInput | QuoteItemWhereUniqueInput[]
+    connect?: QuoteItemWhereUniqueInput | QuoteItemWhereUniqueInput[]
+    update?: QuoteItemUpdateWithWhereUniqueWithoutQuoteInput | QuoteItemUpdateWithWhereUniqueWithoutQuoteInput[]
+    updateMany?: QuoteItemUpdateManyWithWhereWithoutQuoteInput | QuoteItemUpdateManyWithWhereWithoutQuoteInput[]
+    deleteMany?: QuoteItemScalarWhereInput | QuoteItemScalarWhereInput[]
+  }
+
+  export type QuoteCreateNestedOneWithoutQuoteItemsInput = {
+    create?: XOR<QuoteCreateWithoutQuoteItemsInput, QuoteUncheckedCreateWithoutQuoteItemsInput>
+    connectOrCreate?: QuoteCreateOrConnectWithoutQuoteItemsInput
+    connect?: QuoteWhereUniqueInput
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
+  export type QuoteUpdateOneRequiredWithoutQuoteItemsNestedInput = {
+    create?: XOR<QuoteCreateWithoutQuoteItemsInput, QuoteUncheckedCreateWithoutQuoteItemsInput>
+    connectOrCreate?: QuoteCreateOrConnectWithoutQuoteItemsInput
+    upsert?: QuoteUpsertWithoutQuoteItemsInput
+    connect?: QuoteWhereUniqueInput
+    update?: XOR<XOR<QuoteUpdateToOneWithWhereWithoutQuoteItemsInput, QuoteUpdateWithoutQuoteItemsInput>, QuoteUncheckedUpdateWithoutQuoteItemsInput>
+  }
+
   export type UserCreateNestedOneWithoutOtpsInput = {
     create?: XOR<UserCreateWithoutOtpsInput, UserUncheckedCreateWithoutOtpsInput>
     connectOrCreate?: UserCreateOrConnectWithoutOtpsInput
@@ -44980,28 +50061,8 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutResetTokensInput, UserUpdateWithoutResetTokensInput>, UserUncheckedUpdateWithoutResetTokensInput>
   }
 
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
-  }
-
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean
-  }
-
-  export type NullableIntFieldUpdateOperationsInput = {
-    set?: number | null
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
-  }
-
-  export type NullableDecimalFieldUpdateOperationsInput = {
-    set?: Decimal | DecimalJsLike | number | string | null
+  export type DecimalFieldUpdateOperationsInput = {
+    set?: Decimal | DecimalJsLike | number | string
     increment?: Decimal | DecimalJsLike | number | string
     decrement?: Decimal | DecimalJsLike | number | string
     multiply?: Decimal | DecimalJsLike | number | string
@@ -45047,13 +50108,6 @@ export namespace Prisma {
     connect?: CustomerNotesAndAttachmentsWhereUniqueInput | CustomerNotesAndAttachmentsWhereUniqueInput[]
   }
 
-  export type QuotationAttachmentCreateNestedManyWithoutCustomerInput = {
-    create?: XOR<QuotationAttachmentCreateWithoutCustomerInput, QuotationAttachmentUncheckedCreateWithoutCustomerInput> | QuotationAttachmentCreateWithoutCustomerInput[] | QuotationAttachmentUncheckedCreateWithoutCustomerInput[]
-    connectOrCreate?: QuotationAttachmentCreateOrConnectWithoutCustomerInput | QuotationAttachmentCreateOrConnectWithoutCustomerInput[]
-    createMany?: QuotationAttachmentCreateManyCustomerInputEnvelope
-    connect?: QuotationAttachmentWhereUniqueInput | QuotationAttachmentWhereUniqueInput[]
-  }
-
   export type CustomerAddressUncheckedCreateNestedManyWithoutCustomerInput = {
     create?: XOR<CustomerAddressCreateWithoutCustomerInput, CustomerAddressUncheckedCreateWithoutCustomerInput> | CustomerAddressCreateWithoutCustomerInput[] | CustomerAddressUncheckedCreateWithoutCustomerInput[]
     connectOrCreate?: CustomerAddressCreateOrConnectWithoutCustomerInput | CustomerAddressCreateOrConnectWithoutCustomerInput[]
@@ -45085,17 +50139,6 @@ export namespace Prisma {
     connectOrCreate?: CustomerNotesAndAttachmentsCreateOrConnectWithoutCustomerInput | CustomerNotesAndAttachmentsCreateOrConnectWithoutCustomerInput[]
     createMany?: CustomerNotesAndAttachmentsCreateManyCustomerInputEnvelope
     connect?: CustomerNotesAndAttachmentsWhereUniqueInput | CustomerNotesAndAttachmentsWhereUniqueInput[]
-  }
-
-  export type QuotationAttachmentUncheckedCreateNestedManyWithoutCustomerInput = {
-    create?: XOR<QuotationAttachmentCreateWithoutCustomerInput, QuotationAttachmentUncheckedCreateWithoutCustomerInput> | QuotationAttachmentCreateWithoutCustomerInput[] | QuotationAttachmentUncheckedCreateWithoutCustomerInput[]
-    connectOrCreate?: QuotationAttachmentCreateOrConnectWithoutCustomerInput | QuotationAttachmentCreateOrConnectWithoutCustomerInput[]
-    createMany?: QuotationAttachmentCreateManyCustomerInputEnvelope
-    connect?: QuotationAttachmentWhereUniqueInput | QuotationAttachmentWhereUniqueInput[]
-  }
-
-  export type NullableDateTimeFieldUpdateOperationsInput = {
-    set?: Date | string | null
   }
 
   export type UserUpdateOneWithoutCustomerNestedInput = {
@@ -45170,20 +50213,6 @@ export namespace Prisma {
     deleteMany?: CustomerNotesAndAttachmentsScalarWhereInput | CustomerNotesAndAttachmentsScalarWhereInput[]
   }
 
-  export type QuotationAttachmentUpdateManyWithoutCustomerNestedInput = {
-    create?: XOR<QuotationAttachmentCreateWithoutCustomerInput, QuotationAttachmentUncheckedCreateWithoutCustomerInput> | QuotationAttachmentCreateWithoutCustomerInput[] | QuotationAttachmentUncheckedCreateWithoutCustomerInput[]
-    connectOrCreate?: QuotationAttachmentCreateOrConnectWithoutCustomerInput | QuotationAttachmentCreateOrConnectWithoutCustomerInput[]
-    upsert?: QuotationAttachmentUpsertWithWhereUniqueWithoutCustomerInput | QuotationAttachmentUpsertWithWhereUniqueWithoutCustomerInput[]
-    createMany?: QuotationAttachmentCreateManyCustomerInputEnvelope
-    set?: QuotationAttachmentWhereUniqueInput | QuotationAttachmentWhereUniqueInput[]
-    disconnect?: QuotationAttachmentWhereUniqueInput | QuotationAttachmentWhereUniqueInput[]
-    delete?: QuotationAttachmentWhereUniqueInput | QuotationAttachmentWhereUniqueInput[]
-    connect?: QuotationAttachmentWhereUniqueInput | QuotationAttachmentWhereUniqueInput[]
-    update?: QuotationAttachmentUpdateWithWhereUniqueWithoutCustomerInput | QuotationAttachmentUpdateWithWhereUniqueWithoutCustomerInput[]
-    updateMany?: QuotationAttachmentUpdateManyWithWhereWithoutCustomerInput | QuotationAttachmentUpdateManyWithWhereWithoutCustomerInput[]
-    deleteMany?: QuotationAttachmentScalarWhereInput | QuotationAttachmentScalarWhereInput[]
-  }
-
   export type CustomerAddressUncheckedUpdateManyWithoutCustomerNestedInput = {
     create?: XOR<CustomerAddressCreateWithoutCustomerInput, CustomerAddressUncheckedCreateWithoutCustomerInput> | CustomerAddressCreateWithoutCustomerInput[] | CustomerAddressUncheckedCreateWithoutCustomerInput[]
     connectOrCreate?: CustomerAddressCreateOrConnectWithoutCustomerInput | CustomerAddressCreateOrConnectWithoutCustomerInput[]
@@ -45244,36 +50273,6 @@ export namespace Prisma {
     update?: CustomerNotesAndAttachmentsUpdateWithWhereUniqueWithoutCustomerInput | CustomerNotesAndAttachmentsUpdateWithWhereUniqueWithoutCustomerInput[]
     updateMany?: CustomerNotesAndAttachmentsUpdateManyWithWhereWithoutCustomerInput | CustomerNotesAndAttachmentsUpdateManyWithWhereWithoutCustomerInput[]
     deleteMany?: CustomerNotesAndAttachmentsScalarWhereInput | CustomerNotesAndAttachmentsScalarWhereInput[]
-  }
-
-  export type QuotationAttachmentUncheckedUpdateManyWithoutCustomerNestedInput = {
-    create?: XOR<QuotationAttachmentCreateWithoutCustomerInput, QuotationAttachmentUncheckedCreateWithoutCustomerInput> | QuotationAttachmentCreateWithoutCustomerInput[] | QuotationAttachmentUncheckedCreateWithoutCustomerInput[]
-    connectOrCreate?: QuotationAttachmentCreateOrConnectWithoutCustomerInput | QuotationAttachmentCreateOrConnectWithoutCustomerInput[]
-    upsert?: QuotationAttachmentUpsertWithWhereUniqueWithoutCustomerInput | QuotationAttachmentUpsertWithWhereUniqueWithoutCustomerInput[]
-    createMany?: QuotationAttachmentCreateManyCustomerInputEnvelope
-    set?: QuotationAttachmentWhereUniqueInput | QuotationAttachmentWhereUniqueInput[]
-    disconnect?: QuotationAttachmentWhereUniqueInput | QuotationAttachmentWhereUniqueInput[]
-    delete?: QuotationAttachmentWhereUniqueInput | QuotationAttachmentWhereUniqueInput[]
-    connect?: QuotationAttachmentWhereUniqueInput | QuotationAttachmentWhereUniqueInput[]
-    update?: QuotationAttachmentUpdateWithWhereUniqueWithoutCustomerInput | QuotationAttachmentUpdateWithWhereUniqueWithoutCustomerInput[]
-    updateMany?: QuotationAttachmentUpdateManyWithWhereWithoutCustomerInput | QuotationAttachmentUpdateManyWithWhereWithoutCustomerInput[]
-    deleteMany?: QuotationAttachmentScalarWhereInput | QuotationAttachmentScalarWhereInput[]
-  }
-
-  export type CustomerCreateNestedOneWithoutQuotationInput = {
-    create?: XOR<CustomerCreateWithoutQuotationInput, CustomerUncheckedCreateWithoutQuotationInput>
-    connectOrCreate?: CustomerCreateOrConnectWithoutQuotationInput
-    connect?: CustomerWhereUniqueInput
-  }
-
-  export type CustomerUpdateOneWithoutQuotationNestedInput = {
-    create?: XOR<CustomerCreateWithoutQuotationInput, CustomerUncheckedCreateWithoutQuotationInput>
-    connectOrCreate?: CustomerCreateOrConnectWithoutQuotationInput
-    upsert?: CustomerUpsertWithoutQuotationInput
-    disconnect?: CustomerWhereInput | boolean
-    delete?: CustomerWhereInput | boolean
-    connect?: CustomerWhereUniqueInput
-    update?: XOR<XOR<CustomerUpdateToOneWithWhereWithoutQuotationInput, CustomerUpdateWithoutQuotationInput>, CustomerUncheckedUpdateWithoutQuotationInput>
   }
 
   export type companyMaterialCreateNestedManyWithoutServiceInput = {
@@ -45973,9 +50972,27 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
+  export type NestedEnumQuoteTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.QuoteType | EnumQuoteTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.QuoteType[] | ListEnumQuoteTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.QuoteType[] | ListEnumQuoteTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumQuoteTypeFilter<$PrismaModel> | $Enums.QuoteType
+  }
+
+  export type NestedBoolNullableFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
+  }
+
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
@@ -46005,23 +51022,36 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+  export type NestedEnumQuoteTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.QuoteType | EnumQuoteTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.QuoteType[] | ListEnumQuoteTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.QuoteType[] | ListEnumQuoteTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumQuoteTypeWithAggregatesFilter<$PrismaModel> | $Enums.QuoteType
     _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
+    _min?: NestedEnumQuoteTypeFilter<$PrismaModel>
+    _max?: NestedEnumQuoteTypeFilter<$PrismaModel>
   }
 
-  export type NestedDecimalNullableFilter<$PrismaModel = never> = {
-    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
-    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
-    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
-    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+  export type NestedBoolNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedBoolNullableFilter<$PrismaModel>
+    _max?: NestedBoolNullableFilter<$PrismaModel>
+  }
+
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -46051,45 +51081,44 @@ export namespace Prisma {
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
-  export type NestedDecimalNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
-    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
-    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type NestedDecimalFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
     lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    not?: NestedDecimalNullableWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedDecimalNullableFilter<$PrismaModel>
-    _sum?: NestedDecimalNullableFilter<$PrismaModel>
-    _min?: NestedDecimalNullableFilter<$PrismaModel>
-    _max?: NestedDecimalNullableFilter<$PrismaModel>
+    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
   }
 
-  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-  }
-
-  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  export type NestedDecimalWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedDecimalFilter<$PrismaModel>
+    _sum?: NestedDecimalFilter<$PrismaModel>
+    _min?: NestedDecimalFilter<$PrismaModel>
+    _max?: NestedDecimalFilter<$PrismaModel>
   }
 
   export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -46131,7 +51160,6 @@ export namespace Prisma {
     contacts?: CustomerContactCreateNestedManyWithoutCustomerInput
     operational?: CustomerOperationalInfoCreateNestedOneWithoutCustomerInput
     attachments?: CustomerNotesAndAttachmentsCreateNestedManyWithoutCustomerInput
-    quotation?: QuotationAttachmentCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateWithoutUserInput = {
@@ -46157,7 +51185,6 @@ export namespace Prisma {
     contacts?: CustomerContactUncheckedCreateNestedManyWithoutCustomerInput
     operational?: CustomerOperationalInfoUncheckedCreateNestedOneWithoutCustomerInput
     attachments?: CustomerNotesAndAttachmentsUncheckedCreateNestedManyWithoutCustomerInput
-    quotation?: QuotationAttachmentUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerCreateOrConnectWithoutUserInput = {
@@ -46266,6 +51293,118 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type QuoteCreateWithoutUserInput = {
+    id?: string
+    quote_item_id?: number
+    status?: string | null
+    payment_status?: string | null
+    quote_type?: $Enums.QuoteType
+    tax?: string | null
+    deposit_paid?: string | null
+    shipping?: string | null
+    tax_buy_price?: string | null
+    shipping_buy_price?: string | null
+    lead_time?: string | null
+    payable?: string | null
+    freight_condition?: string | null
+    freight_condition_dismiss?: boolean | null
+    customer_email?: string | null
+    emails?: string | null
+    invoice_date?: Date | string | null
+    invoice_email?: string | null
+    billing_name?: string | null
+    billing_company?: string | null
+    billing_address?: string | null
+    billing_city?: string | null
+    billing_state?: string | null
+    billing_country?: string | null
+    billing_zip?: string | null
+    billing_phone?: string | null
+    billing_fax?: string | null
+    shipping_name?: string | null
+    shipping_company?: string | null
+    shipping_address?: string | null
+    shipping_city?: string | null
+    shipping_state?: string | null
+    shipping_country?: string | null
+    shipping_zip?: string | null
+    shipping_phone?: string | null
+    shipping_email?: string | null
+    shipping_fax?: string | null
+    sales_person?: number | null
+    project_manager?: number | null
+    accept_agreement?: number | null
+    date_created?: Date | string | null
+    created_month?: string | null
+    created_year?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    deleted_at?: Date | string | null
+    is_deleted?: boolean | null
+    QuoteItems?: QuoteItemCreateNestedManyWithoutQuoteInput
+  }
+
+  export type QuoteUncheckedCreateWithoutUserInput = {
+    id?: string
+    quote_item_id?: number
+    status?: string | null
+    payment_status?: string | null
+    quote_type?: $Enums.QuoteType
+    tax?: string | null
+    deposit_paid?: string | null
+    shipping?: string | null
+    tax_buy_price?: string | null
+    shipping_buy_price?: string | null
+    lead_time?: string | null
+    payable?: string | null
+    freight_condition?: string | null
+    freight_condition_dismiss?: boolean | null
+    customer_email?: string | null
+    emails?: string | null
+    invoice_date?: Date | string | null
+    invoice_email?: string | null
+    billing_name?: string | null
+    billing_company?: string | null
+    billing_address?: string | null
+    billing_city?: string | null
+    billing_state?: string | null
+    billing_country?: string | null
+    billing_zip?: string | null
+    billing_phone?: string | null
+    billing_fax?: string | null
+    shipping_name?: string | null
+    shipping_company?: string | null
+    shipping_address?: string | null
+    shipping_city?: string | null
+    shipping_state?: string | null
+    shipping_country?: string | null
+    shipping_zip?: string | null
+    shipping_phone?: string | null
+    shipping_email?: string | null
+    shipping_fax?: string | null
+    sales_person?: number | null
+    project_manager?: number | null
+    accept_agreement?: number | null
+    date_created?: Date | string | null
+    created_month?: string | null
+    created_year?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    deleted_at?: Date | string | null
+    is_deleted?: boolean | null
+    QuoteItems?: QuoteItemUncheckedCreateNestedManyWithoutQuoteInput
+  }
+
+  export type QuoteCreateOrConnectWithoutUserInput = {
+    where: QuoteWhereUniqueInput
+    create: XOR<QuoteCreateWithoutUserInput, QuoteUncheckedCreateWithoutUserInput>
+  }
+
+  export type QuoteCreateManyUserInputEnvelope = {
+    data: QuoteCreateManyUserInput | QuoteCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type CustomerUpsertWithoutUserInput = {
     update: XOR<CustomerUpdateWithoutUserInput, CustomerUncheckedUpdateWithoutUserInput>
     create: XOR<CustomerCreateWithoutUserInput, CustomerUncheckedCreateWithoutUserInput>
@@ -46300,7 +51439,6 @@ export namespace Prisma {
     contacts?: CustomerContactUpdateManyWithoutCustomerNestedInput
     operational?: CustomerOperationalInfoUpdateOneWithoutCustomerNestedInput
     attachments?: CustomerNotesAndAttachmentsUpdateManyWithoutCustomerNestedInput
-    quotation?: QuotationAttachmentUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateWithoutUserInput = {
@@ -46326,7 +51464,6 @@ export namespace Prisma {
     contacts?: CustomerContactUncheckedUpdateManyWithoutCustomerNestedInput
     operational?: CustomerOperationalInfoUncheckedUpdateOneWithoutCustomerNestedInput
     attachments?: CustomerNotesAndAttachmentsUncheckedUpdateManyWithoutCustomerNestedInput
-    quotation?: QuotationAttachmentUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type VendorUpsertWithoutUserInput = {
@@ -46439,10 +51576,529 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"PasswordResetToken"> | Date | string
   }
 
+  export type QuoteUpsertWithWhereUniqueWithoutUserInput = {
+    where: QuoteWhereUniqueInput
+    update: XOR<QuoteUpdateWithoutUserInput, QuoteUncheckedUpdateWithoutUserInput>
+    create: XOR<QuoteCreateWithoutUserInput, QuoteUncheckedCreateWithoutUserInput>
+  }
+
+  export type QuoteUpdateWithWhereUniqueWithoutUserInput = {
+    where: QuoteWhereUniqueInput
+    data: XOR<QuoteUpdateWithoutUserInput, QuoteUncheckedUpdateWithoutUserInput>
+  }
+
+  export type QuoteUpdateManyWithWhereWithoutUserInput = {
+    where: QuoteScalarWhereInput
+    data: XOR<QuoteUpdateManyMutationInput, QuoteUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type QuoteScalarWhereInput = {
+    AND?: QuoteScalarWhereInput | QuoteScalarWhereInput[]
+    OR?: QuoteScalarWhereInput[]
+    NOT?: QuoteScalarWhereInput | QuoteScalarWhereInput[]
+    id?: StringFilter<"Quote"> | string
+    user_id?: StringFilter<"Quote"> | string
+    quote_item_id?: IntFilter<"Quote"> | number
+    status?: StringNullableFilter<"Quote"> | string | null
+    payment_status?: StringNullableFilter<"Quote"> | string | null
+    quote_type?: EnumQuoteTypeFilter<"Quote"> | $Enums.QuoteType
+    tax?: StringNullableFilter<"Quote"> | string | null
+    deposit_paid?: StringNullableFilter<"Quote"> | string | null
+    shipping?: StringNullableFilter<"Quote"> | string | null
+    tax_buy_price?: StringNullableFilter<"Quote"> | string | null
+    shipping_buy_price?: StringNullableFilter<"Quote"> | string | null
+    lead_time?: StringNullableFilter<"Quote"> | string | null
+    payable?: StringNullableFilter<"Quote"> | string | null
+    freight_condition?: StringNullableFilter<"Quote"> | string | null
+    freight_condition_dismiss?: BoolNullableFilter<"Quote"> | boolean | null
+    customer_email?: StringNullableFilter<"Quote"> | string | null
+    emails?: StringNullableFilter<"Quote"> | string | null
+    invoice_date?: DateTimeNullableFilter<"Quote"> | Date | string | null
+    invoice_email?: StringNullableFilter<"Quote"> | string | null
+    billing_name?: StringNullableFilter<"Quote"> | string | null
+    billing_company?: StringNullableFilter<"Quote"> | string | null
+    billing_address?: StringNullableFilter<"Quote"> | string | null
+    billing_city?: StringNullableFilter<"Quote"> | string | null
+    billing_state?: StringNullableFilter<"Quote"> | string | null
+    billing_country?: StringNullableFilter<"Quote"> | string | null
+    billing_zip?: StringNullableFilter<"Quote"> | string | null
+    billing_phone?: StringNullableFilter<"Quote"> | string | null
+    billing_fax?: StringNullableFilter<"Quote"> | string | null
+    shipping_name?: StringNullableFilter<"Quote"> | string | null
+    shipping_company?: StringNullableFilter<"Quote"> | string | null
+    shipping_address?: StringNullableFilter<"Quote"> | string | null
+    shipping_city?: StringNullableFilter<"Quote"> | string | null
+    shipping_state?: StringNullableFilter<"Quote"> | string | null
+    shipping_country?: StringNullableFilter<"Quote"> | string | null
+    shipping_zip?: StringNullableFilter<"Quote"> | string | null
+    shipping_phone?: StringNullableFilter<"Quote"> | string | null
+    shipping_email?: StringNullableFilter<"Quote"> | string | null
+    shipping_fax?: StringNullableFilter<"Quote"> | string | null
+    sales_person?: IntNullableFilter<"Quote"> | number | null
+    project_manager?: IntNullableFilter<"Quote"> | number | null
+    accept_agreement?: IntNullableFilter<"Quote"> | number | null
+    date_created?: DateTimeNullableFilter<"Quote"> | Date | string | null
+    created_month?: StringNullableFilter<"Quote"> | string | null
+    created_year?: StringNullableFilter<"Quote"> | string | null
+    created_at?: DateTimeFilter<"Quote"> | Date | string
+    updated_at?: DateTimeFilter<"Quote"> | Date | string
+    deleted_at?: DateTimeNullableFilter<"Quote"> | Date | string | null
+    is_deleted?: BoolNullableFilter<"Quote"> | boolean | null
+  }
+
+  export type UserCreateWithoutQuotesInput = {
+    id?: string
+    first_name: string
+    last_name: string
+    email: string
+    password: string
+    phone?: string | null
+    roles: JsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+    updated_at?: Date | string
+    customer?: CustomerCreateNestedOneWithoutUserInput
+    vendor?: VendorCreateNestedOneWithoutUserInput
+    otps?: PasswordResetOTPCreateNestedManyWithoutUserInput
+    resetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutQuotesInput = {
+    id?: string
+    first_name: string
+    last_name: string
+    email: string
+    password: string
+    phone?: string | null
+    roles: JsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+    updated_at?: Date | string
+    customer?: CustomerUncheckedCreateNestedOneWithoutUserInput
+    vendor?: VendorUncheckedCreateNestedOneWithoutUserInput
+    otps?: PasswordResetOTPUncheckedCreateNestedManyWithoutUserInput
+    resetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutQuotesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutQuotesInput, UserUncheckedCreateWithoutQuotesInput>
+  }
+
+  export type QuoteItemCreateWithoutQuoteInput = {
+    id?: string
+    file_name?: string | null
+    file_url?: string | null
+    status?: boolean
+    quantity?: number
+    service?: string | null
+    material?: string | null
+    finish?: string | null
+    description?: string | null
+    process?: string | null
+    specification?: string | null
+    price?: string | null
+    cost?: string | null
+    cost_shipping_price?: string | null
+    cost_shipping_total?: string | null
+    custom_shipping_total?: string | null
+    buy_price?: string | null
+    buy_shipping_price?: string | null
+    buy_shipping_total?: string | null
+    quantity_owed?: string | null
+    invoiced?: boolean | null
+    non_taxable?: number | null
+    non_shipping?: number | null
+    is_deleted?: boolean | null
+    vendor_id?: string | null
+    vendor_details?: string | null
+    last_updated_by?: number | null
+    work_instructions?: string | null
+    add_vendor?: boolean | null
+    markings?: string | null
+    part_item_number?: string | null
+    file_year?: string | null
+    file_month?: string | null
+    tab_open?: boolean | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    deleted_at?: Date | string | null
+  }
+
+  export type QuoteItemUncheckedCreateWithoutQuoteInput = {
+    id?: string
+    file_name?: string | null
+    file_url?: string | null
+    status?: boolean
+    quantity?: number
+    service?: string | null
+    material?: string | null
+    finish?: string | null
+    description?: string | null
+    process?: string | null
+    specification?: string | null
+    price?: string | null
+    cost?: string | null
+    cost_shipping_price?: string | null
+    cost_shipping_total?: string | null
+    custom_shipping_total?: string | null
+    buy_price?: string | null
+    buy_shipping_price?: string | null
+    buy_shipping_total?: string | null
+    quantity_owed?: string | null
+    invoiced?: boolean | null
+    non_taxable?: number | null
+    non_shipping?: number | null
+    is_deleted?: boolean | null
+    vendor_id?: string | null
+    vendor_details?: string | null
+    last_updated_by?: number | null
+    work_instructions?: string | null
+    add_vendor?: boolean | null
+    markings?: string | null
+    part_item_number?: string | null
+    file_year?: string | null
+    file_month?: string | null
+    tab_open?: boolean | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    deleted_at?: Date | string | null
+  }
+
+  export type QuoteItemCreateOrConnectWithoutQuoteInput = {
+    where: QuoteItemWhereUniqueInput
+    create: XOR<QuoteItemCreateWithoutQuoteInput, QuoteItemUncheckedCreateWithoutQuoteInput>
+  }
+
+  export type QuoteItemCreateManyQuoteInputEnvelope = {
+    data: QuoteItemCreateManyQuoteInput | QuoteItemCreateManyQuoteInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UserUpsertWithoutQuotesInput = {
+    update: XOR<UserUpdateWithoutQuotesInput, UserUncheckedUpdateWithoutQuotesInput>
+    create: XOR<UserCreateWithoutQuotesInput, UserUncheckedCreateWithoutQuotesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutQuotesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutQuotesInput, UserUncheckedUpdateWithoutQuotesInput>
+  }
+
+  export type UserUpdateWithoutQuotesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    first_name?: StringFieldUpdateOperationsInput | string
+    last_name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    roles?: JsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    customer?: CustomerUpdateOneWithoutUserNestedInput
+    vendor?: VendorUpdateOneWithoutUserNestedInput
+    otps?: PasswordResetOTPUpdateManyWithoutUserNestedInput
+    resetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutQuotesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    first_name?: StringFieldUpdateOperationsInput | string
+    last_name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    roles?: JsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    customer?: CustomerUncheckedUpdateOneWithoutUserNestedInput
+    vendor?: VendorUncheckedUpdateOneWithoutUserNestedInput
+    otps?: PasswordResetOTPUncheckedUpdateManyWithoutUserNestedInput
+    resetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type QuoteItemUpsertWithWhereUniqueWithoutQuoteInput = {
+    where: QuoteItemWhereUniqueInput
+    update: XOR<QuoteItemUpdateWithoutQuoteInput, QuoteItemUncheckedUpdateWithoutQuoteInput>
+    create: XOR<QuoteItemCreateWithoutQuoteInput, QuoteItemUncheckedCreateWithoutQuoteInput>
+  }
+
+  export type QuoteItemUpdateWithWhereUniqueWithoutQuoteInput = {
+    where: QuoteItemWhereUniqueInput
+    data: XOR<QuoteItemUpdateWithoutQuoteInput, QuoteItemUncheckedUpdateWithoutQuoteInput>
+  }
+
+  export type QuoteItemUpdateManyWithWhereWithoutQuoteInput = {
+    where: QuoteItemScalarWhereInput
+    data: XOR<QuoteItemUpdateManyMutationInput, QuoteItemUncheckedUpdateManyWithoutQuoteInput>
+  }
+
+  export type QuoteItemScalarWhereInput = {
+    AND?: QuoteItemScalarWhereInput | QuoteItemScalarWhereInput[]
+    OR?: QuoteItemScalarWhereInput[]
+    NOT?: QuoteItemScalarWhereInput | QuoteItemScalarWhereInput[]
+    id?: StringFilter<"QuoteItem"> | string
+    quote_id?: StringFilter<"QuoteItem"> | string
+    file_name?: StringNullableFilter<"QuoteItem"> | string | null
+    file_url?: StringNullableFilter<"QuoteItem"> | string | null
+    status?: BoolFilter<"QuoteItem"> | boolean
+    quantity?: IntFilter<"QuoteItem"> | number
+    service?: StringNullableFilter<"QuoteItem"> | string | null
+    material?: StringNullableFilter<"QuoteItem"> | string | null
+    finish?: StringNullableFilter<"QuoteItem"> | string | null
+    description?: StringNullableFilter<"QuoteItem"> | string | null
+    process?: StringNullableFilter<"QuoteItem"> | string | null
+    specification?: StringNullableFilter<"QuoteItem"> | string | null
+    price?: StringNullableFilter<"QuoteItem"> | string | null
+    cost?: StringNullableFilter<"QuoteItem"> | string | null
+    cost_shipping_price?: StringNullableFilter<"QuoteItem"> | string | null
+    cost_shipping_total?: StringNullableFilter<"QuoteItem"> | string | null
+    custom_shipping_total?: StringNullableFilter<"QuoteItem"> | string | null
+    buy_price?: StringNullableFilter<"QuoteItem"> | string | null
+    buy_shipping_price?: StringNullableFilter<"QuoteItem"> | string | null
+    buy_shipping_total?: StringNullableFilter<"QuoteItem"> | string | null
+    quantity_owed?: StringNullableFilter<"QuoteItem"> | string | null
+    invoiced?: BoolNullableFilter<"QuoteItem"> | boolean | null
+    non_taxable?: IntNullableFilter<"QuoteItem"> | number | null
+    non_shipping?: IntNullableFilter<"QuoteItem"> | number | null
+    is_deleted?: BoolNullableFilter<"QuoteItem"> | boolean | null
+    vendor_id?: StringNullableFilter<"QuoteItem"> | string | null
+    vendor_details?: StringNullableFilter<"QuoteItem"> | string | null
+    last_updated_by?: IntNullableFilter<"QuoteItem"> | number | null
+    work_instructions?: StringNullableFilter<"QuoteItem"> | string | null
+    add_vendor?: BoolNullableFilter<"QuoteItem"> | boolean | null
+    markings?: StringNullableFilter<"QuoteItem"> | string | null
+    part_item_number?: StringNullableFilter<"QuoteItem"> | string | null
+    file_year?: StringNullableFilter<"QuoteItem"> | string | null
+    file_month?: StringNullableFilter<"QuoteItem"> | string | null
+    tab_open?: BoolNullableFilter<"QuoteItem"> | boolean | null
+    created_at?: DateTimeFilter<"QuoteItem"> | Date | string
+    updated_at?: DateTimeFilter<"QuoteItem"> | Date | string
+    deleted_at?: DateTimeNullableFilter<"QuoteItem"> | Date | string | null
+  }
+
+  export type QuoteCreateWithoutQuoteItemsInput = {
+    id?: string
+    quote_item_id?: number
+    status?: string | null
+    payment_status?: string | null
+    quote_type?: $Enums.QuoteType
+    tax?: string | null
+    deposit_paid?: string | null
+    shipping?: string | null
+    tax_buy_price?: string | null
+    shipping_buy_price?: string | null
+    lead_time?: string | null
+    payable?: string | null
+    freight_condition?: string | null
+    freight_condition_dismiss?: boolean | null
+    customer_email?: string | null
+    emails?: string | null
+    invoice_date?: Date | string | null
+    invoice_email?: string | null
+    billing_name?: string | null
+    billing_company?: string | null
+    billing_address?: string | null
+    billing_city?: string | null
+    billing_state?: string | null
+    billing_country?: string | null
+    billing_zip?: string | null
+    billing_phone?: string | null
+    billing_fax?: string | null
+    shipping_name?: string | null
+    shipping_company?: string | null
+    shipping_address?: string | null
+    shipping_city?: string | null
+    shipping_state?: string | null
+    shipping_country?: string | null
+    shipping_zip?: string | null
+    shipping_phone?: string | null
+    shipping_email?: string | null
+    shipping_fax?: string | null
+    sales_person?: number | null
+    project_manager?: number | null
+    accept_agreement?: number | null
+    date_created?: Date | string | null
+    created_month?: string | null
+    created_year?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    deleted_at?: Date | string | null
+    is_deleted?: boolean | null
+    User?: UserCreateNestedOneWithoutQuotesInput
+  }
+
+  export type QuoteUncheckedCreateWithoutQuoteItemsInput = {
+    id?: string
+    user_id: string
+    quote_item_id?: number
+    status?: string | null
+    payment_status?: string | null
+    quote_type?: $Enums.QuoteType
+    tax?: string | null
+    deposit_paid?: string | null
+    shipping?: string | null
+    tax_buy_price?: string | null
+    shipping_buy_price?: string | null
+    lead_time?: string | null
+    payable?: string | null
+    freight_condition?: string | null
+    freight_condition_dismiss?: boolean | null
+    customer_email?: string | null
+    emails?: string | null
+    invoice_date?: Date | string | null
+    invoice_email?: string | null
+    billing_name?: string | null
+    billing_company?: string | null
+    billing_address?: string | null
+    billing_city?: string | null
+    billing_state?: string | null
+    billing_country?: string | null
+    billing_zip?: string | null
+    billing_phone?: string | null
+    billing_fax?: string | null
+    shipping_name?: string | null
+    shipping_company?: string | null
+    shipping_address?: string | null
+    shipping_city?: string | null
+    shipping_state?: string | null
+    shipping_country?: string | null
+    shipping_zip?: string | null
+    shipping_phone?: string | null
+    shipping_email?: string | null
+    shipping_fax?: string | null
+    sales_person?: number | null
+    project_manager?: number | null
+    accept_agreement?: number | null
+    date_created?: Date | string | null
+    created_month?: string | null
+    created_year?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    deleted_at?: Date | string | null
+    is_deleted?: boolean | null
+  }
+
+  export type QuoteCreateOrConnectWithoutQuoteItemsInput = {
+    where: QuoteWhereUniqueInput
+    create: XOR<QuoteCreateWithoutQuoteItemsInput, QuoteUncheckedCreateWithoutQuoteItemsInput>
+  }
+
+  export type QuoteUpsertWithoutQuoteItemsInput = {
+    update: XOR<QuoteUpdateWithoutQuoteItemsInput, QuoteUncheckedUpdateWithoutQuoteItemsInput>
+    create: XOR<QuoteCreateWithoutQuoteItemsInput, QuoteUncheckedCreateWithoutQuoteItemsInput>
+    where?: QuoteWhereInput
+  }
+
+  export type QuoteUpdateToOneWithWhereWithoutQuoteItemsInput = {
+    where?: QuoteWhereInput
+    data: XOR<QuoteUpdateWithoutQuoteItemsInput, QuoteUncheckedUpdateWithoutQuoteItemsInput>
+  }
+
+  export type QuoteUpdateWithoutQuoteItemsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    payment_status?: NullableStringFieldUpdateOperationsInput | string | null
+    quote_type?: EnumQuoteTypeFieldUpdateOperationsInput | $Enums.QuoteType
+    tax?: NullableStringFieldUpdateOperationsInput | string | null
+    deposit_paid?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping?: NullableStringFieldUpdateOperationsInput | string | null
+    tax_buy_price?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_buy_price?: NullableStringFieldUpdateOperationsInput | string | null
+    lead_time?: NullableStringFieldUpdateOperationsInput | string | null
+    payable?: NullableStringFieldUpdateOperationsInput | string | null
+    freight_condition?: NullableStringFieldUpdateOperationsInput | string | null
+    freight_condition_dismiss?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    customer_email?: NullableStringFieldUpdateOperationsInput | string | null
+    emails?: NullableStringFieldUpdateOperationsInput | string | null
+    invoice_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    invoice_email?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_name?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_company?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_address?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_city?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_state?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_country?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_zip?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_fax?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_name?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_company?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_address?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_city?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_state?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_country?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_zip?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_email?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_fax?: NullableStringFieldUpdateOperationsInput | string | null
+    sales_person?: NullableIntFieldUpdateOperationsInput | number | null
+    project_manager?: NullableIntFieldUpdateOperationsInput | number | null
+    accept_agreement?: NullableIntFieldUpdateOperationsInput | number | null
+    date_created?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_month?: NullableStringFieldUpdateOperationsInput | string | null
+    created_year?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    is_deleted?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    User?: UserUpdateOneWithoutQuotesNestedInput
+  }
+
+  export type QuoteUncheckedUpdateWithoutQuoteItemsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    quote_item_id?: IntFieldUpdateOperationsInput | number
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    payment_status?: NullableStringFieldUpdateOperationsInput | string | null
+    quote_type?: EnumQuoteTypeFieldUpdateOperationsInput | $Enums.QuoteType
+    tax?: NullableStringFieldUpdateOperationsInput | string | null
+    deposit_paid?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping?: NullableStringFieldUpdateOperationsInput | string | null
+    tax_buy_price?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_buy_price?: NullableStringFieldUpdateOperationsInput | string | null
+    lead_time?: NullableStringFieldUpdateOperationsInput | string | null
+    payable?: NullableStringFieldUpdateOperationsInput | string | null
+    freight_condition?: NullableStringFieldUpdateOperationsInput | string | null
+    freight_condition_dismiss?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    customer_email?: NullableStringFieldUpdateOperationsInput | string | null
+    emails?: NullableStringFieldUpdateOperationsInput | string | null
+    invoice_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    invoice_email?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_name?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_company?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_address?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_city?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_state?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_country?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_zip?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_fax?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_name?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_company?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_address?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_city?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_state?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_country?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_zip?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_email?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_fax?: NullableStringFieldUpdateOperationsInput | string | null
+    sales_person?: NullableIntFieldUpdateOperationsInput | number | null
+    project_manager?: NullableIntFieldUpdateOperationsInput | number | null
+    accept_agreement?: NullableIntFieldUpdateOperationsInput | number | null
+    date_created?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_month?: NullableStringFieldUpdateOperationsInput | string | null
+    created_year?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    is_deleted?: NullableBoolFieldUpdateOperationsInput | boolean | null
+  }
+
   export type UserCreateWithoutOtpsInput = {
     id?: string
     first_name: string
-    last_name?: string | null
+    last_name: string
     email: string
     password: string
     phone?: string | null
@@ -46452,12 +52108,13 @@ export namespace Prisma {
     customer?: CustomerCreateNestedOneWithoutUserInput
     vendor?: VendorCreateNestedOneWithoutUserInput
     resetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    quotes?: QuoteCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutOtpsInput = {
     id?: string
     first_name: string
-    last_name?: string | null
+    last_name: string
     email: string
     password: string
     phone?: string | null
@@ -46467,6 +52124,7 @@ export namespace Prisma {
     customer?: CustomerUncheckedCreateNestedOneWithoutUserInput
     vendor?: VendorUncheckedCreateNestedOneWithoutUserInput
     resetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    quotes?: QuoteUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutOtpsInput = {
@@ -46488,7 +52146,7 @@ export namespace Prisma {
   export type UserUpdateWithoutOtpsInput = {
     id?: StringFieldUpdateOperationsInput | string
     first_name?: StringFieldUpdateOperationsInput | string
-    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
@@ -46498,12 +52156,13 @@ export namespace Prisma {
     customer?: CustomerUpdateOneWithoutUserNestedInput
     vendor?: VendorUpdateOneWithoutUserNestedInput
     resetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    quotes?: QuoteUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOtpsInput = {
     id?: StringFieldUpdateOperationsInput | string
     first_name?: StringFieldUpdateOperationsInput | string
-    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
@@ -46513,12 +52172,13 @@ export namespace Prisma {
     customer?: CustomerUncheckedUpdateOneWithoutUserNestedInput
     vendor?: VendorUncheckedUpdateOneWithoutUserNestedInput
     resetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    quotes?: QuoteUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutResetTokensInput = {
     id?: string
     first_name: string
-    last_name?: string | null
+    last_name: string
     email: string
     password: string
     phone?: string | null
@@ -46528,12 +52188,13 @@ export namespace Prisma {
     customer?: CustomerCreateNestedOneWithoutUserInput
     vendor?: VendorCreateNestedOneWithoutUserInput
     otps?: PasswordResetOTPCreateNestedManyWithoutUserInput
+    quotes?: QuoteCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutResetTokensInput = {
     id?: string
     first_name: string
-    last_name?: string | null
+    last_name: string
     email: string
     password: string
     phone?: string | null
@@ -46543,6 +52204,7 @@ export namespace Prisma {
     customer?: CustomerUncheckedCreateNestedOneWithoutUserInput
     vendor?: VendorUncheckedCreateNestedOneWithoutUserInput
     otps?: PasswordResetOTPUncheckedCreateNestedManyWithoutUserInput
+    quotes?: QuoteUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutResetTokensInput = {
@@ -46564,7 +52226,7 @@ export namespace Prisma {
   export type UserUpdateWithoutResetTokensInput = {
     id?: StringFieldUpdateOperationsInput | string
     first_name?: StringFieldUpdateOperationsInput | string
-    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
@@ -46574,12 +52236,13 @@ export namespace Prisma {
     customer?: CustomerUpdateOneWithoutUserNestedInput
     vendor?: VendorUpdateOneWithoutUserNestedInput
     otps?: PasswordResetOTPUpdateManyWithoutUserNestedInput
+    quotes?: QuoteUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutResetTokensInput = {
     id?: StringFieldUpdateOperationsInput | string
     first_name?: StringFieldUpdateOperationsInput | string
-    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
@@ -46589,12 +52252,13 @@ export namespace Prisma {
     customer?: CustomerUncheckedUpdateOneWithoutUserNestedInput
     vendor?: VendorUncheckedUpdateOneWithoutUserNestedInput
     otps?: PasswordResetOTPUncheckedUpdateManyWithoutUserNestedInput
+    quotes?: QuoteUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutCustomerInput = {
     id?: string
     first_name: string
-    last_name?: string | null
+    last_name: string
     email: string
     password: string
     phone?: string | null
@@ -46604,12 +52268,13 @@ export namespace Prisma {
     vendor?: VendorCreateNestedOneWithoutUserInput
     otps?: PasswordResetOTPCreateNestedManyWithoutUserInput
     resetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    quotes?: QuoteCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutCustomerInput = {
     id?: string
     first_name: string
-    last_name?: string | null
+    last_name: string
     email: string
     password: string
     phone?: string | null
@@ -46619,6 +52284,7 @@ export namespace Prisma {
     vendor?: VendorUncheckedCreateNestedOneWithoutUserInput
     otps?: PasswordResetOTPUncheckedCreateNestedManyWithoutUserInput
     resetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    quotes?: QuoteUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutCustomerInput = {
@@ -46786,32 +52452,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type QuotationAttachmentCreateWithoutCustomerInput = {
-    id?: string
-    file_name?: string | null
-    file_url?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-  }
-
-  export type QuotationAttachmentUncheckedCreateWithoutCustomerInput = {
-    id?: string
-    file_name?: string | null
-    file_url?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-  }
-
-  export type QuotationAttachmentCreateOrConnectWithoutCustomerInput = {
-    where: QuotationAttachmentWhereUniqueInput
-    create: XOR<QuotationAttachmentCreateWithoutCustomerInput, QuotationAttachmentUncheckedCreateWithoutCustomerInput>
-  }
-
-  export type QuotationAttachmentCreateManyCustomerInputEnvelope = {
-    data: QuotationAttachmentCreateManyCustomerInput | QuotationAttachmentCreateManyCustomerInput[]
-    skipDuplicates?: boolean
-  }
-
   export type UserUpsertWithoutCustomerInput = {
     update: XOR<UserUpdateWithoutCustomerInput, UserUncheckedUpdateWithoutCustomerInput>
     create: XOR<UserCreateWithoutCustomerInput, UserUncheckedCreateWithoutCustomerInput>
@@ -46826,7 +52466,7 @@ export namespace Prisma {
   export type UserUpdateWithoutCustomerInput = {
     id?: StringFieldUpdateOperationsInput | string
     first_name?: StringFieldUpdateOperationsInput | string
-    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
@@ -46836,12 +52476,13 @@ export namespace Prisma {
     vendor?: VendorUpdateOneWithoutUserNestedInput
     otps?: PasswordResetOTPUpdateManyWithoutUserNestedInput
     resetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    quotes?: QuoteUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCustomerInput = {
     id?: StringFieldUpdateOperationsInput | string
     first_name?: StringFieldUpdateOperationsInput | string
-    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
@@ -46851,6 +52492,7 @@ export namespace Prisma {
     vendor?: VendorUncheckedUpdateOneWithoutUserNestedInput
     otps?: PasswordResetOTPUncheckedUpdateManyWithoutUserNestedInput
     resetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    quotes?: QuoteUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type CustomerAddressUpsertWithWhereUniqueWithoutCustomerInput = {
@@ -47012,154 +52654,6 @@ export namespace Prisma {
     file_name?: StringNullableFilter<"CustomerNotesAndAttachments"> | string | null
     created_at?: DateTimeFilter<"CustomerNotesAndAttachments"> | Date | string
     updated_at?: DateTimeFilter<"CustomerNotesAndAttachments"> | Date | string
-  }
-
-  export type QuotationAttachmentUpsertWithWhereUniqueWithoutCustomerInput = {
-    where: QuotationAttachmentWhereUniqueInput
-    update: XOR<QuotationAttachmentUpdateWithoutCustomerInput, QuotationAttachmentUncheckedUpdateWithoutCustomerInput>
-    create: XOR<QuotationAttachmentCreateWithoutCustomerInput, QuotationAttachmentUncheckedCreateWithoutCustomerInput>
-  }
-
-  export type QuotationAttachmentUpdateWithWhereUniqueWithoutCustomerInput = {
-    where: QuotationAttachmentWhereUniqueInput
-    data: XOR<QuotationAttachmentUpdateWithoutCustomerInput, QuotationAttachmentUncheckedUpdateWithoutCustomerInput>
-  }
-
-  export type QuotationAttachmentUpdateManyWithWhereWithoutCustomerInput = {
-    where: QuotationAttachmentScalarWhereInput
-    data: XOR<QuotationAttachmentUpdateManyMutationInput, QuotationAttachmentUncheckedUpdateManyWithoutCustomerInput>
-  }
-
-  export type QuotationAttachmentScalarWhereInput = {
-    AND?: QuotationAttachmentScalarWhereInput | QuotationAttachmentScalarWhereInput[]
-    OR?: QuotationAttachmentScalarWhereInput[]
-    NOT?: QuotationAttachmentScalarWhereInput | QuotationAttachmentScalarWhereInput[]
-    id?: StringFilter<"QuotationAttachment"> | string
-    customer_id?: StringFilter<"QuotationAttachment"> | string
-    file_name?: StringNullableFilter<"QuotationAttachment"> | string | null
-    file_url?: StringNullableFilter<"QuotationAttachment"> | string | null
-    created_at?: DateTimeFilter<"QuotationAttachment"> | Date | string
-    updated_at?: DateTimeFilter<"QuotationAttachment"> | Date | string
-  }
-
-  export type CustomerCreateWithoutQuotationInput = {
-    id?: string
-    customer_id?: number
-    first_name: string
-    last_name: string
-    customer_name: string
-    company_name?: string | null
-    email: string
-    password: string
-    phone?: string | null
-    type?: string | null
-    website?: string | null
-    is_active?: string
-    notes?: string | null
-    sorting?: number
-    created_at?: Date | string
-    updated_at?: Date | string
-    deleted_at?: Date | string | null
-    user?: UserCreateNestedOneWithoutCustomerInput
-    addresses?: CustomerAddressCreateNestedManyWithoutCustomerInput
-    tax_info?: CustomerTaxInfoCreateNestedOneWithoutCustomerInput
-    contacts?: CustomerContactCreateNestedManyWithoutCustomerInput
-    operational?: CustomerOperationalInfoCreateNestedOneWithoutCustomerInput
-    attachments?: CustomerNotesAndAttachmentsCreateNestedManyWithoutCustomerInput
-  }
-
-  export type CustomerUncheckedCreateWithoutQuotationInput = {
-    id?: string
-    customer_id?: number
-    first_name: string
-    last_name: string
-    customer_name: string
-    company_name?: string | null
-    email: string
-    password: string
-    phone?: string | null
-    type?: string | null
-    website?: string | null
-    is_active?: string
-    notes?: string | null
-    sorting?: number
-    created_at?: Date | string
-    updated_at?: Date | string
-    deleted_at?: Date | string | null
-    user_id?: string | null
-    addresses?: CustomerAddressUncheckedCreateNestedManyWithoutCustomerInput
-    tax_info?: CustomerTaxInfoUncheckedCreateNestedOneWithoutCustomerInput
-    contacts?: CustomerContactUncheckedCreateNestedManyWithoutCustomerInput
-    operational?: CustomerOperationalInfoUncheckedCreateNestedOneWithoutCustomerInput
-    attachments?: CustomerNotesAndAttachmentsUncheckedCreateNestedManyWithoutCustomerInput
-  }
-
-  export type CustomerCreateOrConnectWithoutQuotationInput = {
-    where: CustomerWhereUniqueInput
-    create: XOR<CustomerCreateWithoutQuotationInput, CustomerUncheckedCreateWithoutQuotationInput>
-  }
-
-  export type CustomerUpsertWithoutQuotationInput = {
-    update: XOR<CustomerUpdateWithoutQuotationInput, CustomerUncheckedUpdateWithoutQuotationInput>
-    create: XOR<CustomerCreateWithoutQuotationInput, CustomerUncheckedCreateWithoutQuotationInput>
-    where?: CustomerWhereInput
-  }
-
-  export type CustomerUpdateToOneWithWhereWithoutQuotationInput = {
-    where?: CustomerWhereInput
-    data: XOR<CustomerUpdateWithoutQuotationInput, CustomerUncheckedUpdateWithoutQuotationInput>
-  }
-
-  export type CustomerUpdateWithoutQuotationInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    customer_id?: IntFieldUpdateOperationsInput | number
-    first_name?: StringFieldUpdateOperationsInput | string
-    last_name?: StringFieldUpdateOperationsInput | string
-    customer_name?: StringFieldUpdateOperationsInput | string
-    company_name?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    phone?: NullableStringFieldUpdateOperationsInput | string | null
-    type?: NullableStringFieldUpdateOperationsInput | string | null
-    website?: NullableStringFieldUpdateOperationsInput | string | null
-    is_active?: StringFieldUpdateOperationsInput | string
-    notes?: NullableStringFieldUpdateOperationsInput | string | null
-    sorting?: IntFieldUpdateOperationsInput | number
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    user?: UserUpdateOneWithoutCustomerNestedInput
-    addresses?: CustomerAddressUpdateManyWithoutCustomerNestedInput
-    tax_info?: CustomerTaxInfoUpdateOneWithoutCustomerNestedInput
-    contacts?: CustomerContactUpdateManyWithoutCustomerNestedInput
-    operational?: CustomerOperationalInfoUpdateOneWithoutCustomerNestedInput
-    attachments?: CustomerNotesAndAttachmentsUpdateManyWithoutCustomerNestedInput
-  }
-
-  export type CustomerUncheckedUpdateWithoutQuotationInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    customer_id?: IntFieldUpdateOperationsInput | number
-    first_name?: StringFieldUpdateOperationsInput | string
-    last_name?: StringFieldUpdateOperationsInput | string
-    customer_name?: StringFieldUpdateOperationsInput | string
-    company_name?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    phone?: NullableStringFieldUpdateOperationsInput | string | null
-    type?: NullableStringFieldUpdateOperationsInput | string | null
-    website?: NullableStringFieldUpdateOperationsInput | string | null
-    is_active?: StringFieldUpdateOperationsInput | string
-    notes?: NullableStringFieldUpdateOperationsInput | string | null
-    sorting?: IntFieldUpdateOperationsInput | number
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    user_id?: NullableStringFieldUpdateOperationsInput | string | null
-    addresses?: CustomerAddressUncheckedUpdateManyWithoutCustomerNestedInput
-    tax_info?: CustomerTaxInfoUncheckedUpdateOneWithoutCustomerNestedInput
-    contacts?: CustomerContactUncheckedUpdateManyWithoutCustomerNestedInput
-    operational?: CustomerOperationalInfoUncheckedUpdateOneWithoutCustomerNestedInput
-    attachments?: CustomerNotesAndAttachmentsUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type companyMaterialCreateWithoutServiceInput = {
@@ -47415,7 +52909,6 @@ export namespace Prisma {
     contacts?: CustomerContactCreateNestedManyWithoutCustomerInput
     operational?: CustomerOperationalInfoCreateNestedOneWithoutCustomerInput
     attachments?: CustomerNotesAndAttachmentsCreateNestedManyWithoutCustomerInput
-    quotation?: QuotationAttachmentCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateWithoutAddressesInput = {
@@ -47441,7 +52934,6 @@ export namespace Prisma {
     contacts?: CustomerContactUncheckedCreateNestedManyWithoutCustomerInput
     operational?: CustomerOperationalInfoUncheckedCreateNestedOneWithoutCustomerInput
     attachments?: CustomerNotesAndAttachmentsUncheckedCreateNestedManyWithoutCustomerInput
-    quotation?: QuotationAttachmentUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerCreateOrConnectWithoutAddressesInput = {
@@ -47483,7 +52975,6 @@ export namespace Prisma {
     contacts?: CustomerContactUpdateManyWithoutCustomerNestedInput
     operational?: CustomerOperationalInfoUpdateOneWithoutCustomerNestedInput
     attachments?: CustomerNotesAndAttachmentsUpdateManyWithoutCustomerNestedInput
-    quotation?: QuotationAttachmentUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateWithoutAddressesInput = {
@@ -47509,7 +53000,6 @@ export namespace Prisma {
     contacts?: CustomerContactUncheckedUpdateManyWithoutCustomerNestedInput
     operational?: CustomerOperationalInfoUncheckedUpdateOneWithoutCustomerNestedInput
     attachments?: CustomerNotesAndAttachmentsUncheckedUpdateManyWithoutCustomerNestedInput
-    quotation?: QuotationAttachmentUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerCreateWithoutTax_infoInput = {
@@ -47535,7 +53025,6 @@ export namespace Prisma {
     contacts?: CustomerContactCreateNestedManyWithoutCustomerInput
     operational?: CustomerOperationalInfoCreateNestedOneWithoutCustomerInput
     attachments?: CustomerNotesAndAttachmentsCreateNestedManyWithoutCustomerInput
-    quotation?: QuotationAttachmentCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateWithoutTax_infoInput = {
@@ -47561,7 +53050,6 @@ export namespace Prisma {
     contacts?: CustomerContactUncheckedCreateNestedManyWithoutCustomerInput
     operational?: CustomerOperationalInfoUncheckedCreateNestedOneWithoutCustomerInput
     attachments?: CustomerNotesAndAttachmentsUncheckedCreateNestedManyWithoutCustomerInput
-    quotation?: QuotationAttachmentUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerCreateOrConnectWithoutTax_infoInput = {
@@ -47603,7 +53091,6 @@ export namespace Prisma {
     contacts?: CustomerContactUpdateManyWithoutCustomerNestedInput
     operational?: CustomerOperationalInfoUpdateOneWithoutCustomerNestedInput
     attachments?: CustomerNotesAndAttachmentsUpdateManyWithoutCustomerNestedInput
-    quotation?: QuotationAttachmentUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateWithoutTax_infoInput = {
@@ -47629,7 +53116,6 @@ export namespace Prisma {
     contacts?: CustomerContactUncheckedUpdateManyWithoutCustomerNestedInput
     operational?: CustomerOperationalInfoUncheckedUpdateOneWithoutCustomerNestedInput
     attachments?: CustomerNotesAndAttachmentsUncheckedUpdateManyWithoutCustomerNestedInput
-    quotation?: QuotationAttachmentUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerCreateWithoutContactsInput = {
@@ -47655,7 +53141,6 @@ export namespace Prisma {
     tax_info?: CustomerTaxInfoCreateNestedOneWithoutCustomerInput
     operational?: CustomerOperationalInfoCreateNestedOneWithoutCustomerInput
     attachments?: CustomerNotesAndAttachmentsCreateNestedManyWithoutCustomerInput
-    quotation?: QuotationAttachmentCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateWithoutContactsInput = {
@@ -47681,7 +53166,6 @@ export namespace Prisma {
     tax_info?: CustomerTaxInfoUncheckedCreateNestedOneWithoutCustomerInput
     operational?: CustomerOperationalInfoUncheckedCreateNestedOneWithoutCustomerInput
     attachments?: CustomerNotesAndAttachmentsUncheckedCreateNestedManyWithoutCustomerInput
-    quotation?: QuotationAttachmentUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerCreateOrConnectWithoutContactsInput = {
@@ -47723,7 +53207,6 @@ export namespace Prisma {
     tax_info?: CustomerTaxInfoUpdateOneWithoutCustomerNestedInput
     operational?: CustomerOperationalInfoUpdateOneWithoutCustomerNestedInput
     attachments?: CustomerNotesAndAttachmentsUpdateManyWithoutCustomerNestedInput
-    quotation?: QuotationAttachmentUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateWithoutContactsInput = {
@@ -47749,7 +53232,6 @@ export namespace Prisma {
     tax_info?: CustomerTaxInfoUncheckedUpdateOneWithoutCustomerNestedInput
     operational?: CustomerOperationalInfoUncheckedUpdateOneWithoutCustomerNestedInput
     attachments?: CustomerNotesAndAttachmentsUncheckedUpdateManyWithoutCustomerNestedInput
-    quotation?: QuotationAttachmentUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerCreateWithoutOperationalInput = {
@@ -47775,7 +53257,6 @@ export namespace Prisma {
     tax_info?: CustomerTaxInfoCreateNestedOneWithoutCustomerInput
     contacts?: CustomerContactCreateNestedManyWithoutCustomerInput
     attachments?: CustomerNotesAndAttachmentsCreateNestedManyWithoutCustomerInput
-    quotation?: QuotationAttachmentCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateWithoutOperationalInput = {
@@ -47801,7 +53282,6 @@ export namespace Prisma {
     tax_info?: CustomerTaxInfoUncheckedCreateNestedOneWithoutCustomerInput
     contacts?: CustomerContactUncheckedCreateNestedManyWithoutCustomerInput
     attachments?: CustomerNotesAndAttachmentsUncheckedCreateNestedManyWithoutCustomerInput
-    quotation?: QuotationAttachmentUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerCreateOrConnectWithoutOperationalInput = {
@@ -47843,7 +53323,6 @@ export namespace Prisma {
     tax_info?: CustomerTaxInfoUpdateOneWithoutCustomerNestedInput
     contacts?: CustomerContactUpdateManyWithoutCustomerNestedInput
     attachments?: CustomerNotesAndAttachmentsUpdateManyWithoutCustomerNestedInput
-    quotation?: QuotationAttachmentUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateWithoutOperationalInput = {
@@ -47869,7 +53348,6 @@ export namespace Prisma {
     tax_info?: CustomerTaxInfoUncheckedUpdateOneWithoutCustomerNestedInput
     contacts?: CustomerContactUncheckedUpdateManyWithoutCustomerNestedInput
     attachments?: CustomerNotesAndAttachmentsUncheckedUpdateManyWithoutCustomerNestedInput
-    quotation?: QuotationAttachmentUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerCreateWithoutAttachmentsInput = {
@@ -47895,7 +53373,6 @@ export namespace Prisma {
     tax_info?: CustomerTaxInfoCreateNestedOneWithoutCustomerInput
     contacts?: CustomerContactCreateNestedManyWithoutCustomerInput
     operational?: CustomerOperationalInfoCreateNestedOneWithoutCustomerInput
-    quotation?: QuotationAttachmentCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateWithoutAttachmentsInput = {
@@ -47921,7 +53398,6 @@ export namespace Prisma {
     tax_info?: CustomerTaxInfoUncheckedCreateNestedOneWithoutCustomerInput
     contacts?: CustomerContactUncheckedCreateNestedManyWithoutCustomerInput
     operational?: CustomerOperationalInfoUncheckedCreateNestedOneWithoutCustomerInput
-    quotation?: QuotationAttachmentUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerCreateOrConnectWithoutAttachmentsInput = {
@@ -47963,7 +53439,6 @@ export namespace Prisma {
     tax_info?: CustomerTaxInfoUpdateOneWithoutCustomerNestedInput
     contacts?: CustomerContactUpdateManyWithoutCustomerNestedInput
     operational?: CustomerOperationalInfoUpdateOneWithoutCustomerNestedInput
-    quotation?: QuotationAttachmentUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateWithoutAttachmentsInput = {
@@ -47989,13 +53464,12 @@ export namespace Prisma {
     tax_info?: CustomerTaxInfoUncheckedUpdateOneWithoutCustomerNestedInput
     contacts?: CustomerContactUncheckedUpdateManyWithoutCustomerNestedInput
     operational?: CustomerOperationalInfoUncheckedUpdateOneWithoutCustomerNestedInput
-    quotation?: QuotationAttachmentUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type UserCreateWithoutVendorInput = {
     id?: string
     first_name: string
-    last_name?: string | null
+    last_name: string
     email: string
     password: string
     phone?: string | null
@@ -48005,12 +53479,13 @@ export namespace Prisma {
     customer?: CustomerCreateNestedOneWithoutUserInput
     otps?: PasswordResetOTPCreateNestedManyWithoutUserInput
     resetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    quotes?: QuoteCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutVendorInput = {
     id?: string
     first_name: string
-    last_name?: string | null
+    last_name: string
     email: string
     password: string
     phone?: string | null
@@ -48020,6 +53495,7 @@ export namespace Prisma {
     customer?: CustomerUncheckedCreateNestedOneWithoutUserInput
     otps?: PasswordResetOTPUncheckedCreateNestedManyWithoutUserInput
     resetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    quotes?: QuoteUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutVendorInput = {
@@ -48211,7 +53687,7 @@ export namespace Prisma {
   export type UserUpdateWithoutVendorInput = {
     id?: StringFieldUpdateOperationsInput | string
     first_name?: StringFieldUpdateOperationsInput | string
-    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
@@ -48221,12 +53697,13 @@ export namespace Prisma {
     customer?: CustomerUpdateOneWithoutUserNestedInput
     otps?: PasswordResetOTPUpdateManyWithoutUserNestedInput
     resetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    quotes?: QuoteUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutVendorInput = {
     id?: StringFieldUpdateOperationsInput | string
     first_name?: StringFieldUpdateOperationsInput | string
-    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
@@ -48236,6 +53713,7 @@ export namespace Prisma {
     customer?: CustomerUncheckedUpdateOneWithoutUserNestedInput
     otps?: PasswordResetOTPUncheckedUpdateManyWithoutUserNestedInput
     resetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    quotes?: QuoteUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type VendorContactUpsertWithoutVendorInput = {
@@ -49180,6 +54658,56 @@ export namespace Prisma {
     created_at?: Date | string
   }
 
+  export type QuoteCreateManyUserInput = {
+    id?: string
+    quote_item_id?: number
+    status?: string | null
+    payment_status?: string | null
+    quote_type?: $Enums.QuoteType
+    tax?: string | null
+    deposit_paid?: string | null
+    shipping?: string | null
+    tax_buy_price?: string | null
+    shipping_buy_price?: string | null
+    lead_time?: string | null
+    payable?: string | null
+    freight_condition?: string | null
+    freight_condition_dismiss?: boolean | null
+    customer_email?: string | null
+    emails?: string | null
+    invoice_date?: Date | string | null
+    invoice_email?: string | null
+    billing_name?: string | null
+    billing_company?: string | null
+    billing_address?: string | null
+    billing_city?: string | null
+    billing_state?: string | null
+    billing_country?: string | null
+    billing_zip?: string | null
+    billing_phone?: string | null
+    billing_fax?: string | null
+    shipping_name?: string | null
+    shipping_company?: string | null
+    shipping_address?: string | null
+    shipping_city?: string | null
+    shipping_state?: string | null
+    shipping_country?: string | null
+    shipping_zip?: string | null
+    shipping_phone?: string | null
+    shipping_email?: string | null
+    shipping_fax?: string | null
+    sales_person?: number | null
+    project_manager?: number | null
+    accept_agreement?: number | null
+    date_created?: Date | string | null
+    created_month?: string | null
+    created_year?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    deleted_at?: Date | string | null
+    is_deleted?: boolean | null
+  }
+
   export type PasswordResetOTPUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
@@ -49228,6 +54756,317 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type QuoteUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    payment_status?: NullableStringFieldUpdateOperationsInput | string | null
+    quote_type?: EnumQuoteTypeFieldUpdateOperationsInput | $Enums.QuoteType
+    tax?: NullableStringFieldUpdateOperationsInput | string | null
+    deposit_paid?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping?: NullableStringFieldUpdateOperationsInput | string | null
+    tax_buy_price?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_buy_price?: NullableStringFieldUpdateOperationsInput | string | null
+    lead_time?: NullableStringFieldUpdateOperationsInput | string | null
+    payable?: NullableStringFieldUpdateOperationsInput | string | null
+    freight_condition?: NullableStringFieldUpdateOperationsInput | string | null
+    freight_condition_dismiss?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    customer_email?: NullableStringFieldUpdateOperationsInput | string | null
+    emails?: NullableStringFieldUpdateOperationsInput | string | null
+    invoice_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    invoice_email?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_name?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_company?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_address?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_city?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_state?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_country?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_zip?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_fax?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_name?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_company?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_address?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_city?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_state?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_country?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_zip?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_email?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_fax?: NullableStringFieldUpdateOperationsInput | string | null
+    sales_person?: NullableIntFieldUpdateOperationsInput | number | null
+    project_manager?: NullableIntFieldUpdateOperationsInput | number | null
+    accept_agreement?: NullableIntFieldUpdateOperationsInput | number | null
+    date_created?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_month?: NullableStringFieldUpdateOperationsInput | string | null
+    created_year?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    is_deleted?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    QuoteItems?: QuoteItemUpdateManyWithoutQuoteNestedInput
+  }
+
+  export type QuoteUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    quote_item_id?: IntFieldUpdateOperationsInput | number
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    payment_status?: NullableStringFieldUpdateOperationsInput | string | null
+    quote_type?: EnumQuoteTypeFieldUpdateOperationsInput | $Enums.QuoteType
+    tax?: NullableStringFieldUpdateOperationsInput | string | null
+    deposit_paid?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping?: NullableStringFieldUpdateOperationsInput | string | null
+    tax_buy_price?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_buy_price?: NullableStringFieldUpdateOperationsInput | string | null
+    lead_time?: NullableStringFieldUpdateOperationsInput | string | null
+    payable?: NullableStringFieldUpdateOperationsInput | string | null
+    freight_condition?: NullableStringFieldUpdateOperationsInput | string | null
+    freight_condition_dismiss?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    customer_email?: NullableStringFieldUpdateOperationsInput | string | null
+    emails?: NullableStringFieldUpdateOperationsInput | string | null
+    invoice_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    invoice_email?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_name?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_company?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_address?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_city?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_state?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_country?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_zip?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_fax?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_name?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_company?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_address?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_city?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_state?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_country?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_zip?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_email?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_fax?: NullableStringFieldUpdateOperationsInput | string | null
+    sales_person?: NullableIntFieldUpdateOperationsInput | number | null
+    project_manager?: NullableIntFieldUpdateOperationsInput | number | null
+    accept_agreement?: NullableIntFieldUpdateOperationsInput | number | null
+    date_created?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_month?: NullableStringFieldUpdateOperationsInput | string | null
+    created_year?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    is_deleted?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    QuoteItems?: QuoteItemUncheckedUpdateManyWithoutQuoteNestedInput
+  }
+
+  export type QuoteUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    quote_item_id?: IntFieldUpdateOperationsInput | number
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    payment_status?: NullableStringFieldUpdateOperationsInput | string | null
+    quote_type?: EnumQuoteTypeFieldUpdateOperationsInput | $Enums.QuoteType
+    tax?: NullableStringFieldUpdateOperationsInput | string | null
+    deposit_paid?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping?: NullableStringFieldUpdateOperationsInput | string | null
+    tax_buy_price?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_buy_price?: NullableStringFieldUpdateOperationsInput | string | null
+    lead_time?: NullableStringFieldUpdateOperationsInput | string | null
+    payable?: NullableStringFieldUpdateOperationsInput | string | null
+    freight_condition?: NullableStringFieldUpdateOperationsInput | string | null
+    freight_condition_dismiss?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    customer_email?: NullableStringFieldUpdateOperationsInput | string | null
+    emails?: NullableStringFieldUpdateOperationsInput | string | null
+    invoice_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    invoice_email?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_name?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_company?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_address?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_city?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_state?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_country?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_zip?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_fax?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_name?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_company?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_address?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_city?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_state?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_country?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_zip?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_email?: NullableStringFieldUpdateOperationsInput | string | null
+    shipping_fax?: NullableStringFieldUpdateOperationsInput | string | null
+    sales_person?: NullableIntFieldUpdateOperationsInput | number | null
+    project_manager?: NullableIntFieldUpdateOperationsInput | number | null
+    accept_agreement?: NullableIntFieldUpdateOperationsInput | number | null
+    date_created?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_month?: NullableStringFieldUpdateOperationsInput | string | null
+    created_year?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    is_deleted?: NullableBoolFieldUpdateOperationsInput | boolean | null
+  }
+
+  export type QuoteItemCreateManyQuoteInput = {
+    id?: string
+    file_name?: string | null
+    file_url?: string | null
+    status?: boolean
+    quantity?: number
+    service?: string | null
+    material?: string | null
+    finish?: string | null
+    description?: string | null
+    process?: string | null
+    specification?: string | null
+    price?: string | null
+    cost?: string | null
+    cost_shipping_price?: string | null
+    cost_shipping_total?: string | null
+    custom_shipping_total?: string | null
+    buy_price?: string | null
+    buy_shipping_price?: string | null
+    buy_shipping_total?: string | null
+    quantity_owed?: string | null
+    invoiced?: boolean | null
+    non_taxable?: number | null
+    non_shipping?: number | null
+    is_deleted?: boolean | null
+    vendor_id?: string | null
+    vendor_details?: string | null
+    last_updated_by?: number | null
+    work_instructions?: string | null
+    add_vendor?: boolean | null
+    markings?: string | null
+    part_item_number?: string | null
+    file_year?: string | null
+    file_month?: string | null
+    tab_open?: boolean | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    deleted_at?: Date | string | null
+  }
+
+  export type QuoteItemUpdateWithoutQuoteInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    file_name?: NullableStringFieldUpdateOperationsInput | string | null
+    file_url?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: BoolFieldUpdateOperationsInput | boolean
+    quantity?: IntFieldUpdateOperationsInput | number
+    service?: NullableStringFieldUpdateOperationsInput | string | null
+    material?: NullableStringFieldUpdateOperationsInput | string | null
+    finish?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    process?: NullableStringFieldUpdateOperationsInput | string | null
+    specification?: NullableStringFieldUpdateOperationsInput | string | null
+    price?: NullableStringFieldUpdateOperationsInput | string | null
+    cost?: NullableStringFieldUpdateOperationsInput | string | null
+    cost_shipping_price?: NullableStringFieldUpdateOperationsInput | string | null
+    cost_shipping_total?: NullableStringFieldUpdateOperationsInput | string | null
+    custom_shipping_total?: NullableStringFieldUpdateOperationsInput | string | null
+    buy_price?: NullableStringFieldUpdateOperationsInput | string | null
+    buy_shipping_price?: NullableStringFieldUpdateOperationsInput | string | null
+    buy_shipping_total?: NullableStringFieldUpdateOperationsInput | string | null
+    quantity_owed?: NullableStringFieldUpdateOperationsInput | string | null
+    invoiced?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    non_taxable?: NullableIntFieldUpdateOperationsInput | number | null
+    non_shipping?: NullableIntFieldUpdateOperationsInput | number | null
+    is_deleted?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    vendor_id?: NullableStringFieldUpdateOperationsInput | string | null
+    vendor_details?: NullableStringFieldUpdateOperationsInput | string | null
+    last_updated_by?: NullableIntFieldUpdateOperationsInput | number | null
+    work_instructions?: NullableStringFieldUpdateOperationsInput | string | null
+    add_vendor?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    markings?: NullableStringFieldUpdateOperationsInput | string | null
+    part_item_number?: NullableStringFieldUpdateOperationsInput | string | null
+    file_year?: NullableStringFieldUpdateOperationsInput | string | null
+    file_month?: NullableStringFieldUpdateOperationsInput | string | null
+    tab_open?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type QuoteItemUncheckedUpdateWithoutQuoteInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    file_name?: NullableStringFieldUpdateOperationsInput | string | null
+    file_url?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: BoolFieldUpdateOperationsInput | boolean
+    quantity?: IntFieldUpdateOperationsInput | number
+    service?: NullableStringFieldUpdateOperationsInput | string | null
+    material?: NullableStringFieldUpdateOperationsInput | string | null
+    finish?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    process?: NullableStringFieldUpdateOperationsInput | string | null
+    specification?: NullableStringFieldUpdateOperationsInput | string | null
+    price?: NullableStringFieldUpdateOperationsInput | string | null
+    cost?: NullableStringFieldUpdateOperationsInput | string | null
+    cost_shipping_price?: NullableStringFieldUpdateOperationsInput | string | null
+    cost_shipping_total?: NullableStringFieldUpdateOperationsInput | string | null
+    custom_shipping_total?: NullableStringFieldUpdateOperationsInput | string | null
+    buy_price?: NullableStringFieldUpdateOperationsInput | string | null
+    buy_shipping_price?: NullableStringFieldUpdateOperationsInput | string | null
+    buy_shipping_total?: NullableStringFieldUpdateOperationsInput | string | null
+    quantity_owed?: NullableStringFieldUpdateOperationsInput | string | null
+    invoiced?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    non_taxable?: NullableIntFieldUpdateOperationsInput | number | null
+    non_shipping?: NullableIntFieldUpdateOperationsInput | number | null
+    is_deleted?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    vendor_id?: NullableStringFieldUpdateOperationsInput | string | null
+    vendor_details?: NullableStringFieldUpdateOperationsInput | string | null
+    last_updated_by?: NullableIntFieldUpdateOperationsInput | number | null
+    work_instructions?: NullableStringFieldUpdateOperationsInput | string | null
+    add_vendor?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    markings?: NullableStringFieldUpdateOperationsInput | string | null
+    part_item_number?: NullableStringFieldUpdateOperationsInput | string | null
+    file_year?: NullableStringFieldUpdateOperationsInput | string | null
+    file_month?: NullableStringFieldUpdateOperationsInput | string | null
+    tab_open?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type QuoteItemUncheckedUpdateManyWithoutQuoteInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    file_name?: NullableStringFieldUpdateOperationsInput | string | null
+    file_url?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: BoolFieldUpdateOperationsInput | boolean
+    quantity?: IntFieldUpdateOperationsInput | number
+    service?: NullableStringFieldUpdateOperationsInput | string | null
+    material?: NullableStringFieldUpdateOperationsInput | string | null
+    finish?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    process?: NullableStringFieldUpdateOperationsInput | string | null
+    specification?: NullableStringFieldUpdateOperationsInput | string | null
+    price?: NullableStringFieldUpdateOperationsInput | string | null
+    cost?: NullableStringFieldUpdateOperationsInput | string | null
+    cost_shipping_price?: NullableStringFieldUpdateOperationsInput | string | null
+    cost_shipping_total?: NullableStringFieldUpdateOperationsInput | string | null
+    custom_shipping_total?: NullableStringFieldUpdateOperationsInput | string | null
+    buy_price?: NullableStringFieldUpdateOperationsInput | string | null
+    buy_shipping_price?: NullableStringFieldUpdateOperationsInput | string | null
+    buy_shipping_total?: NullableStringFieldUpdateOperationsInput | string | null
+    quantity_owed?: NullableStringFieldUpdateOperationsInput | string | null
+    invoiced?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    non_taxable?: NullableIntFieldUpdateOperationsInput | number | null
+    non_shipping?: NullableIntFieldUpdateOperationsInput | number | null
+    is_deleted?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    vendor_id?: NullableStringFieldUpdateOperationsInput | string | null
+    vendor_details?: NullableStringFieldUpdateOperationsInput | string | null
+    last_updated_by?: NullableIntFieldUpdateOperationsInput | number | null
+    work_instructions?: NullableStringFieldUpdateOperationsInput | string | null
+    add_vendor?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    markings?: NullableStringFieldUpdateOperationsInput | string | null
+    part_item_number?: NullableStringFieldUpdateOperationsInput | string | null
+    file_year?: NullableStringFieldUpdateOperationsInput | string | null
+    file_month?: NullableStringFieldUpdateOperationsInput | string | null
+    tab_open?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
   export type CustomerAddressCreateManyCustomerInput = {
     id?: string
     billing_address: string
@@ -49265,14 +55104,6 @@ export namespace Prisma {
     tags?: CustomerNotesAndAttachmentsCreatetagsInput | string[]
     file_url?: string | null
     file_name?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-  }
-
-  export type QuotationAttachmentCreateManyCustomerInput = {
-    id?: string
-    file_name?: string | null
-    file_url?: string | null
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -49396,30 +55227,6 @@ export namespace Prisma {
     tags?: CustomerNotesAndAttachmentsUpdatetagsInput | string[]
     file_url?: NullableStringFieldUpdateOperationsInput | string | null
     file_name?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type QuotationAttachmentUpdateWithoutCustomerInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    file_name?: NullableStringFieldUpdateOperationsInput | string | null
-    file_url?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type QuotationAttachmentUncheckedUpdateWithoutCustomerInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    file_name?: NullableStringFieldUpdateOperationsInput | string | null
-    file_url?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type QuotationAttachmentUncheckedUpdateManyWithoutCustomerInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    file_name?: NullableStringFieldUpdateOperationsInput | string | null
-    file_url?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }

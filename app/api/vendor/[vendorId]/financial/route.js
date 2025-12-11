@@ -47,7 +47,7 @@ export async function PUT(req, { params }) {
         swift_iban_code,
         preferred_currency,
         payment_terms,
-        default_tax_rate,
+        default_tax_rate: String(default_tax_rate),
         credit_limit: credit_limit ? parseFloat(credit_limit) : null,
       },
       create: {
@@ -57,7 +57,7 @@ export async function PUT(req, { params }) {
         swift_iban_code,
         preferred_currency,
         payment_terms,
-        default_tax_rate,
+        default_tax_rate: String(default_tax_rate),
         credit_limit: credit_limit ? parseFloat(credit_limit) : null,
       },
     });

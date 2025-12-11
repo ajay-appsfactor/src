@@ -1,6 +1,5 @@
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
-
 import { authOptions } from "@/lib/auth/auth";
 
 export default async function SuperAdminPage() {
@@ -15,9 +14,9 @@ export default async function SuperAdminPage() {
 
 
   return (
-    <div className=" bg-gray-100">
+    <div className="space-y-6">
+      <h2 className="text-2xl font-bold">Welcome, SuperAdmin</h2>
     
-        <h2>Super Admin Page</h2>
     </div>
   );
 }

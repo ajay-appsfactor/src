@@ -47,26 +47,48 @@ export async function POST(req, { params }) {
     }
 
     // Tenant DB connection
-    const  {tenantDb} = await getTenantDbFromHeaders();
+    const { tenantDb } = await getTenantDbFromHeaders();
 
     // Check if customer exists + default address
-    const customer = await tenantDb.customer.findUnique({
-      where: { id: customerId },
+    // const customer = await tenantDb.user.findUnique({
+    //   where: { id: customerId },
+    //   select: {
+    //     user: {
+    //       select: {
+    //         id: true,
+    //         email: true,
+    //         first_name: true,
+    //         last_name: true,
+    //         phone: true,
+    //       },
+    //     },
+    //     addresses: { where: { is_default: true }, take: 1 },
+    //   },
+    // });
+
+    const userWithCustomer  = await tenantDb.user.findUnique({
+      where: { id: customerId }, // this is the User.id
       select: {
-        user: {
+        id: true,
+        email: true,
+        first_name: true,
+        last_name: true,
+        phone: true,
+        customer: {
           select: {
             id: true,
-            email: true,
-            first_name: true,
-            last_name: true,
-            phone: true,
+            addresses: {
+              where: { is_default: true },
+              take: 1,
+            },
           },
         },
-        addresses: { where: { is_default: true }, take: 1 },
       },
     });
 
-    if (!customer || !customer.user) {
+    console.log("user with customer:", userWithCustomer );
+
+    if (!userWithCustomer || !userWithCustomer.customer) {
       return NextResponse.json(
         { error: "Customer not found." },
         { status: 404 }
@@ -77,7 +99,7 @@ export async function POST(req, { params }) {
     // console.log("UserID :", userId);
     // const customerEmail = customer.user.email;
     // console.log("customerEmail :", customerEmail);
-    const customerAddress = customer.addresses[0];
+    const customerAddress = userWithCustomer.customer.addresses[0];
     // console.log("customerAddress :", customerAddress);
 
     // const userData = customer.user;
@@ -93,15 +115,15 @@ export async function POST(req, { params }) {
       data: {
         // user_id: customer.user.id,
         User: {
-          connect: { id: customer.user.id },
+          connect: { id: userWithCustomer.id },
         },
 
-        customer_email: customer.user.email,
-        billing_phone: customer.user?.phone ?? null,
+        customer_email: userWithCustomer.email,
+        billing_phone: userWithCustomer?.phone ?? null,
         billing_name:
-          customer.user.first_name && customer.user.last_name
-            ? customer.user.first_name + " " + customer.user.last_name
-            : customer.user.first_name || null,
+          userWithCustomer.first_name && userWithCustomer.last_name
+            ? userWithCustomer.first_name + " " + userWithCustomer.last_name
+            : userWithCustomer.first_name || null,
 
         billing_address: customerAddress?.billing_address || null,
         billing_city: customerAddress?.billing_city || null,

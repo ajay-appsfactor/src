@@ -21,15 +21,7 @@ import {
   CommandItem,
 } from "@/components/ui/command";
 import { toast } from "react-toastify";
-
-// Country options
-const countries = [
-  { value: "india", label: "India" },
-  { value: "usa", label: "United States" },
-  { value: "uk", label: "United Kingdom" },
-  { value: "canada", label: "Canada" },
-  { value: "australia", label: "Australia" },
-];
+import { countries } from "@/constants/countries";
 
 const AddressVendorForm = ({ vendor }) => {
   const router = useRouter();
@@ -99,7 +91,7 @@ const AddressVendorForm = ({ vendor }) => {
       // Redirect to tax & compliance
       router.push(`/vendor/${vendorId}/tax-compliance`);
     } catch (error) {
-      console.error("Error submitting address:", error);
+      // console.error("Error submitting address:", error);
       toast.error("Failed address saved!");
     } finally {
       setSubmitting(false);

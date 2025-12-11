@@ -8,10 +8,16 @@ datasource tenantDb {
   url      = env("DATABASE_URL")
 }
 
+enum QuoteType {
+  Prototype
+  Production
+}
+
+// User
 model User {
   id         String  @id @default(cuid())
   first_name String
-  last_name  String?
+  last_name  String
   email      String  @unique
   password   String
   phone      String?
@@ -27,8 +33,128 @@ model User {
   // Relations
   otps        PasswordResetOTP[]
   resetTokens PasswordResetToken[]
+  quotes      Quote[]
 
   @@map("users")
+}
+
+// Quote
+model Quote {
+  id      String @id @default(cuid())
+  user_id String
+
+  quote_item_id  Int       @unique @default(autoincrement())
+  status         String?   @default("RFQ")
+  payment_status String?   @default("UnPaid")
+  quote_type     QuoteType @default(Prototype)
+
+  tax                       String?
+  deposit_paid              String?
+  shipping                  String?
+  tax_buy_price             String?
+  shipping_buy_price        String?
+  lead_time                 String?
+  payable                   String?
+  freight_condition         String?  @default("FOB Las Vegas, NV")
+  freight_condition_dismiss Boolean? @default(false)
+
+  customer_email String?
+  emails         String?
+  invoice_date   DateTime?
+  invoice_email  String?
+
+  billing_name    String?
+  billing_company String?
+  billing_address String?
+  billing_city    String?
+  billing_state   String?
+  billing_country String?
+  billing_zip     String?
+  billing_phone   String?
+  billing_fax     String?
+
+  shipping_name    String?
+  shipping_company String?
+  shipping_address String?
+  shipping_city    String?
+  shipping_state   String?
+  shipping_country String?
+  shipping_zip     String?
+  shipping_phone   String?
+  shipping_email   String?
+  shipping_fax     String?
+
+  sales_person     Int?
+  project_manager  Int?
+  accept_agreement Int? @default(0)
+
+  date_created DateTime?
+
+  created_month String?
+  created_year  String?
+
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+  is_deleted Boolean?  @default(false)
+
+  User       User?       @relation(fields: [user_id], references: [id])
+  QuoteItems QuoteItem[]
+
+  @@map("quote")
+}
+
+// Quote Items
+model QuoteItem {
+  id        String  @id @default(cuid())
+  quote_id  String
+  file_name String?
+  file_url  String?
+
+  status   Boolean @default(false)
+  quantity Int     @default(1)
+  service  String?
+  material String?
+  finish   String?
+
+  description   String?
+  process       String?
+  specification String?
+  price         String?
+  cost          String?
+
+  cost_shipping_price   String?
+  cost_shipping_total   String?
+  custom_shipping_total String?
+  buy_price             String?
+  buy_shipping_price    String?
+  buy_shipping_total    String?
+
+  quantity_owed String?
+  invoiced      Boolean? @default(false)
+  non_taxable   Int?     @default(0)
+  non_shipping  Int?     @default(0)
+  is_deleted    Boolean? @default(false)
+
+  vendor_id         String?
+  vendor_details    String?
+  last_updated_by   Int?     @default(0)
+  work_instructions String?
+  add_vendor        Boolean? @default(false)
+  markings          String?
+  part_item_number  String?
+
+  file_year  String?
+  file_month String?
+  tab_open   Boolean? @default(true)
+
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+
+  quote Quote @relation(fields: [quote_id], references: [id])
+
+  @@map("quote_items")
 }
 
 model PasswordResetOTP {
@@ -59,7 +185,7 @@ model PasswordResetToken {
 model tenantCurrency {
   id          String   @id @default(cuid())
   currency_id Int      @default(autoincrement())
-  code        String   @unique
+  code        String
   name        String
   symbol      String
   is_active   Boolean  @default(true)
@@ -75,8 +201,8 @@ model tenantPaymentTerms {
   name             String
   description      String?
   due_days         Int      @default(0)
-  discount_days    Int?
-  discount_percent Decimal?
+  discount_days    Int      @default(0)
+  discount_percent Decimal  @default(0)
   is_active        Boolean  @default(true)
   created_at       DateTime @default(now())
   updated_at       DateTime @default(now()) @updatedAt
@@ -161,22 +287,8 @@ model Customer {
   contacts    CustomerContact[]
   operational CustomerOperationalInfo?
   attachments CustomerNotesAndAttachments[]
-  quotation   QuotationAttachment[]
 
   @@map("customers")
-}
-
-model QuotationAttachment {
-  id          String    @id @default(cuid())
-  customer_id String
-  file_name   String?
-  file_url    String?
-  customer    Customer? @relation(fields: [customer_id], references: [id], onDelete: Cascade)
-
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
-
-  @@map("customer_quote_attachments")
 }
 
 model companyService {
@@ -461,7 +573,7 @@ model company_vendor_capability_sub_categories {
   created_at           DateTime @default(now())
   updated_at           DateTime @updatedAt
 
-  capability company_vendor_capabilities @relation(fields: [vendor_capability_id], references: [id])
+  capability company_vendor_capabilities @relation(fields: [vendor_capability_id], references: [id], onDelete: Cascade)
 
   @@map("company_vendor_capability_sub_categories")
 }
@@ -484,4 +596,13 @@ model company_vendor_flags {
   updated_at DateTime @updatedAt
 
   @@map("company_vendor_flags")
+}
+
+model company_school {
+  id      String @id @default(cuid())
+  name    String
+  class   String
+  roll_no String
+
+  @@map("company_school")
 }
