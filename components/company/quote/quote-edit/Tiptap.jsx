@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useEditor, EditorContent, useEditorState } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Highlight from "@tiptap/extension-highlight";
+import Heading from "@tiptap/extension-heading";
 import { Toggle } from "@/components/ui/toggle";
 import {
   BoldIcon,
@@ -20,36 +21,55 @@ import {
   UndoIcon,
   UnlinkIcon,
 } from "lucide-react";
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover"
+} from "@/components/ui/popover";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
-import { BubbleMenu as TiptapBubbleMenu, FloatingMenu as TiptapFloatingMenu } from "@tiptap/react/menus";
+} from "@/components/ui/select";
+import {
+  BubbleMenu as TiptapBubbleMenu,
+  FloatingMenu as TiptapFloatingMenu,
+} from "@tiptap/react/menus";
 
-const Tiptap = ({ content, onChange }) => {
+const Tiptap = ({ value, onChange }) => {
   const editor = useEditor({
-    extensions: [StarterKit, Highlight.configure({ multicolor: true })],
+    extensions: [
+      StarterKit.configure({
+        heading: {
+          levels: [1, 2, 3, 4, 5, 6],
+        },
+      }),
+      Highlight.configure({ multicolor: true }),
+      Heading.configure({ levels: [1, 2, 3, 4, 5, 6] }),
+    ],
+    content: value,
     editorProps: {
       attributes: {
-        class: "prose dark:prose-invert prose-sm sm:prose-base focus:outline-none max-w-none",
+        class:
+          "prose dark:prose-invert prose-sm sm:prose-base focus:outline-none max-w-none",
       },
     },
-    content,
     onUpdate: ({ editor }) => {
-      onChange?.(editor.getHTML());
+      onChange(editor.getHTML());
     },
     immediatelyRender: false,
   });
+
+  // update editor when value changes from parent
+  useEffect(() => {
+    if (editor && value !== editor.getHTML()) {
+      editor.commands.setContent(value);
+    }
+  }, [value, editor]);
 
   return (
     <div className="bg-background relative rounded-lg border shadow-sm">
@@ -73,7 +93,12 @@ function LinkComponent({ editor, children }) {
 
   const handleSetLink = () => {
     if (linkUrl) {
-      editor.chain().focus().extendMarkRange("link").setLink({ href: linkUrl }).run();
+      editor
+        .chain()
+        .focus()
+        .extendMarkRange("link")
+        .setLink({ href: linkUrl })
+        .run();
     } else {
       editor.chain().focus().extendMarkRange("link").unsetLink().run();
     }
@@ -97,7 +122,12 @@ function LinkComponent({ editor, children }) {
             }}
           />
           <div className="flex justify-between">
-            <Button variant="outline" onClick={() => setIsLinkPopoverOpen(false)}>Cancel</Button>
+            <Button
+              variant="outline"
+              onClick={() => setIsLinkPopoverOpen(false)}
+            >
+              Cancel
+            </Button>
             <Button onClick={handleSetLink}>Save</Button>
           </div>
         </div>
@@ -143,14 +173,26 @@ const ToolBar = ({ editor }) => {
   return (
     <div className="bg-background sticky top-0 z-10 flex flex-wrap items-center gap-1 border-b p-2">
       <Select
-        onValueChange={handleHeadingChange}
+        onValueChange={(value) => {
+          if (value === "paragraph") {
+            editor.chain().focus().setParagraph().run();
+          } else {
+            const level = Number(value.replace("h", ""));
+            editor.chain().focus().setHeading({ level }).run();
+          }
+        }}
         value={
-          editorState.isHeading2 ? "heading2" :
-          editorState.isHeading3 ? "heading3" :
-          editorState.isHeading4 ? "heading4" :
-          editorState.isHeading5 ? "heading5" :
-          editorState.isHeading6 ? "heading6" :
-          "paragraph"
+          editor.isActive("heading", { level: 1 })
+            ? "h1"
+            : editor.isActive("heading", { level: 2 })
+            ? "h2"
+            : editor.isActive("heading", { level: 3 })
+            ? "h3"
+            : editor.isActive("heading", { level: 4 })
+            ? "h4"
+            : editor.isActive("heading", { level: 5 })
+            ? "h5"
+            : "paragraph"
         }
       >
         <SelectTrigger className="w-[180px]">
@@ -167,46 +209,98 @@ const ToolBar = ({ editor }) => {
       </Select>
 
       {/* Toggles for formatting */}
-      <Toggle size="sm" pressed={editorState.isBold} onPressedChange={() => editor.chain().focus().toggleBold().run()} aria-label="Toggle bold">
+      <Toggle
+        size="sm"
+        pressed={editorState.isBold}
+        onPressedChange={() => editor.chain().focus().toggleBold().run()}
+        aria-label="Toggle bold"
+      >
         <BoldIcon className="h-4 w-4" />
       </Toggle>
 
-      <Toggle size="sm" pressed={editorState.isItalic} onPressedChange={() => editor.chain().focus().toggleItalic().run()} aria-label="Toggle italic">
+      <Toggle
+        size="sm"
+        pressed={editorState.isItalic}
+        onPressedChange={() => editor.chain().focus().toggleItalic().run()}
+        aria-label="Toggle italic"
+      >
         <ItalicIcon className="h-4 w-4" />
       </Toggle>
 
-      <Toggle size="sm" pressed={editorState.iamThapa} onPressedChange={() => editor.chain().focus().toggleUnderline().run()} aria-label="Toggle underline">
+      <Toggle
+        size="sm"
+        pressed={editorState.iamThapa}
+        onPressedChange={() => editor.chain().focus().toggleUnderline().run()}
+        aria-label="Toggle underline"
+      >
         <UnderlineIcon className="h-4 w-4" />
       </Toggle>
 
-      <Toggle size="sm" pressed={editorState.isStrike} onPressedChange={() => editor.chain().focus().toggleStrike().run()} aria-label="Toggle strikethrough">
+      <Toggle
+        size="sm"
+        pressed={editorState.isStrike}
+        onPressedChange={() => editor.chain().focus().toggleStrike().run()}
+        aria-label="Toggle strikethrough"
+      >
         <StrikethroughIcon className="h-4 w-4" />
       </Toggle>
 
-      <Toggle size="sm" pressed={editorState.isHighlight} onPressedChange={() => editor.chain().focus().toggleHighlight({ color: "#fdeb80" }).run()} aria-label="Toggle highlight">
+      <Toggle
+        size="sm"
+        pressed={editorState.isHighlight}
+        onPressedChange={() =>
+          editor.chain().focus().toggleHighlight({ color: "#fdeb80" }).run()
+        }
+        aria-label="Toggle highlight"
+      >
         <HighlighterIcon className="h-4 w-4" />
       </Toggle>
 
-      <Toggle size="sm" pressed={editorState.isCode} onPressedChange={() => editor.chain().focus().toggleCode().run()} aria-label="Toggle code">
+      <Toggle
+        size="sm"
+        pressed={editorState.isCode}
+        onPressedChange={() => editor.chain().focus().toggleCode().run()}
+        aria-label="Toggle code"
+      >
         <CodeIcon className="h-4 w-4" />
       </Toggle>
 
-      <Toggle size="sm" pressed={editorState.isBulletList} onPressedChange={() => editor.chain().focus().toggleBulletList().run()} aria-label="Toggle bullet list">
+      <Toggle
+        size="sm"
+        pressed={editorState.isBulletList}
+        onPressedChange={() => editor.chain().focus().toggleBulletList().run()}
+        aria-label="Toggle bullet list"
+      >
         <ListIcon className="h-4 w-4" />
       </Toggle>
 
-      <Toggle size="sm" pressed={editorState.isOrderedList} onPressedChange={() => editor.chain().focus().toggleOrderedList().run()} aria-label="Toggle ordered list">
+      <Toggle
+        size="sm"
+        pressed={editorState.isOrderedList}
+        onPressedChange={() => editor.chain().focus().toggleOrderedList().run()}
+        aria-label="Toggle ordered list"
+      >
         <ListOrderedIcon className="h-4 w-4" />
       </Toggle>
 
-      <Toggle size="sm" pressed={editorState.isBlockquote} onPressedChange={() => editor.chain().focus().toggleBlockquote().run()} aria-label="Toggle blockquote">
+      <Toggle
+        size="sm"
+        pressed={editorState.isBlockquote}
+        onPressedChange={() => editor.chain().focus().toggleBlockquote().run()}
+        aria-label="Toggle blockquote"
+      >
         <Quote className="h-4 w-4" />
       </Toggle>
 
       <div className="bg-border mx-1 h-6 w-px" />
 
       {editorState.isLink ? (
-        <Toggle pressed onPressedChange={() => editor.chain().focus().extendMarkRange("link").unsetLink().run()}>
+        <Toggle
+          pressed
+          onPressedChange={() =>
+            editor.chain().focus().extendMarkRange("link").unsetLink().run()
+          }
+        >
           <UnlinkIcon className="h-4 w-4" />
         </Toggle>
       ) : (
@@ -219,11 +313,25 @@ const ToolBar = ({ editor }) => {
 
       <div className="bg-border mx-1 h-6 w-px" />
 
-      <Button type="button" size="sm" variant="ghost" onClick={() => editor.chain().focus().undo().run()} disabled={!editorState.canUndo} aria-label="Undo">
+      <Button
+        type="button"
+        size="sm"
+        variant="ghost"
+        onClick={() => editor.chain().focus().undo().run()}
+        disabled={!editorState.canUndo}
+        aria-label="Undo"
+      >
         <UndoIcon className="h-4 w-4" />
       </Button>
 
-      <Button type="button" size="sm" variant="ghost" onClick={() => editor.chain().focus().redo().run()} disabled={!editorState.canRedo} aria-label="Redo">
+      <Button
+        type="button"
+        size="sm"
+        variant="ghost"
+        onClick={() => editor.chain().focus().redo().run()}
+        disabled={!editorState.canRedo}
+        aria-label="Redo"
+      >
         <RedoIcon className="h-4 w-4" />
       </Button>
     </div>
@@ -248,7 +356,10 @@ export function BubbleMenu({ editor }) {
   });
 
   return (
-    <TiptapBubbleMenu editor={editor} className="bg-background flex items-center rounded-md border shadow-md relative z-200">
+    <TiptapBubbleMenu
+      editor={editor}
+      className="bg-background flex items-center rounded-md border shadow-md relative z-200"
+    >
       {/* Add your toggles here as in ToolBar */}
     </TiptapBubbleMenu>
   );
@@ -272,7 +383,10 @@ export function FloatingMenu({ editor }) {
   });
 
   return (
-    <TiptapFloatingMenu editor={editor} className="bg-background flex items-center rounded-md border shadow-md relative z-200">
+    <TiptapFloatingMenu
+      editor={editor}
+      className="bg-background flex items-center rounded-md border shadow-md relative z-200"
+    >
       {/* Add your toggles here as in ToolBar */}
     </TiptapFloatingMenu>
   );

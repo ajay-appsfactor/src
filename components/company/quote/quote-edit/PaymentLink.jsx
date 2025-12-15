@@ -17,7 +17,7 @@ const PaymentLink = () => {
   const handleCopy = () => {
     navigator.clipboard.writeText(link).then(() => {
       setCopied(true);
-      setTimeout(() => setCopied(false), 2000); // Reset after 2 seconds
+      setTimeout(() => setCopied(false), 1000); // Reset after 1  seconds
     });
   };
   return (

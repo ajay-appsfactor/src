@@ -12,7 +12,9 @@ import PaymentLink from "./PaymentLink";
 import ModelsTable from "./ModelsTable";
 import FilesDownload from "./FilesDownload";
 import DeleteOrder from "./DeleteOrder";
-import { Loader } from "lucide-react";
+import { Loader, Plus } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import AddNewItem from "./AddNewItem/AddNewItem";
 import EditDetailsModal from "./EditDetailsModal";
 
 const QuoteEdit = ({ quoteId }) => {
@@ -31,20 +33,20 @@ const QuoteEdit = ({ quoteId }) => {
     setModalOpen(true);
   };
 
-  useEffect(() => {
-    const fetchOrder = async () => {
-      try {
-        const res = await fetch(`/api/company/quotes/${quoteId}/edits`);
-        const data = await res.json();
-        console.log("Result data :", data);
-        setOrder(data);
-      } catch (err) {
-        console.error("Failed to fetch order:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const fetchOrder = async () => {
+    try {
+      setLoading(true);
+      const res = await fetch(`/api/company/quotes/${quoteId}/edits`);
+      const data = await res.json();
+      setOrder(data);
+    } catch (err) {
+      console.error("Failed to fetch order:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchOrder();
   }, [quoteId]);
 
@@ -77,9 +79,23 @@ const QuoteEdit = ({ quoteId }) => {
 
       <ModelsTable quoteItems={order.QuoteItems} />
       <FilesDownload />
-      <DeleteOrder quoteId={quoteId} />
 
-      {/* ----------------- MODAL ------------------ */}
+      <div className="flex flex-col md:flex-row items-start md:items-center gap-3">
+        <DeleteOrder quoteId={quoteId} />
+
+        <AddNewItem quoteId={quoteId} onSuccess={fetchOrder} >
+          <Button
+            size="sm"
+            variant="secondary"
+            className="flex items-center gap-2 text-gray-800 hover:text-gray-900 cursor-pointer"
+          >
+            <Plus className="w-4 h-4" />
+            <span>Add New Item</span>
+          </Button>
+        </AddNewItem>
+      </div>
+
+      {/*  Modal  */}
       <EditDetailsModal
         open={modalOpen}
         type={modalType}

@@ -2,11 +2,12 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home } from "lucide-react";
+import { Home , Menu } from "lucide-react";
 import clsx from "clsx";
+import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 
 export default function TenantTopHeader({ session }) {
-  const pathname = usePathname(); 
+  const pathname = usePathname();
 
   const role = session?.user?.roles?.[0];
   const customerId = session?.user?.id;
@@ -14,13 +15,18 @@ export default function TenantTopHeader({ session }) {
   const customerLinks = [
     { href: `/customer/${customerId}/create-quote`, label: "Create Quote" },
     { href: `/customer/${customerId}/quotes`, label: "View Projects" },
+    { href: `/customer/${customerId}/my-account`, label: "My Account" },
   ];
 
   const adminLinks = [
     { href: "/customers", label: "Customers", nestedPrefix: "/customer/" },
     { href: "/vendors", label: "Vendors", nestedPrefix: "/vendor/" },
     { href: "/users", label: "Users" },
-    { href: "/settings/general-settings", label: "Settings", nestedPrefix: "/settings/" },
+    {
+      href: "/settings/general-settings",
+      label: "Settings",
+      nestedPrefix: "/settings/",
+    },
   ];
 
   const links = role === "customer" ? customerLinks : adminLinks;
@@ -34,10 +40,13 @@ export default function TenantTopHeader({ session }) {
 
   return (
     <header className="sticky top-0 z-50 w-full bg-slate-800 border-b shadow-sm">
-      <nav className="flex items-center gap-2 text-white">
+      <nav className="hidden md:flex items-center gap-2 text-white">
         <Link
           href="/dashboard"
-          className={clsx("px-3 py-2", pathname === "/dashboard" && "bg-white text-black")}
+          className={clsx(
+            "px-3 py-2",
+            pathname === "/dashboard" && "bg-white text-black"
+          )}
         >
           <Home className="h-5 w-5" />
         </Link>
@@ -46,16 +55,50 @@ export default function TenantTopHeader({ session }) {
           <Link
             key={link.href}
             href={link.href}
-            className={clsx("px-3 py-2 hover:bg-white hover:text-black", isActive(link) && "bg-white text-black")}
+            className={clsx(
+              "px-3 py-2 hover:bg-white hover:text-black",
+              isActive(link) && "bg-white text-black"
+            )}
           >
             {link.label}
           </Link>
         ))}
       </nav>
+
+      {/* Mobile Menu */}
+        <div className="md:hidden">
+          <Sheet>
+            <SheetTrigger asChild>
+              <button className="text-white p-2 rounded-md">
+                <Menu className="h-6 w-6" />
+              </button>
+            </SheetTrigger>
+
+            <SheetContent side="left" className="w-64 bg-slate-800 text-white p-4">
+              <SheetHeader>
+                <SheetTitle className="text-white text-lg">Menu</SheetTitle>
+              </SheetHeader>
+
+              <nav className="mt-4 flex flex-col gap-2">
+                {links.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className={clsx(
+                      "block px-3 py-2 rounded-md transition-colors",
+                      isActive(link) ? "bg-white text-black" : "hover:bg-white hover:text-black text-white/80"
+                    )}
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+              </nav>
+            </SheetContent>
+          </Sheet>
+        </div>
     </header>
   );
 }
-
 
 // "use client";
 

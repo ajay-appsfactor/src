@@ -17,10 +17,16 @@ import {
   Book,
   Copy,
 } from "lucide-react";
-import Link from "next/link";
 import RFQActions from "./RFQ/RFQActions";
 import InvoiceActions from "./Invoice/InvoiceActions";
-import PurchaseActions from "./PurchaseOrder/PurchaseActions";
+import PurchaseActions from "./PO/PurchaseActions";
+import CertificateConformance from "./COFC/CertificateConformance";
+import Traveller from "./TRV/Traveller";
+import RMA from "./RMA/RMA";
+import ConfirmationOrder from "./CO/ConfirmationOrder";
+import PartialInvoice from "./PI/PartialInvoice";
+import CopyOrder from "./CopyOrder/CopyOrder";
+import SendOffer from "./SendOffer/SendOffer";
 
 const ActionsToolbar = ({ data }) => {
   return (
@@ -89,24 +95,7 @@ const ActionsToolbar = ({ data }) => {
             </Button>
           </HoverCardTrigger>
           <HoverCardContent className="w-64">
-            <div className="flex flex-col gap-2">
-              {/* Heading */}
-              <h4 className="text-sm text-center font-semibold">
-                Generate Certificate of Conformance
-              </h4>
-              {/* View */}
-              <Button size="sm" variant="outline" className="cursor-pointer">
-                VIEW
-              </Button>
-              {/* Download */}
-              <Button size="sm" variant="outline" className="cursor-pointer">
-                DOWNLOAD
-              </Button>
-              {/* Email Customer */}
-              <Button size="sm" variant="outline" className="cursor-pointer">
-                EMAIL CUSTOMER
-              </Button>
-            </div>
+            <CertificateConformance data={data} />
           </HoverCardContent>
         </HoverCard>
 
@@ -122,24 +111,7 @@ const ActionsToolbar = ({ data }) => {
             </Button>
           </HoverCardTrigger>
           <HoverCardContent className="w-64">
-            <div className="flex flex-col gap-2">
-              {/* Heading */}
-              <h4 className="text-sm text-center font-semibold">
-                Generate Traveler
-              </h4>
-              {/* View */}
-              <Button size="sm" variant="outline" className="cursor-pointer">
-                VIEW
-              </Button>
-              {/* Download */}
-              <Button size="sm" variant="outline" className="cursor-pointer">
-                DOWNLOAD
-              </Button>
-              {/* Email Customer */}
-              <Button size="sm" variant="outline" className="cursor-pointer">
-                EMAIL CUSTOMER
-              </Button>
-            </div>
+            <Traveller data={data} />
           </HoverCardContent>
         </HoverCard>
 
@@ -155,24 +127,7 @@ const ActionsToolbar = ({ data }) => {
             </Button>
           </HoverCardTrigger>
           <HoverCardContent className="w-64">
-            <div className="flex flex-col gap-2">
-              {/* Heading */}
-              <h4 className="text-sm text-center font-semibold">
-                Generate RMA
-              </h4>
-              {/* View */}
-              <Button size="sm" variant="outline" className="cursor-pointer">
-                VIEW
-              </Button>
-              {/* Download */}
-              <Button size="sm" variant="outline" className="cursor-pointer">
-                DOWNLOAD
-              </Button>
-              {/* Email Customer */}
-              <Button size="sm" variant="outline" className="cursor-pointer">
-                EMAIL CUSTOMER
-              </Button>
-            </div>
+            <RMA data={data} />
           </HoverCardContent>
         </HoverCard>
 
@@ -188,24 +143,7 @@ const ActionsToolbar = ({ data }) => {
             </Button>
           </HoverCardTrigger>
           <HoverCardContent className="w-64">
-            <div className="flex flex-col gap-2">
-              {/* Heading */}
-              <h4 className="text-sm text-center font-semibold">
-                Generate Confirmation Order
-              </h4>
-              {/* View */}
-              <Button size="sm" variant="outline" className="cursor-pointer">
-                VIEW
-              </Button>
-              {/* Download */}
-              <Button size="sm" variant="outline" className="cursor-pointer">
-                DOWNLOAD
-              </Button>
-              {/* Email Customer */}
-              <Button size="sm" variant="outline" className="cursor-pointer">
-                EMAIL CUSTOMER
-              </Button>
-            </div>
+            <ConfirmationOrder data={data} />
           </HoverCardContent>
         </HoverCard>
         {/* PI */}
@@ -220,24 +158,7 @@ const ActionsToolbar = ({ data }) => {
             </Button>
           </HoverCardTrigger>
           <HoverCardContent className="w-64">
-            <div className="flex flex-col gap-2">
-              {/* Heading */}
-              <h4 className="text-sm text-center font-semibold">
-                Partial Invoice
-              </h4>
-              {/* View */}
-              <Button size="sm" variant="outline" className="cursor-pointer">
-                VIEW
-              </Button>
-              {/* Download */}
-              <Button size="sm" variant="outline" className="cursor-pointer">
-                DOWNLOAD
-              </Button>
-              {/* Email Customer */}
-              <Button size="sm" variant="outline" className="cursor-pointer">
-                EMAIL CUSTOMER
-              </Button>
-            </div>
+            <PartialInvoice data={data} />
           </HoverCardContent>
         </HoverCard>
 
@@ -253,30 +174,17 @@ const ActionsToolbar = ({ data }) => {
             </Button>
           </HoverCardTrigger>
           <HoverCardContent className="w-64">
-            <div className="flex flex-col gap-2">
-              {/* Heading */}
-              <h4 className="text-sm text-center font-semibold">Copy Order</h4>
-              {/* View */}
-              <Button size="sm" variant="outline" className="cursor-pointer">
-                VIEW
-              </Button>
-              {/* Download */}
-              <Button size="sm" variant="outline" className="cursor-pointer">
-                DOWNLOAD
-              </Button>
-              {/* Email Customer */}
-              <Button size="sm" variant="outline" className="cursor-pointer">
-                EMAIL CUSTOMER
-              </Button>
-            </div>
+            <CopyOrder data={data} />
           </HoverCardContent>
         </HoverCard>
 
         {/* Actions Buttons */}
-        <Button className="cursor-pointer flex items-center gap-1 text-xs sm:text-sm">
-          <Send className="w-3 h-3 sm:w-4 sm:h-4" />
-          <span>Send offer</span>
-        </Button>
+        <SendOffer data={data}>
+          <Button className="cursor-pointer flex items-center gap-1 text-xs sm:text-sm">
+            <Send className="w-3 h-3 sm:w-4 sm:h-4" />
+            <span>Send offer</span>
+          </Button>
+        </SendOffer>
       </div>
     </div>
   );

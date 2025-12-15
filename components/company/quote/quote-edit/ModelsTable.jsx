@@ -1,6 +1,7 @@
 "use client";
 
 import { Checkbox } from "@/components/ui/checkbox";
+import { SquarePen} from "lucide-react";
 import {
   Table,
   TableBody,
@@ -37,7 +38,7 @@ const ModelsTable = ({ quoteItems }) => {
             {quoteItems.map((item) => (
               <TableRow key={item.id}>
                 <TableCell>
-                  <Checkbox />
+                  <SquarePen className="w-4 h-4" />
                 </TableCell>
                 <TableCell className="text-blue-600">
                   {item.file_name || "No Name"}

@@ -628,6 +628,7 @@ const config = {
     "tenantDb"
   ],
   "activeProvider": "postgresql",
+  "postinstall": false,
   "inlineDatasources": {
     "tenantDb": {
       "url": {

@@ -215,7 +215,7 @@ export async function PATCH(req, { params }) {
     const isValid = await verifyPassword(oldPassword, user.password);
     if (!isValid) {
       return NextResponse.json(
-        { error: "Old password is incorrect." },
+        { error: "Current password is incorrect." },
         { status: 400 }
       );
     }

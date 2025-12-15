@@ -322,6 +322,7 @@ const config = {
     "superadminClient"
   ],
   "activeProvider": "postgresql",
+  "postinstall": false,
   "inlineDatasources": {
     "superadminClient": {
       "url": {

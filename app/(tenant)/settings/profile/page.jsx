@@ -202,7 +202,7 @@ const UserProfilePage = () => {
               confirmPassword: "",
             }}
             validationSchema={Yup.object({
-              oldPassword: Yup.string().required("Old password is required"),
+              oldPassword: Yup.string().required("Current password is required"),
               password: Yup.string()
                 .min(6, "Min 6 characters")
                 .required("Password required"),
@@ -237,7 +237,7 @@ const UserProfilePage = () => {
                 {/* Old Password */}
                 <div>
                   <Label htmlFor="oldPassword" className="mb-2">
-                    Old Password<span className="text-rose-500">*</span>
+                    Current Password<span className="text-rose-500">*</span>
                   </Label>
                   <div className="relative">
                     <Field
